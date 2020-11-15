@@ -41,6 +41,11 @@ class UserController extends Controller
             'circle' => 'required|exists:circles,id',
             'area' => 'required|exists:areas,id',
             'mobile' => 'required|string|unique:users',
+            'gender' => 'required|string',
+            'birth_day' => 'required|string',
+            'address' => 'required|string',
+            'job' => 'required|string',
+            'image_user' => 'required|image|mimes:jpg,jpeg,png,gi|max:2048',
         ]);
         if ($validate->fails()) {
             return response(['message' => $validate->errors()], 422);
@@ -54,6 +59,10 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->circle_id = $request->circle;
         $user->area_id = $request->area;
+        $user->gender = $request->gender;
+        $user->job = $request->job;
+        $user->address = $request->address;
+        $user->birth_day = $request->birth_day;
         $user->password = Hash::make($request->password);
         $user->save();
         $credentials = $request->only('email', 'password');
@@ -66,7 +75,9 @@ class UserController extends Controller
         $image_user->category_id = $user->id;
         $image_user->category = 'profile';
         $image_user->status = 1;
-        $image_user->image = 'profile_user.jpg';
+        $imageName = time().$request->image_user->getClientOriginalname();
+        Request()->image_user->move(public_path('images/user/profile'), $imageName);
+        $image_user->image = $imageName;
         $image_user->save();
         if ($user) {
             $this->logRepository->Create_Data($user->id, 'تسجيل مستخدم جديد', 'تسجيل مستخدم جديد عن طريق Api' . $user->username . " / " . $user->id);
@@ -156,12 +167,10 @@ class UserController extends Controller
             ->orWhere('family', 'like', '%' . $request->word . '%')
             ->orwhere('mobile', 'like', $request->word . '%')
             ->orWhere('mobile', 'like', '%' . $request->word . '%')
-            ->orwhere('job_name', 'like', $request->word . '%')
-            ->orWhere('job_name', 'like', '%' . $request->word . '%')
+            ->orwhere('job', 'like', $request->word . '%')
+            ->orWhere('job', 'like', '%' . $request->word . '%')
             ->orwhere('degree', 'like', $request->word . '%')
             ->orWhere('degree', 'like', '%' . $request->word . '%')
-            ->orwhere('about', 'like', $request->word . '%')
-            ->orWhere('about', 'like', '%' . $request->word . '%')
             ->orwhere('address', 'like', $request->word . '%')
             ->orWhere('address', 'like', '%' . $request->word . '%')
             ->where('status',1)
@@ -186,12 +195,13 @@ class UserController extends Controller
             'email' => 'required|email|max:255|string|unique:users,email,' . $request->user_id . ',id',
             'name' => 'required|string|max:255',
             'family' => 'required|string|max:255',
-            'job' => 'string|max:255',
-            'address' => 'string|max:255',
-            'gender' => 'string',
-            'birth_day' => 'string',
+            'gender' => 'required|string',
+            'birth_day' => 'required|string',
+            'address' => 'required|string',
+            'job' => 'required|string',
             'mobile' => 'required|string|unique:users,mobile,' . $request->user_id . ',id',
             'degree' => 'string|max:255',
+            'about' => 'string|max:255',
         ]);
         if ($validate->fails()) {
             return response(['message' => $validate->errors()], 422);
