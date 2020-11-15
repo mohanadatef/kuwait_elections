@@ -45,7 +45,7 @@ class UserController extends Controller
             'birth_day' => 'required|string',
             'address' => 'required|string',
             'job' => 'required|string',
-            'image_user' => 'required|image|mimes:jpg,jpeg,png,gi|max:2048',
+            //'image_user' => 'required|image|mimes:jpg,jpeg,png,gi|max:2048',
         ]);
         if ($validate->fails()) {
             return response(['message' => $validate->errors()], 422);
@@ -75,9 +75,10 @@ class UserController extends Controller
         $image_user->category_id = $user->id;
         $image_user->category = 'profile';
         $image_user->status = 1;
-        $imageName = time().$request->image_user->getClientOriginalname();
+        /*$imageName = time().$request->image_user->getClientOriginalname();
         Request()->image_user->move(public_path('images/user/profile'), $imageName);
-        $image_user->image = $imageName;
+        $image_user->image = $imageName;*/
+        $image_user->image='profile_user.jpg';
         $image_user->save();
         if ($user) {
             $this->logRepository->Create_Data($user->id, 'تسجيل مستخدم جديد', 'تسجيل مستخدم جديد عن طريق Api' . $user->username . " / " . $user->id);
