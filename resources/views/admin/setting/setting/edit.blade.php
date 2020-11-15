@@ -46,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{url('public/images/setting').'/'.$data->image}}">
+                            <img src="{{url('public/images/setting').'/'.$data->image}}" style="width:100px;height: 100px">
                             <div class="form-group{{ $errors->has('image') ? ' has-error' : "" }}">
                                 <table class="table">
                                     <tr>
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <img src="{{url('public/images/setting').'/'.$data->logo}}">
+                            <img src="{{url('public/images/setting').'/'.$data->logo}}" style="width:100px;height: 100px">
                             <div class="form-group{{ $errors->has('logo') ? ' has-error' : "" }}">
                                 <table class="table">
                                     <tr>

@@ -19,8 +19,13 @@ class AdminMiddelware
 
         if(Auth::User() == true &&Auth::User()->status==1 )
         {
-
-
+            foreach (Auth::User()->role as $role)
+            {
+               if($role->id == 3 || $role->id == 4)
+               {
+                   return redirect('/');
+               }
+            }
             return $next($request);
         }
         else

@@ -51,7 +51,7 @@ class SettingRepository implements SettingInterface
         if ($request->logo != null) {
             $logoName = $request->logo->getClientOriginalname().'-'.time().'-logo.'.Request()->logo->getClientOriginalExtension();
             Request()->logo->move(public_path('images/setting'), $logoName);
-            $data['loge'] = $logoName;
+            $data['logo'] = $logoName;
         }
         if($data != null)
         {
