@@ -16,7 +16,7 @@ class NomineeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
+            'nominee_id'=>$this->id,
             'username'=>$this->username,
             'email'=>$this->email,
             'name'=>$this->name ,

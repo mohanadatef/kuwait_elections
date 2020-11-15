@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\ACL\NomineeResource;
+use App\Http\Resources\ACL\UserResource;
 use App\Http\Resources\Social_Media\PostResource;
+use App\Models\ACL\Election;
+use App\Models\ACL\Friend;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,25 +27,41 @@ class HomeController extends Controller
         $this->userRepository = $UserRepository;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $user = $this->userRepository->Get_One_Data($request->id);
+        $user = $this->userRepository->Get_One_Data(Auth::user()->id);
         if ($user != null) {
-            $this->logRepository->Create_Data($request->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه Api' . $user->username );
+            $this->logRepository->Create_Data(Auth::user()->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه Api' . $user->username);
+            $friend_s = DB::table('friends')->where('user_send_id', Auth::User()->id)->where('status', 1)->pluck('user_receive_id', 'id');
+            $friend_r = DB::table('friends')->where('user_receive_id', Auth::User()->id)->where('status', 1)->pluck('user_send_id', 'id');
+            $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
             $post = Post::with(['commit_post' => function ($query) {
                 $query->where('status', 1);
-            }],['like' => function ($query) {
+            }], ['like' => function ($query) {
                 $query->where('category', 'post');
-            }])->where('user_id', $request->id)->where('status', 1)->orderby('created_at','DESC')->get();
+            }])->wherein('user_id', $friend)->orwhere('user_id', Auth::user()->id)->where('status', 1)->orderby('created_at', 'DESC')->get();
             $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
-            $user = DB::table("users")->wherein('id',$user_role)->where('circle_id',Auth::user()->circle_id)->pluck('id','id');
-            $user = array_rand($user->toArray(), 1);
-            $user = User::find($user);
-                return response(['data' =>  PostResource::collection($post),
-                    'nominee' => array(new NomineeResource($user)),
-                ], 200);
+            if (count($user_role) != 0) {
+                $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->pluck('id', 'id');
+                if (count($nominee) != 0) {
+                    $nominee = array_rand($nominee->toArray(), 1);
+                    $nominee = User::find($nominee);
+                    return response(['status' => 1,
+                        'message' => 'صفحه الرئيسيه',
+                        'post' => PostResource::collection($post),
+                        'user' => array(new UserResource($user)),
+                        'nominee' => array(new NomineeResource($nominee)),
+                    ], 200);
+                }
+            }
+            return response(['status' => 1,
+                'message' => 'صفحه الرئيسيه',
+                'post' => PostResource::collection($post),
+                'user' => array(new UserResource($user)),
+                'nominee' => []
+            ], 200);
         } else {
-            return response(['message' => 'لا يوجد بيانات بهذا الاسم'], 400);
+            return response(['status' => 0, 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
     }
 }

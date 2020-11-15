@@ -17,16 +17,28 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+       if($this->image->first() )
+       {
         return [
-            'key'=>$this->id,
+            'post_id'=>$this->id,
             'details'=>$this->details,
-            'post_image'=>  PostImageResource::collection($this->image),
+            'post_image'=> asset('public/images/post/'.$this->image->first()->image),
             'user'=> [new UserResource($this->resource->user)],
             'like_count'=> count($this->like),
             'like'=> [ LikeResource::collection($this->resource->like)],
             'commit_count'=> count($this->commit_post),
             'commit'=> [ CommitResource::collection($this->resource->commit_post)],
-            'commit_image'=>  CommitImageResource::collection($this->image),
+        ];
+       }
+        return [
+            'post_id'=>$this->id,
+            'details'=>$this->details,
+            'post_image'=> '',
+            'user'=> [new UserResource($this->resource->user)],
+            'like_count'=> count($this->like),
+            'like'=> [ LikeResource::collection($this->resource->like)],
+            'commit_count'=> count($this->commit_post),
+            'commit'=> [ CommitResource::collection($this->resource->commit_post)],
         ];
     }
 

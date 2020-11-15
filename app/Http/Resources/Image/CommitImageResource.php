@@ -15,7 +15,7 @@ class CommitImageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
+            'image_commit_id'=>$this->id,
             'image'=>asset('public/images/commit/'.$this->image),
         ];
     }

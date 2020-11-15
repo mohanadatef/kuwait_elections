@@ -16,16 +16,28 @@ class CommitResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->image->first() ) {
+            return [
+                'commit_id' => $this->id,
+                'created_at' => $this->created_at,
+                'details' => $this->details,
+                'user' => [new UserResource($this->resource->user)],
+                'like_count' => count($this->like),
+                'like' => [LikeResource::collection($this->resource->like)],
+                'like_commit' => count($this->commit_commit),
+                'commit_commit' => [CommitCommitResource::collection($this->resource->commit_commit)],
+                'commit_image' => asset('public/images/commit/' . $this->image->first()->image),
+            ];
+        }
         return [
-            'key'=>$this->id,
-            'created_at'=>$this->created_at,
-            'details'=>$this->details,
-            'user'=> [new UserResource($this->resource->user)],
-            'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
-            'like_commit'=> count($this->commit_commit),
-            'commit_commit'=> [ CommitCommitResource::collection($this->resource->commit_commit)],
-            'commit_image'=> [new CommitImageResource($this->image)],
+            'commit_id' => $this->id,
+            'created_at' => $this->created_at,
+            'details' => $this->details,
+            'user' => [new UserResource($this->resource->user)],
+            'like_count' => count($this->like),
+            'like' => [LikeResource::collection($this->resource->like)],
+            'like_commit' => count($this->commit_commit),
+            'commit_commit' => [CommitCommitResource::collection($this->resource->commit_commit)],
         ];
     }
 

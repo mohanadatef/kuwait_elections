@@ -25,16 +25,12 @@ class CreateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255|unique:areas',
-            'country_id' => 'required|exists:countries,id',
-            'city_id' => 'required|exists:cities,id',
             'order'=>'required|number|unique:areas',
         ];
     }
     public function messages()
     {
         return [
-            'city_id.required' => 'برجاء ادخال المدينه',
-            'country_id.required' => 'برجاء ادخال البلد',
             'title.required' => 'برجاء ادخال الاسم',
 
         ];

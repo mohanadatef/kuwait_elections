@@ -16,14 +16,24 @@ class CommitCommitResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->image->first() ) {
         return [
-            'key'=>$this->id,
+            'commit_commit_id'=>$this->id,
             'created_at'=>$this->created_at,
             'details'=>$this->details,
             'user'=> [new UserResource($this->resource->user)],
             'like_count'=> count($this->like),
             'like'=> [ LikeResource::collection($this->resource->like)],
-            'commit_image'=> [new CommitImageResource($this->image)],
+            'commit_image'=> asset('public/images/commit/'.$this->image->first()->image),
+        ];
+    }
+        return [
+            'commit_commit_id'=>$this->id,
+            'created_at'=>$this->created_at,
+            'details'=>$this->details,
+            'user'=> [new UserResource($this->resource->user)],
+            'like_count'=> count($this->like),
+            'like'=> [ LikeResource::collection($this->resource->like)],
         ];
     }
 

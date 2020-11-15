@@ -27,13 +27,22 @@ class CommitController extends Controller
 
     public function store(Request $request)
     {
-        $validate = \Validator::make($request->all(), [
-            'details' => 'required|string|max:255',
-            'post'=>'required|exists:posts,id',
-            'image_commit'=>'image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+        if($request->image_commit)
+        {
+            $validate = \Validator::make($request->all(), [
+                'details' => 'required|string|max:255',
+                'post_id'=>'required|exists:posts,id',
+                'image_commit' => 'image|mimes:jpg,jpeg,png|max:2048',
+            ]);
+        }
+        else{
+            $validate = \Validator::make($request->all(), [
+                'post_id'=>'required|exists:posts,id',
+                'details' => 'required|string|max:255',
+            ]);
+        }
         if ($validate->fails()) {
-            return response(['message' => $validate->errors()], 422);
+            return response(['status'=>0,'message' => $validate->errors()], 422);
         }
         $commit = new Commit();
         $commit->details = $request->details;
@@ -47,7 +56,7 @@ class CommitController extends Controller
         $commit->save();
         if($request->image_commit)
         {
-            $imageName = $request->image_commit->getClientOriginalname().'-'.time() .'.'.Request()->image_commit->getClientOriginalExtension();
+            $imageName = time().$request->image_commit->getClientOriginalname();
             Request()->image_commit->move(public_path('images/commit'), $imageName);
             $commit_image_save = new Image();
             $commit_image_save->category_id = $request->id;
@@ -60,42 +69,53 @@ class CommitController extends Controller
             $query->where('status', 1);
         }],['like' => function ($query) {
             $query->where('category', 'post')->orderby('created_at','asc');
-        }])->where('id', $request->post)->where('status', 1)->first();
+        }])->where('id', $request->post_id)->where('status', 1)->first();
         if ($post) {
             $this->logRepository->Create_Data(''.Auth::user()->id.'', 'تسجيل تعليق على منشور', 'تسجيل تعليق جديد فى منشور عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
             return response([
+                'status'=>1,
                 'message' => 'تم تسجيل تعليق على منشور بنجاح',
                 'data' => array(new PostResource($post))
             ], 201);
         }
-        return response(['message' => 'خطا فى تسجيل تعليق على منشور'], 400);
+        return response(['status'=>0,'message' => 'خطا فى تسجيل تعليق على منشور'], 400);
     }
 
     public function update(Request $request)
     {
           $commit = Commit::find($request->id);
           if($commit) {
-              $validate = \Validator::make($request->all(), [
-                  'details' => 'required|string|max:255',
-                  'post'=>'required|exists:posts,id',
-                  'image_commit'=>'image|mimes:jpg,jpeg,png,gif|max:2048',
-              ]);
+              if($request->image_commit)
+              {
+                  $validate = \Validator::make($request->all(), [
+                      'details' => 'required|string|max:255',
+                      'post_id'=>'required|exists:posts,id',
+                      'image_commit' => 'image|mimes:jpg,jpeg,png|max:2048',
+                  ]);
+              }
+              else{
+                  $validate = \Validator::make($request->all(), [
+                      'post_id'=>'required|exists:posts,id',
+                      'details' => 'required|string|max:255',
+                  ]);
+              }
               if ($validate->fails()) {
-                  return response(['message' => $validate->errors()], 422);
+                  return response(['status'=>0,'message' => $validate->errors()], 422);
               }
               $commit->commit = $request->commit;
               $commit->save();
               if($request->image_commit)
               {
-                  $imageName = $request->image_commit->getClientOriginalname().'-'.time() .'.'.Request()->image_commit->getClientOriginalExtension();
+                  $image_check=Image::where('category','commit')->where('category_id',$commit->id)->where('status',1)->first();
+                  $image_check->delete();
+                  $imageName = time().$request->image_commit->getClientOriginalname();
                   Request()->image_commit->move(public_path('images/commit'), $imageName);
                   $commit_image_save = new Image();
-                  $commit_image_save->category_id = $request->id;
+                  $commit_image_save->category_id = $commit->id;
                   $commit_image_save->category = 'commit';
                   $commit_image_save->status = 1;
                   $commit_image_save->image = $imageName;
                   $commit_image_save->save();
-
               }
               $post = Post::with(['commit_post' => function ($query) {
                   $query->where('status', 1);
@@ -105,12 +125,13 @@ class CommitController extends Controller
               if ($post) {
                   $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل تعليق على منشور', 'تعديل تعليق منشور عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
                   return response([
+                      'status'=>1,
                       'message' => 'تم تعديل تعليق على منشور بنجاح',
-                      'data' => array(new PostResource($post))
+                      'post' => array(new PostResource($post))
                   ], 201);
               }
           }
-          return response(['message' => 'خطا فى تسجيل تعليق على منشور'], 400);
+          return response(['status'=>0,'message' => 'خطا فى تسجيل تعليق على منشور'], 400);
     }
 
     public function delete(Request $request)
@@ -158,10 +179,11 @@ class CommitController extends Controller
             $commit->delete();
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح تعليق على منشور', 'مسح تعليق عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
             return response([
+                'status'=>1,
                 'message' => 'تم مسح تعليق على منشور بنجاح',
             ], 201);
         }
-        return response(['message' => 'خطا فى مسح تعليق على منشور'], 400);
+        return response(['status'=>0,'message' => 'خطا فى مسح تعليق على منشور'], 400);
     }
 
     public function like(Request $request)
@@ -175,14 +197,14 @@ class CommitController extends Controller
             $like->save();
             $data = Like::with('user')->where('category','commit')->where('category_id',$request->id)->get();
             $this->logRepository->Create_Data(''.Auth::user()->id.'', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id . " / منشور " . $request->id);
-            return response(['message' => 'تم عمل اعجاب بنجاح','data'=>array(new LikeResource($data)),'count'=>count($data)], 200);
+            return response(['status'=>1,'message' => 'تم عمل اعجاب بنجاح','data'=>array(new LikeResource($data)),'count'=>count($data)], 200);
         }
         else
         {
             $like->delete();
             $data = Like::with('user')->where('category','commit')->where('commit_id',$request->id)->get();
             $this->logRepository->Create_Data(''.Auth::user()->id.'', 'مسح الاعجاب', 'مسح اعجاب منشور للمستخدم عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id . " / منشور " . $request->id);
-            return response(['message' => 'تم مسح اعجاب بنجاح','data'=>array(new LikeResource($data)),'count'=>count($data)], 200);
+            return response(['status'=>1,'message' => 'تم مسح اعجاب بنجاح','data'=>array(new LikeResource($data)),'count'=>count($data)], 200);
         }
     }
 }

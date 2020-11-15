@@ -27,7 +27,7 @@
                         <table class="table">
                             <tr>
                                 <td width="40%" align="right"><label>برجاء تحميل</label></td>
-                                <td width="30"><input type="file" value="{{Request::old('file')}}" name="file"/></td>
+                                <td width="30"><input type="file" multiple='multiple' value="{{Request::old('file')}}" name="file[]"/></td>
                             </tr>
                             <tr>
                                 <td width="40%" align="right"></td>

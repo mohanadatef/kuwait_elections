@@ -38,7 +38,13 @@ class TakeedController extends Controller
         ini_set('max_execution_time', 12000);
         ini_set('post_max_size', 120000);
         ini_set('upload_max_filesize', 10000);
-        Excel::import(new TakeedImport(), request()->file('file'));
+        foreach ($request->file as $file)
+        {
+            ini_set('max_execution_time', 12000);
+            ini_set('post_max_size', 120000);
+            ini_set('upload_max_filesize', 10000);
+            Excel::import(new TakeedImport(), $file);
+        }
         $this->logRepository->Create_Data(''.Auth::user()->id.'','رفع','رفع الناخبين على لوحه التحكم');
         return redirect('/admin/takeed/index')->with('message', 'تم الاضافه بنجاح');
     }

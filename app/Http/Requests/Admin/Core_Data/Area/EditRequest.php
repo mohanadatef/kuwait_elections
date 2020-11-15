@@ -26,16 +26,12 @@ class EditRequest extends FormRequest
         return [
             'title' => 'required|max:255|string|unique:areas,title,'.$this->id.',id',
             'order' => 'required|max:255|number|unique:areas,order,'.$this->id.',id',
-            'country_id' => 'required|exists:countries,id',
-            'city_id' => 'required|exists:cities,id',
         ];
 
     }
     public function messages()
     {
         return [
-            'city_id.required' => 'برجاء ادخال المدينه',
-            'country_id.required' => 'برجاء ادخال البلد',
             'title.required' => 'برجاء ادخال الاسم',
 
         ];

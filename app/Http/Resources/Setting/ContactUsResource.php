@@ -15,7 +15,6 @@ class ContactUsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
             'address'=>$this->address,
             'time_work'=>$this->time_work,
             'map_latitude'=>$this->latitude,

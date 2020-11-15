@@ -28,20 +28,6 @@
                         الاسم : <input type="text" value="{{Request::old('title')}}"
                                        class="form-control" name="title" placeholder="برجاء ادخال منطقه">
                     </div>
-                    <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
-                        اختار البلد :
-                        <select id="country" class="form-control " name="country_id">
-                            <option value="0" selected>اختار البلد</option>
-                            @foreach($country as  $mycountry)
-                                <option value="{{$mycountry->id}}"> {{$mycountry->title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group{{ $errors->has('city_id') ? ' has-error' : "" }}">
-                        اختار البلد : <select id="city" class="form-control " name="city_id">
-                            <option value="0" selected>اختار المدينه</option>
-                        </select>
-                    </div>
                     <div class="form-group{{ $errors->has('order') ? ' has-error' : "" }}">
                         الترتيب : <input type="number" value="{{Request::old('order')}}"
                                        class="form-control" name="order" placeholder="برجاء ادخال الترتيب">
@@ -55,29 +41,5 @@
     </section>
 @endsection
 @section('script_style')
-    <script type="text/javascript">
-        $('#country').change(function () {
-            var countryID = $(this).val();
-            if (countryID) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('Get_List_Cities_For_Country_Json')}}?country_id=" + countryID,
-                    success: function (res) {
-                        if (res) {
-                            $("#city").empty();
-                            $("#city").append('<option>اختار المدينه</option>');
-                            $.each(res, function (key, value) {
-                                $("#city").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        } else {
-                            $("#city").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#city").empty();
-            }
-        });
-    </script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\Core_Data\Area\CreateRequest','#create') !!}
 @endsection

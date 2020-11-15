@@ -15,7 +15,7 @@ class LogResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
+            'log_id'=>$this->id,
             'username'=>$this->user->username,
             'action'=>$this->action,
             'description'=>$this->description,

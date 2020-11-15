@@ -16,7 +16,7 @@ class LikeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
+            'like_id'=>$this->id,
             'created_at'=>$this->created_at,
             'user'=> [new UserResource($this->resource->user)],
         ];

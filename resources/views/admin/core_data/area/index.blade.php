@@ -38,8 +38,6 @@
                                     <th align="center">#</th>
                                     @endpermission
                                     <th align="center">الاسم</th>
-                                    <th align="center">البلد</th>
-                                    <th align="center">المدينه</th>
                                     @permission('area-status')
                                     <th align="center">الحاله</th>
                                     @endpermission
@@ -55,8 +53,6 @@
                                                     <input type="checkbox" name="change_status[]" id="{{$data->id}}" value="{{$data->id}}">
                                         </td>
                                         <td align="center">{{ $data->title }}</td>
-                                        <td align="center">{{ $data->country->title }}</td>
-                                        <td align="center">{{ $data->city->title }}</td>
                                         @permission('area-status')
                                         <td align="center">
                                                 @if($data->status ==1)
@@ -84,8 +80,6 @@
                                     <th align="center">#</th>
                                     @endpermission
                                     <th align="center">الاسم</th>
-                                    <th align="center">البلد</th>
-                                    <th align="center">المدينه</th>
                                     @permission('area-status')
                                     <th align="center">الحاله</th>
                                     @endpermission

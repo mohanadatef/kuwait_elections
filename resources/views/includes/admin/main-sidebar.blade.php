@@ -222,44 +222,23 @@
                 <a href="#"><i class="fa fa-group"></i> <span>بيانات الموقع</span><span class="pull-right-container"><i
                                 class="fa fa-angle-right pull-left"></i></span></a>
                 <ul class="treeview-menu">
-                    @permission('country-list')
+                    @permission('circle-list')
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-circle-o"></i> <span>الدول</span>
+                            <i class="fa fa-circle-o"></i> <span>الدوائر</span>
                             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-left"></i>
             </span>
                         </a>
                         <ul class="treeview-menu">
-                            @permission('country-index')
-                            <li><a href="{{ url('/admin/country/index') }}"><i
-                                            class="fa fa-group"></i><span>قائمه الدول</span></a>
+                            @permission('circle-index')
+                            <li><a href="{{ url('/admin/circle/index') }}"><i
+                                            class="fa fa-group"></i><span>قائمه الدوائر</span></a>
                             </li>
                             @endpermission
-                            @permission('country-create')
-                            <li><a href="{{ url('/admin/country/create') }}"><i
-                                            class="fa fa-group"></i><span>اضافه دوله</span></a></li>
-                            @endpermission
-                        </ul>
-                    </li>
-                    @endpermission
-                    @permission('city-list')
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-circle-o"></i> <span>المدن</span>
-                            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-left"></i>
-            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            @permission('city-index')
-                            <li><a href="{{ url('/admin/city/index') }}"><i
-                                            class="fa fa-group"></i><span>قائمه المدن</span></a>
-                            </li>
-                            @endpermission
-                            @permission('city-create')
-                            <li><a href="{{ url('/admin/city/create') }}"><i
-                                            class="fa fa-group"></i><span>اضافه مدينه</span></a></li>
+                            @permission('circle-create')
+                            <li><a href="{{ url('/admin/circle/create') }}"><i
+                                            class="fa fa-group"></i><span>اضافه الدائره</span></a></li>
                             @endpermission
                         </ul>
                     </li>

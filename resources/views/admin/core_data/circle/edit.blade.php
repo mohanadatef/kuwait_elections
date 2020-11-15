@@ -1,40 +1,32 @@
 @extends('includes.admin.master_admin')
 @section('title')
-   تعديل المدينه
+   تعديل الدائره
 @endsection
 @section('content')
     <section class="content-header">
         <h1>
-            المدن
-            <small>تعديل مدينه</small>
+            الدوائر
+            <small>تعديل الدائره</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i>لوحه التحكم</a></li>
-            <li><a href="{{ url('/admin/city/index') }}"><i class="fa fa-permsissions"></i>المدن</a></li>
-            <li><a href="{{ url('/admin/city/edit/'.$data->id) }}"><i class="fa fa-permsission"></i>تعديل المدينه: {{$data->title}} </a></li>
+            <li><a href="{{ url('/admin/circle/index') }}"><i class="fa fa-permsissions"></i>الدوائر</a></li>
+            <li><a href="{{ url('/admin/circle/edit/'.$data->id) }}"><i class="fa fa-permsission"></i>تعديل الدائره: {{$data->title}} </a></li>
         </ol>
     </section>
     <section class="content">
         <div class="box">
             <div class="box-header">
-                <h3>تعديل المدينه: {{$data->title }} </h3>
+                <h3>تعديل الدائره: {{$data->title }} </h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form id="edit" action="{{url('admin/city/update/'.$data->id)}}" method="POST">
+                <form id="edit" action="{{url('admin/circle/update/'.$data->id)}}" method="POST">
                     {{csrf_field()}}
                     {{method_field('patch')}}
                     <div class="form-group{{ $errors->has('title') ? ' has-error' : "" }}">
                         الاسم : <input type="text" value="{{$data->title}}"
                                          class="form-control" name="title" placeholder="برجاء ادخال الاسم">
-                    </div>
-                    <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
-                        اختار البلد :
-                        <select id="country" class="form-control"  name="country_id">
-                            @foreach($country as  $mycountry)
-                                <option value="{{$mycountry->id}}" @if($mycountry->id == $data->country_id)selected @endif > {{$mycountry->title}}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group{{ $errors->has('order') ? ' has-error' : "" }}">
                         الترتيب : <input type="number" value="{{$data->order}}"
@@ -49,5 +41,5 @@
     </section>
 @endsection
 @section('script_style')
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\Core_Data\City\EditRequest','#create') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\Core_Data\Circle\EditRequest','#create') !!}
 @endsection
