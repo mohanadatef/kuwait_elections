@@ -60,9 +60,9 @@ class UserController extends Controller
         $role = $this->roleRepository->Get_List_Data();
         $circle = $this->circleRepository->Get_List_Data();
         $role_user = $this->userRepository->Get_Role_For_Data($data->id);
-        $area = $this->areaRepository->Get_List_Data($data->area_id);
+        $area = $this->areaRepository->Get_List_Data();
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح صفحه المستخدم للتعديل على لوحه التحكم'.$data->username." / ".$data->id);
-        return view('admin.acl.user.edit',compact('data','role','role_user','city','area','circle'));
+        return view('admin.acl.user.edit',compact('data','role','role_user','area','circle'));
 
     }
 

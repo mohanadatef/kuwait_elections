@@ -21,7 +21,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form id="area_edit" action="{{url('admin/area/update/'.$data->id)}}" method="POST">
+                <form id="edit" action="{{url('admin/area/update/'.$data->id)}}" method="POST">
                     {{csrf_field()}}
                     {{method_field('patch')}}
                     <div class="form-group{{ $errors->has('title') ? ' has-error' : "" }}">
@@ -29,7 +29,7 @@
                                          class="form-control" name="title" placeholder="برجاء ادخال الاسم">
                     </div>
                     <div class="form-group{{ $errors->has('order') ? ' has-error' : "" }}">
-                        الترتيب : <input type="number" value="{{$data->order}}"
+                        الترتيب : <input type="text" value="{{$data->order}}"
                                          class="form-control" name="order" placeholder="برجاء ادخال الترتيب">
                     </div>
                     <div align="center">

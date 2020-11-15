@@ -41,5 +41,5 @@
     </section>
 @endsection
 @section('script_style')
-    {!! JsValidator::formRequest('App\Http\Requests\Admin\Core_Data\Circle\EditRequest','#create') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\Core_Data\Circle\EditRequest','#edit') !!}
 @endsection

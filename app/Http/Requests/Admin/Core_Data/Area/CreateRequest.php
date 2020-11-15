@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255|unique:areas',
-            'order'=>'required|number|unique:areas',
+            'order'=>'required|string|unique:areas',
         ];
     }
     public function messages()

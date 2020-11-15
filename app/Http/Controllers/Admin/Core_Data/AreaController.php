@@ -31,7 +31,7 @@ class AreaController extends Controller
     public function create()
     {
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح صفحه اضافه منطقه');
-        return view('admin.core_data.area.create',compact('country'));
+        return view('admin.core_data.area.create');
     }
 
     public function store(CreateRequest $request)
@@ -45,7 +45,7 @@ class AreaController extends Controller
     {
         $data = $this->areaRepository->Get_One_Data($id);
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح صفحه تعديل منطقه فى لوحه التحكم '.$data->name." / ".$data->id);
-        return view('admin.core_data.area.edit',compact('data','country','city'));
+        return view('admin.core_data.area.edit',compact('data'));
     }
 
     public function update(EditRequest $request, $id)

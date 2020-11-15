@@ -63,18 +63,11 @@
                                              placeholder="برجاء ادخال رقم الهاتف">
                     </div>
                     <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
-                        اختار البلد :
-                        <select id="country" class="form-control" data-placeholder="برجاء اختار البلد" name="country_id">
-                            <option value="0" selected>اختار البلد</option>
-                            @foreach($country as  $mycountry)
-                                <option value="{{$mycountry->id}}" @if($mycountry->id == $data->country_id)selected @endif > {{$mycountry->title}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group{{ $errors->has('city_id') ? ' has-error' : "" }}">
-                        اختار المدينه : <select id="city" class="form-control" data-placeholder="برجاء اختار المدينه" name="city_id">
-                            @foreach($city as  $mycity)
-                                <option value="{{$mycity->id}}" @if($mycity->id == $data->city_id)selected @endif > {{$mycity->title}}</option>
+                        اختار الدائرة :
+                        <select id="circle" class="form-control" data-placeholder="برجاء اختار الدائرة" name="circle_id">
+                            <option value="0" selected>اختار الدائرة</option>
+                            @foreach($circle as  $mycircle)
+                                <option value="{{$mycircle->id}}" @if($mycircle->id == $data->circle_id)selected @endif > {{$mycircle->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -107,50 +100,6 @@
     <script src="{{url('public/js/admin/jquery.multi-select.js')}}"></script>
     <script type="text/javascript">
         $('#role').multiSelect();
-        $('#country').change(function () {
-            var countryID = $(this).val();
-            if (countryID) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('Get_List_Cities_For_Country_Json')}}?country_id=" + countryID,
-                    success: function (res) {
-                        if (res) {
-                            $("#city").empty();
-                            $("#city").append('<option>اختار المدينه</option>');
-                            $.each(res, function (key, value) {
-                                $("#city").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        } else {
-                            $("#city").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#city").empty();
-            }
-        });
-        $('#city').change(function () {
-            var cityID = $(this).val();
-            if (cityID) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('Get_List_Areas_For_City_Json')}}?city_id=" + cityID,
-                    success: function (res) {
-                        if (res) {
-                            $("#area").empty();
-                            $("#area").append('<option>اختار المنطقه</option>');
-                            $.each(res, function (key, value) {
-                                $("#area").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        } else {
-                            $("#area").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#area").empty();
-            }
-        });
     </script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\ACL\User\EditRequest','#edit') !!}
 @endsection

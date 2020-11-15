@@ -25,7 +25,7 @@ class EditRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255|string|unique:circles,title,'.$this->id.',id',
-            'order' => 'required|max:255|number|unique:circles,order,'.$this->id.',id',
+            'order' => 'required|max:255|string|unique:circles,order,'.$this->id.',id',
         ];
 
     }

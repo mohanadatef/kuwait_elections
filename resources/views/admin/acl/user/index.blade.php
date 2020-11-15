@@ -41,8 +41,7 @@
                         <th align="center">نوع المستخدم</th>
                         <th align="center">البريد الالكتروني</th>
                         <th align="center">رقم الهاتف</th>
-                        <th align="center">البلد</th>
-                        <th align="center">المدينه</th>
+                        <th align="center">الدائرة</th>
                         <th align="center">المنطقه</th>
                         @permission('user-status')
                         <th align="center">الحاله</th>
@@ -87,8 +86,7 @@
                             </td>
                             <td align="center">{{ $data->email }}</td>
                             <td align="center">{{ $data->mobile }}</td>
-                            <td align="center">{{ $data->country->title }}</td>
-                            <td align="center">{{ $data->city->title }}</td>
+                            <td align="center">{{ $data->circle->title }}</td>
                             <td align="center">{{ $data->area->title }}</td>
                             @permission('user-status')
                             <td align="center">
@@ -139,8 +137,7 @@
                         <th align="center">نوع المستخدم</th>
                         <th align="center">البريد الالكتروني</th>
                         <th align="center">رقم الهاتف</th>
-                        <th align="center">البلد</th>
-                        <th align="center">المدينه</th>
+                        <th align="center">الدائرة</th>
                         <th align="center">المنطقه</th>
                         @permission('user-status')
                         <th align="center">الحاله</th>

@@ -73,22 +73,19 @@
                                                        placeholder="برجاء تاكيد كلمه السر">
                     </div>
                     <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
-                        اختار البلد :
-                        <select id="country" class="form-control select2" data-placeholder="برجاء اختيار البلد" name="country_id">
-                            <option value="0" selected>Select Country</option>
-                            @foreach($country as  $mycountry)
-                                <option value="{{$mycountry->id}}"> {{$mycountry->title}}</option>
+                        اختار الدائرة :
+                        <select id="circle" class="form-control select2" data-placeholder="برجاء اختيار الدائرة" name="circle_id">
+                            <option value="0" selected>اختار الدائرة</option>
+                            @foreach($circle as  $mycircle)
+                                <option value="{{$mycircle->id}}"> {{$mycircle->title}}</option>
                             @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group{{ $errors->has('city_id') ? ' has-error' : "" }}">
-                        اختار المدينه : <select id="city" class="form-control select2" data-placeholder="برجاء اختيار المدينه" name="city_id">
-                            <option value="0" selected>اختار المدينه</option>
                         </select>
                     </div>
                     <div class="form-group{{ $errors->has('area_id') ? ' has-error' : "" }}">
                         اختار المنطقه : <select id="area" class="form-control select2" data-placeholder="برجاء اختيار المنطقه" name="area_id">
-                            <option value="0" selected>اختار منطقه</option>
+                            @foreach($area as  $myarea)
+                                <option value="{{$myarea->id}}"> {{$myarea->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group{{ $errors->has('role_id') ? ' has-error' : "" }}">
@@ -111,50 +108,6 @@
     <script src="{{url('public/js/admin/jquery.multi-select.js')}}"></script>
     <script type="text/javascript">
         $('#role').multiSelect();
-        $('#country').change(function () {
-            var countryID = $(this).val();
-            if (countryID) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('admin/city/Get_List_Cities_For_Country_Json')}}?country_id=" + countryID,
-                    success: function (res) {
-                        if (res) {
-                            $("#city").empty();
-                            $("#city").append('<option>اختار مدينه</option>');
-                            $.each(res, function (key, value) {
-                                $("#city").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        } else {
-                            $("#city").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#city").empty();
-            }
-        });
-        $('#city').change(function () {
-            var cityID = $(this).val();
-            if (cityID) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('admin/area/Get_List_Areas_For_City_Json')}}?city_id=" + cityID,
-                    success: function (res) {
-                        if (res) {
-                            $("#area").empty();
-                            $("#area").append('<option>اختار منطقه</option>');
-                            $.each(res, function (key, value) {
-                                $("#area").append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        } else {
-                            $("#area").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#area").empty();
-            }
-        });
     </script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\ACL\User\CreateRequest','#create') !!}
 @endsection

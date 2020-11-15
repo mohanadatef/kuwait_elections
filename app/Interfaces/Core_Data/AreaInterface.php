@@ -17,6 +17,6 @@ interface AreaInterface{
     public function Update_Status_One_Data($id);
     public function Get_Many_Data(Request $request);
     public function Update_Status_Datas(StatusEditRequest $request);
-    public function Get_List_Areas_Json($city);
-    public function Get_List_Areas($city);
+    public function Get_List_Areas_Json();
+    public function Get_List_Data();
 }

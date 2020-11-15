@@ -27,6 +27,7 @@ class AreaRepository implements AreaInterface
 
     public function Create_Data(CreateRequest $request)
     {
+
         $data['status']=1;
         $this->area->create(array_merge($request->all(),$data));
     }
@@ -72,12 +73,12 @@ class AreaRepository implements AreaInterface
         }
     }
 
-    public function Get_List_Areas_For_City($city)
+    public function Get_List_Data()
     {
         return $this->area->select('title','id')->where('status',1)->orderby('order','asc')->get();
     }
 
-    public function Get_List_Areas_For_City_Json($city)
+    public function Get_List_Areas_Json()
     {
         return $this->area->select('title', 'id')->where('status',1)->orderby('order','asc')->get();
     }

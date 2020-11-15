@@ -35,7 +35,6 @@
             <div class="box-header">
                 <h3>اضافه نوع المستخدم</h3>
             </div>
-            <!-- /.box-header -->
             <div class="box-body">
                 <form id='create' action="{{url('admin/role/store')}}"  method="POST">
                     {{csrf_field()}}
@@ -69,7 +68,7 @@
 @section('script_style')
     <script src="{{url('public/js/admin/jquery.multi-select.js')}}"></script>
     <script type="text/javascript">
-        $('#role').multiSelect();
+        $('#permission').multiSelect();
     </script>
     {!! JsValidator::formRequest('App\Http\Requests\Admin\ACL\Role\CreateRequest','#create') !!}
 @endsection
