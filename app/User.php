@@ -1,0 +1,95 @@
+<?php
+
+namespace App;
+use App\Models\ACL\Role;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
+
+
+class User extends Authenticatable implements JWTSubject
+{
+
+    use  EntrustUserTrait;
+    use Notifiable;
+
+    protected $fillable = [
+        'username', 'email','status','password','remember_token','name','last_name','mobile','birth_day','gender','job','address'
+        ,'circle_id','area_id','about','degree','elections_image','family'
+    ];
+
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id','role_id')->withTimestamps('created_at','updated_at');
+    }
+        public function role_information()
+    {
+        return $this->belongsToMany('App\Models\ACL\Role_user');
+    }
+    public function log()
+    {
+        return $this->hasMany('App\Models\ACL\Log');
+    }
+    public function circle()
+    {
+        return $this->belongsTo('App\Models\Core_Data\Circle','circle_id');
+    }
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Core_Data\Area','area_id');
+    }
+    public function post()
+    {
+        return $this->hasMany('App\Models\Social_Media\Post');
+    }
+    public function like_post()
+    {
+        return $this->hasMany('App\Models\Social_Media\Like');
+    }
+    public function commit_post()
+    {
+        return $this->hasMany('App\Models\Social_Media\Commit');
+    }
+    public function like_commit()
+    {
+        return $this->hasMany('App\Models\Social_Media\Like');
+    }
+    public function user_send()
+    {
+        return $this->hasMany('App\Models\ACL\Friend','user_send_id');
+    }
+    public function user_receive()
+    {
+        return $this->hasMany('App\Models\ACL\Friend','user_receive_id');
+    }
+    public function image()
+    {
+        return $this->hasMany('App\Models\Image','category_id');
+    }
+    public function forgot_password()
+    {
+        return $this->hasMany('App\Models\ACL\Forgot_Password');
+    }
+    public function group_user()
+    {
+        return $this->hasMany('App\Models\Social_Media\Group');
+    }
+    public function nominee()
+    {
+        return $this->belongsTo('App\Models\ACL\Election','nominee_id');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+    protected $table = 'users';
+    public $timestamps = true;
+
+
+
+}

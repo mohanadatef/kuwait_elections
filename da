@@ -1,0 +1,337 @@
+[33mcommit 089f90f9f3c02224e7b1f93cddc772f730e2e79d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: mohanadatef <36372400+mohanadatef@users.noreply.github.com>
+Date:   Tue Nov 19 00:36:16 2019 +0200
+
+    edit
+
+[1mdiff --git a/Modules/ACL/Http/Controllers/PermissionController.php b/Modules/ACL/Http/Controllers/PermissionController.php[m
+[1mindex b47ed2c..df53203 100644[m
+[1m--- a/Modules/ACL/Http/Controllers/PermissionController.php[m
+[1m+++ b/Modules/ACL/Http/Controllers/PermissionController.php[m
+[36m@@ -23,7 +23,7 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function index()[m
+     {[m
+[31m-        $datas = $this->permissionRepository->Get_All_Permissions();[m
+[32m+[m[32m        $datas = $this->permissionRepository->Get_All_Datas();[m
+         return view('acl::permission.permission_index',compact('datas'));[m
+     }[m
+ [m
+[36m@@ -43,7 +43,7 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function store(PermissionCreateRequest $request)[m
+     {[m
+[31m-        $this->permissionRepository->Create_Permission($request);[m
+[32m+[m[32m        $this->permissionRepository->Create_Data($request);[m
+         return redirect('/admin/permission/index')->with('message', 'Add Permission Is Done!');[m
+     }[m
+ [m
+[36m@@ -54,7 +54,7 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function show()[m
+     {[m
+[31m-        $datas=$this->permissionRepository->Get_All_Permission_Delete();[m
+[32m+[m[32m        $datas=$this->permissionRepository->Get_All_Data_Delete();[m
+         return view('acl::permission.destroy_index',compact('datas'));[m
+     }[m
+ [m
+[36m@@ -65,7 +65,7 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function edit($slug)[m
+     {[m
+[31m-        $data = $this->permissionRepository->Get_One_Permission($slug);[m
+[32m+[m[32m        $data = $this->permissionRepository->Get_One_Data($slug);[m
+         return view('acl::permission.edit',compact('data'));[m
+     }[m
+ [m
+[36m@@ -77,7 +77,7 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function update(PermissionEditRequest $request,$slug)[m
+     {[m
+[31m-        $this->permissionRepository->Update_Permission($request, $slug);[m
+[32m+[m[32m        $this->permissionRepository->Update_Data($request, $slug);[m
+         return redirect('/admin/permission/index')->with('message', 'Edit Permission Is Done!');[m
+     }[m
+ [m
+[36m@@ -88,13 +88,13 @@[m [mclass PermissionController extends Controller[m
+      */[m
+     public function destroy($slug)[m
+     {[m
+[31m-        $this->permissionRepository->Delete_Permission($slug);[m
+[32m+[m[32m        $this->permissionRepository->Delete_Data($slug);[m
+         return redirect('/admin/permission/index')->with('message_fales', 'Delete Permission Is Done!');[m
+     }[m
+ [m
+     public function restore($slug)[m
+     {[m
+[31m-        $this->permissionRepository->Back_Permission_Delete($slug);[m
+[32m+[m[32m        $this->permissionRepository->Back_Data_Delete($slug);[m
+         return redirect('/admin/permission/index')->with('message', 'Restore Permission Is Done!');[m
+     }[m
+ [m
+[1mdiff --git a/Modules/ACL/Http/Controllers/RoleController.php b/Modules/ACL/Http/Controllers/RoleController.php[m
+[1mindex 5507044..3eb2a5a 100644[m
+[1m--- a/Modules/ACL/Http/Controllers/RoleController.php[m
+[1m+++ b/Modules/ACL/Http/Controllers/RoleController.php[m
+[36m@@ -30,7 +30,7 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function index()[m
+     {[m
+[31m-        $datas = $this->roleRepository->Get_All_Roles();[m
+[32m+[m[32m        $datas = $this->roleRepository->Get_All_Datas();[m
+         return view('acl::role.role_index',compact('datas'));[m
+     }[m
+ [m
+[36m@@ -40,7 +40,7 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function create()[m
+     {[m
+[31m-        $permission = $this->permissionRepository->Get_List_Permission();[m
+[32m+[m[32m        $permission = $this->permissionRepository->Get_List_Data();[m
+         return view('acl::role.create',compact('permission'));[m
+     }[m
+ [m
+[36m@@ -51,7 +51,7 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function store(RoleCreateRequest $request)[m
+     {[m
+[31m-        $this->roleRepository->Create_Role($request);[m
+[32m+[m[32m        $this->roleRepository->Create_Data($request);[m
+         return redirect('/admin/role/index')->with('message', 'Create Roles Is Done!');[m
+     }[m
+ [m
+[36m@@ -62,7 +62,7 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function show()[m
+     {[m
+[31m-        $datas=$this->roleRepository->Get_All_Role_Delete();[m
+[32m+[m[32m        $datas=$this->roleRepository->Get_All_Data_Delete();[m
+         return view('acl::role.destroy_index',compact('datas'));[m
+     }[m
+ [m
+[36m@@ -73,9 +73,9 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function edit($slug)[m
+     {[m
+[31m-        $data = $this->roleRepository->Get_One_Role($slug);[m
+[31m-        $permission = $this->permissionRepository->Get_List_Permission();[m
+[31m-        $permission_role = $this->roleRepository->Get_Permission_For_Role($data->id);[m
+[32m+[m[32m        $data = $this->roleRepository->Get_One_Data($slug);[m
+[32m+[m[32m        $permission = $this->permissionRepository->Get_List_Data();[m
+[32m+[m[32m        $permission_role = $this->roleRepository->Get_Permission_For_Data($data->id);[m
+         return view('acl::role.edit',compact('data','permission','permission_role'));[m
+     }[m
+ [m
+[36m@@ -87,7 +87,7 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function update(RoleEditRequest $request, $slug)[m
+     {[m
+[31m-        $this->roleRepository->Update_Role($request, $slug);[m
+[32m+[m[32m        $this->roleRepository->Update_Data($request, $slug);[m
+         return redirect('/admin/role/index')->with('message', 'Edit Roles Is Done!');[m
+     }[m
+ [m
+[36m@@ -98,13 +98,13 @@[m [mclass RoleController extends Controller[m
+      */[m
+     public function destroy($slug)[m
+     {[m
+[31m-        $this->roleRepository->Delete_Role($slug);[m
+[32m+[m[32m        $this->roleRepository->Delete_Data($slug);[m
+         return redirect('/admin/role/index')->with('message_fales', 'Delete Roles Is Done!');[m
+     }[m
+ [m
+     public function restore($slug)[m
+     {[m
+[31m-        $this->roleRepository->Back_Role_Delete($slug);[m
+[32m+[m[32m        $this->roleRepository->Back_Role_Data($slug);[m
+         return redirect('/admin/role/index')->with('message', 'Restore Roles Is Done!');[m
+     }[m
+ }[m
+[1mdiff --git a/Modules/ACL/Http/Controllers/UserController.php b/Modules/ACL/Http/Controllers/UserController.php[m
+[1mindex 248bf19..476a23d 100644[m
+[1m--- a/Modules/ACL/Http/Controllers/UserController.php[m
+[1m+++ b/Modules/ACL/Http/Controllers/UserController.php[m
+[36m@@ -29,7 +29,7 @@[m [mclass UserController extends Controller[m
+ [m
+     public function index()[m
+     {[m
+[31m-        $datas = $this->userRepository->Get_All_Users();[m
+[32m+[m[32m        $datas = $this->userRepository->Get_All_Datas();[m
+         return view('acl::user.user_index',compact('datas'));[m
+     }[m
+ [m
+[36m@@ -39,7 +39,7 @@[m [mclass UserController extends Controller[m
+      */[m
+     public function create()[m
+     {[m
+[31m-        $role = $this->roleRepository->Get_List_Role();[m
+[32m+[m[32m        $role = $this->roleRepository->Get_List_Data();[m
+         return view('acl::user.create',compact('role'));[m
+     }[m
+ [m
+[36m@@ -50,7 +50,7 @@[m [mclass UserController extends Controller[m
+      */[m
+     public function store(UserCreateRequest $request)[m
+     {[m
+[31m-        $this->userRepository->Create_User($request);[m
+[32m+[m[32m        $this->userRepository->Create_Data($request);[m
+         return redirect('/admin/user/index')->with('message', 'Create User Is Done!');[m
+     }[m
+ [m
+[36m@@ -67,9 +67,9 @@[m [mclass UserController extends Controller[m
+      */[m
+     public function edit($slug)[m
+     {[m
+[31m-        $data = $this->userRepository->Get_One_User($slug);[m
+[31m-        $role = $this->roleRepository->Get_List_Role();[m
+[31m-        $role_user = $this->userRepository->Get_Role_For_User($data->id);[m
+[32m+[m[32m        $data = $this->userRepository->Get_One_Data($slug);[m
+[32m+[m[32m        $role = $this->roleRepository->Get_List_Data();[m
+[32m+[m[32m        $role_user = $this->userRepository->Get_Role_For_Data($data->id);[m
+         return view('acl::user.edit',compact('data','role','role_user'));[m
+     }[m
+ [m
+[36m@@ -81,31 +81,31 @@[m [mclass UserController extends Controller[m
+      */[m
+     public function update(UserEditRequest $request, $slug)[m
+     {[m
+[31m-        $this->userRepository->Update_User($request, $slug);[m
+[32m+[m[32m        $this->userRepository->Update_Data($request, $slug);[m
+         return redirect('/admin/user/index')->with('message', 'Edit User Is Done!');[m
+     }[m
+ [m
+     public function show_password($slug)[m
+     {[m
+[31m-        $data = $this->userRepository->Get_One_User($slug);[m
+[32m+[m[32m        $data = $this->userRepository->Get_One_Data($slug);[m
+         return view('acl::user.show_password',compact('data'));[m
+     }[m
+ [m
+     public function change_password(PasswordRequest $request, $slug)[m
+     {[m
+[31m-        $this->userRepository->Update_Password_User($request, $slug);[m
+[32m+[m[32m        $this->userRepository->Update_Password_Data($request, $slug);[m
+         return redirect('/admin/user/index')->with('message', 'Reset Password Is Done!');[m
+     }[m
+ [m
+     public function change_status($slug)[m
+     {[m
+[31m-        $this->userRepository->Update_Status_One_User($slug);[m
+[32m+[m[32m        $this->userRepository->Update_Status_One_Data($slug);[m
+         return redirect()->back()->with('message', 'Edit Statues Is Done!');[m
+     }[m
+ [m
+     public function change_many_status(UserStatusEditRequest $request)[m
+     {[m
+[31m-        $this->userRepository->Update_Status_Users($request);[m
+[32m+[m[32m        $this->userRepository->Update_Status_Datas($request);[m
+         return redirect()->back()->with('message', 'Edit Statues Is Done!');[m
+     }[m
+     /**[m
+[36m@@ -115,19 +115,19 @@[m [mclass UserController extends Controller[m
+      */[m
+     public function destroy($slug)[m
+     {[m
+[31m-        $this->userRepository->Delete_User($slug);[m
+[32m+[m[32m        $this->userRepository->Delete_Data($slug);[m
+         return redirect('/admin/user/index')->with('message_fales', 'Delete User Is Done!');[m
+     }[m
+ [m
+     public function destroy_index()[m
+     {[m
+[31m-        $datas =  $this->userRepository->Get_All_User_Delete();[m
+[32m+[m[32m        $datas =  $this->userRepository->Get_All_Data_Delete();[m
+         return view('acl::user.destroy_index',compact('datas'));[m
+     }[m
+ [m
+     public function restore($slug)[m
+     {[m
+[31m-        $this->userRepository->Back_User_Delete($slug);[m
+[32m+[m[32m        $this->userRepository->Back_Data_Delete($slug);[m
+         return redirect('/admin/user/index')->with('message', 'Restore User Is Done!');[m
+     }[m
+ }[m
+[1mdiff --git a/Modules/ACL/Interfaces/PermissionInterface.php b/Modules/ACL/Interfaces/PermissionInterface.php[m
+[1mindex f0b2497..e83b342 100644[m
+[1m--- a/Modules/ACL/Interfaces/PermissionInterface.php[m
+[1m+++ b/Modules/ACL/Interfaces/PermissionInterface.php[m
+[36m@@ -9,12 +9,12 @@[m [muse Modules\ACL\Http\Requests\admin\Permission\PermissionEditRequest;[m
+ [m
+ interface PermissionInterface{[m
+ [m
+[31m-    public function Get_All_Permissions();[m
+[31m-    public function Create_Permission(PermissionCreateRequest $request);[m
+[31m-    public function Get_One_Permission($slug);[m
+[31m-    public function Update_Permission(PermissionEditRequest $request, $slug);[m
+[31m-    public function Delete_Permission($slug);[m
+[31m-    public function Get_All_Permission_Delete();[m
+[31m-    public function Back_Permission_Delete($slug);[m
+[31m-    public function Get_List_Permission();[m
+[32m+[m[32m    public function Get_All_Datas();[m
+[32m+[m[32m    public function Create_Data(PermissionCreateRequest $request);[m
+[32m+[m[32m    public function Get_One_Data($slug);[m
+[32m+[m[32m    public function Update_Data(PermissionEditRequest $request, $slug);[m
+[32m+[m[32m    public function Delete_Data($slug);[m
+[32m+[m[32m    public function Get_All_Data_Delete();[m
+[32m+[m[32m    public function Back_Data_Delete($slug);[m
+[32m+[m[32m    public function Get_List_Data();[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Modules/ACL/Interfaces/RoleInterface.php b/Modules/ACL/Interfaces/RoleInterface.php[m
+[1mindex 5167dc0..520c332 100644[m
+[1m--- a/Modules/ACL/Interfaces/RoleInterface.php[m
+[1m+++ b/Modules/ACL/Interfaces/RoleInterface.php[m
+[36m@@ -9,13 +9,13 @@[m [muse Modules\ACL\Http\Requests\admin\Role\RoleEditRequest;[m
+ [m
+ interface RoleInterface{[m
+ [m
+[31m-    public function Get_All_Roles();[m
+[31m-    public function Create_Role(RoleCreateRequest $request);[m
+[31m-    public function Get_One_Role($slug);[m
+[31m-    public function Update_Role(RoleEditRequest $request, $slug);[m
+[31m-    public function Delete_Role($slug);[m
+[31m-    public function Get_All_Role_Delete();[m
+[31m-    public function Back_Role_Delete($slug);[m
+[31m-    public function Get_List_Role();[m
+[31m-    public function Get_Permission_For_Role($id);[m
+[32m+[m[32m    public function Get_All_Datas();[m
+[32m+[m[32m    public function Create_Data(RoleCreateRequest $request);[m
+[32m+[m[32m    public function Get_One_Data($slug);[m
+[32m+[m[32m    public function Update_Data(RoleEditRequest $request, $slug);[m
+[32m+[m[32m    public function Delete_Data($slug);[m
+[32m+[m[32m    public function Get_All_Data_Delete();[m
+[32m+[m[32m    public function Back_Data_Delete($slug);[m
+[32m+[m[32m    public function Get_List_Data();[m
+[32m+[m[32m    public function Get_Permission_For_Data($id);[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Modules/ACL/Interfaces/UserInterface.php b/Modules/ACL/Interfaces/UserInterface.php[m
+[1mindex 77840f0..500acbc 100644[m
+[1m--- a/Modules/ACL/Interfaces/UserInterface.php[m
+[1m+++ b/Modules/ACL/Interfaces/UserInterface.php[m
+[36m@@ -10,17 +10,17 @@[m [muse Modules\ACL\Http\Requests\admin\User\UserStatusEditRequest;[m
+ [m
+ interface UserInterface{[m
+ [m
+[31m-    public function Get_All_Users();[m
+[31m-    public function Create_User(UserCreateRequest $request);[m
+[31m-    public function Get_One_User($slug);[m
+[31m-    public function Update_User(UserEditRequest $request, $slug);[m
+[31m-    public function Update_Password_User(PasswordRequest $request, $slug);[m
+[31m-    public function Update_Status_One_User($slug);[m
+[31m-    public function Get_Many_User(Request $request);[m
+[31m-    public function Update_Status_Users(UserStatusEditRequest $request);[m
+[31m-    public function Delete_User($slug);[m
+[31m-    public function Get_All_User_Delete();[m
+[31m-    public function Back_User_Delete($slug);[m
+[31m-    public function Get_Role_For_User($id);[m
+[32m+[m[32m    public function Get_All_Datas();[m
+[32m+[m[32m    public function Create_Data(UserCreateRequest $request);[m
+[32m+[m[32m    public function Get_One_Data($slug);[m
+[32m+[m[32m    public function Update_Data(UserEditRequest $request, $slug);[m
+[32m+[m[32m    public function Update_Password_Data(PasswordRequest $request, $slug);[m
+[32m+[m[32m    public function Update_Status_One_Data($slug);[m
+[32m+[m[32m    public function Get_Many_Data(Request $request);[m
+[32m+[m[32m    public function Update_Status_Datas(UserStatusEditRequest $request);[m
+[32m+[m[32m    public function Delete_Data($slug);[m
+[32m+[m[32m    public function Get_All_Data_Delete(
