@@ -81,9 +81,9 @@ class UserController extends Controller
             $image_type_aux = explode("image/", $image_parts[0]);
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
-            $file =  $folderPath. time().'.'.$image_type;
+            $file =  $folderPath. time().uniqid().'.'.$image_type;
             file_put_contents($file, $image_base64);
-            $image_user->image = time().'.'.$image_type;
+            $image_user->image = time().uniqid().'.'.$image_type;
         } else {
             $image_user->image = 'profile_user.jpg';
         }
