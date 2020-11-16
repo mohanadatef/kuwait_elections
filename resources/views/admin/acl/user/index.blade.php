@@ -62,21 +62,10 @@
                     @foreach($datas as $data)
                         <tr>
                             <td align="center">
-                                @foreach($data->role as $user_role)
-                                    @if($user_role->id == 'Develper'  && Auth::user()->role->first()->Develper =='Develper')
+
                                         <input type="checkbox" name="change_status[]"
                                                id="{{$data->id}}" value="{{$data->id}}">
-                                        @break
-                                    @elseif( $user_role->id == 'Develper'  &&  Auth::user()->role->first()->id !='Develper')
-                                        @break
-                                    @elseif( $data->id == 'Develper'  )
-                                        @break
-                                    @elseif(Auth::user()->id != $data->id)
-                                        <input type="checkbox" name="change_status[]"
-                                               id="{{$data->id}}" value="{{$data->id}}">
-                                        @break
-                                    @endif
-                                @endforeach
+                                       
                             </td>
                             <td align="center">{{ $data->username }}</td>
                             <td align="center">
