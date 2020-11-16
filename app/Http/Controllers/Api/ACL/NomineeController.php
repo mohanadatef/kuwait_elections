@@ -23,8 +23,7 @@ class NomineeController extends Controller
 
     public function show()
     {
-        $this->logRepository->Create_Data(Auth::user()->id, 'تسجيل مستخدم جديد', 'تسجيل مستخدم جديد عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
-        $election = Election::where('user_id', Auth::user()->id)->first();
+        $election = Election::where('user_id', Auth::user()->id)->where('status',1)->first();
         if ($election) {
             $nominee = User::find($election->nominee_id);
             if ($nominee) {
@@ -33,8 +32,10 @@ class NomineeController extends Controller
                 $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->pluck('id', 'id');
                 $nominees=User::wherein('id',$nominees)->get();
                 if (count($nominees) != 0) {
+                    $this->logRepository->Create_Data(Auth::user()->id, 'تسجيل مستخدم جديد', 'تسجيل مستخدم جديد عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
                     return response([
                         'status' => 1,
+                        'status_election' =>1,
                         'nominee' => array(new NomineeResource($nominee)),
                         'nominee_list' => array( NomineeResource::collection($nominees)),
                     ], 201);
@@ -51,13 +52,13 @@ class NomineeController extends Controller
                 $nominee = User::find($nominee);
                 return response([
                     'status' => 1,
-                    'election_status' => 0,
+                    'status_election' => 0,
                     'nominee' => array(new NomineeResource($nominee)),
                 ], 201);
             }
-            return response(['status' => 0], 400);
+            return response(['status' => 0,'status_election' => 0], 400);
         }
-        return response(['status' => 0], 400);
+        return response(['status' => 0,'status_election' => 0], 400);
     }
 
     public function election(Request $request)
@@ -79,7 +80,7 @@ class NomineeController extends Controller
                         if (count($nominee) != 0) {
                             $nominee = array_rand($nominee->toArray(), 1);
                             $nominee = User::find($nominee);
-                            return response(['status' => 1, 'nominee' => array(new NomineeResource($nominee))], 201);
+                            return response(['status' => 1,'status_election' => 0, 'nominee' => array(new NomineeResource($nominee))], 201);
                         } else {
                             $elections = Election::where('user_id', $request->user_id)->where('status', 0)->get();
                             foreach ($elections as $election) {
@@ -91,7 +92,7 @@ class NomineeController extends Controller
                                 if (count($nominee) != 0) {
                                     $nominee = array_rand($nominee->toArray(), 1);
                                     $nominee = User::find($nominee);
-                                    return response(['status' => 1, 'nominee' => array(new NomineeResource($nominee))], 201);
+                                    return response(['status' => 1, 'status_election' => 0,'nominee' => array(new NomineeResource($nominee))], 201);
                                 }
                             }
                         }
@@ -100,21 +101,30 @@ class NomineeController extends Controller
                     if (count($nominee) != 0) {
                         $nominee = array_rand($nominee->toArray(), 1);
                         $nominee = User::find($nominee);
-                        return response(['status' => 1, 'nominee' => array(new NomineeResource($nominee))], 201);
+                        return response(['status' => 1,'status_election' => 0, 'nominee' => array(new NomineeResource($nominee))], 201);
                     }
                 }
-                return response(['status' => 1, 'message' => 'لا يوجد مرشحين'], 200);
+                return response(['status' => 1,'status_election' => 0, 'message' => 'لا يوجد مرشحين'], 200);
             }
-            return response(['status' => 0, 'message' => 'برجاء اعاده ارسال رقم المرشح صحيح'], 400);
+            return response(['status' => 0, 'status_election' => 0,'message' => 'برجاء اعاده ارسال رقم المرشح صحيح'], 400);
         } elseif ($request->status_election == 1) {
+            $check = Election::where('user_id', $request->user_id)->where('status', 0)->get();
+            foreach ($check as $checks)
+            {
+                $checks->delete();
+            }
             $election = new Election();
             $election->user_id = $request->user_id;
             $election->nominee_id = $request->nominee_id;
             $election->status = 1;
             $election->save();
-            return response(['status' => 1, 'message' => 'تم التصويت بنجاح'], 200);
+            $nominee = User::find($election->nominee_id);
+                    return response([
+                        'status' => 1,
+                        'nominee' => array(new NomineeResource($nominee)),
+                    ], 201);
         }
-        return response(['status' => 0], 400);
+        return response(['status' => 0,'status_election' => 0], 400);
     }
 
 
