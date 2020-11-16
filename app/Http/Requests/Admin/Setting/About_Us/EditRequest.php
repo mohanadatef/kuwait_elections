@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
 
 
             return [
-                'description'=>'required|string|max:500',
+                'description'=>'required|string',
                 'title'=>'required|string|max:255',
                 'image' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
             ];

@@ -38,7 +38,7 @@
 <div class="login-box">
     <div class="login-logo">
         @if($setting != null)
-            <link rel="icon" type="image/png" href="{{asset('public/images/setting/'.$setting->image)}}"/>
+            <img  src="{{asset('public/images/setting/'.$setting->image)}}" style="width:100px;height: 100px"/>
             <b>{{$setting->title}}</b>
         @else
             <b>CMS</b>
