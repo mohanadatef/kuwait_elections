@@ -56,13 +56,21 @@ class CommitController extends Controller
         $commit->save();
         if($request->image_commit)
         {
-            $imageName = time().$request->image_commit->getClientOriginalname();
-            Request()->image_commit->move(public_path('images/commit'), $imageName);
+            /*$imageName = time().$request->image_commit->getClientOriginalname();
+            Request()->image_commit->move(public_path('images/commit'), $imageName);*/
             $commit_image_save = new Image();
             $commit_image_save->category_id = $request->id;
             $commit_image_save->category = 'commit';
             $commit_image_save->status = 1;
-            $commit_image_save->image = $imageName;
+ /*           $commit_image_save->image = $imageName;*/
+            $folderPath=public_path('images/commit/');
+            $image_parts = explode(";base64,", $request->image_commit);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file =  $folderPath. time().uniqid().'.'.$image_type;
+            file_put_contents($file, $image_base64);
+            $commit_image_save->image_commit = time().uniqid().'.'.$image_type;
             $commit_image_save->save();
         }
         $post = Post::with(['commit_post' => function ($query) {
@@ -108,13 +116,21 @@ class CommitController extends Controller
               {
                   $image_check=Image::where('category','commit')->where('category_id',$commit->id)->where('status',1)->first();
                   $image_check->delete();
-                  $imageName = time().$request->image_commit->getClientOriginalname();
-                  Request()->image_commit->move(public_path('images/commit'), $imageName);
+                 /* $imageName = time().$request->image_commit->getClientOriginalname();
+                  Request()->image_commit->move(public_path('images/commit'), $imageName);*/
                   $commit_image_save = new Image();
                   $commit_image_save->category_id = $commit->id;
                   $commit_image_save->category = 'commit';
                   $commit_image_save->status = 1;
-                  $commit_image_save->image = $imageName;
+//                  $commit_image_save->image = $imageName;
+                  $folderPath=public_path('images/commit/');
+                  $image_parts = explode(";base64,", $request->image_commit);
+                  $image_type_aux = explode("image/", $image_parts[0]);
+                  $image_type = $image_type_aux[1];
+                  $image_base64 = base64_decode($image_parts[1]);
+                  $file =  $folderPath. time().uniqid().'.'.$image_type;
+                  file_put_contents($file, $image_base64);
+                  $commit_image_save->image_commit = time().uniqid().'.'.$image_type;
                   $commit_image_save->save();
               }
               $post = Post::with(['commit_post' => function ($query) {
