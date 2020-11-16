@@ -48,6 +48,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
 
         Route::group(['prefix' => 'nominee'], function () {
             Route::get('show', 'NomineeController@show');
+            Route::get('show_list', 'NomineeController@show_list');
             Route::post('election', 'NomineeController@election');
         });
         Route::group(['prefix' => 'takeed'], function () {

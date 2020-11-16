@@ -108,4 +108,9 @@ class UserRepository implements UserInterface
     {
        return $this->role_user->where('user_id',$id)->get();
     }
+
+    public function Upgrad($id)
+    {
+
+    }
 }

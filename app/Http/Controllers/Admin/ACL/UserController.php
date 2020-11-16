@@ -100,4 +100,11 @@ class UserController extends Controller
         $this->logRepository->Create_Data(''.Auth::user()->id.'','تغير حاله','تغير حاله اكثر من مستخدم فى لوحه التحكم');
         return redirect()->back()->with('message', 'تم تغير الحاله للمستخدمين بنجاح');
     }
+
+    public function upgrad_user($id)
+    {
+        $this->userRepository->Upgrad($id);
+        $this->logRepository->Create_Data(''.Auth::user()->id.'','تغير نوع المستخدم','تغير نوع  مستخدم فى لوحه التحكم');
+        return redirect()->back()->with('message', 'تم تغير نوع للمستخدم بنجاح');
+    }
 }
