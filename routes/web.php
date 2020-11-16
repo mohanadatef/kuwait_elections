@@ -23,8 +23,9 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth', 'prefix' 
             Route::patch('/update/{id}', 'UserController@update')->middleware('permission:user-edit');
             Route::get('/password/{id}', 'UserController@password')->middleware('permission:user-password');
             Route::patch('/change_password/{id}', 'UserController@change_password')->middleware('permission:user-password');
-            Route::get('/change_status/{id}', 'UserController@change_status');
-            Route::get('/change_many_status', 'UserController@change_many_status');
+            Route::get('/change_status/{id}', 'UserController@change_status')->middleware('permission:user-status');
+            Route::get('/change_many_status', 'UserController@change_many_status')->middleware('permission:user-many-status');
+            Route::get('/upgrad/{id}', 'UserController@upgrad_user')->middleware('permission:user-upgrad');
         });
         Route::prefix('/friend')->middleware('permission:friend-list')->group(function () {
             Route::get('/request', 'FriendController@request_index')->middleware('permission:friend-request');

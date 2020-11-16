@@ -56,17 +56,21 @@
                         @permission('forgot-password')
                         <th align="center">سجل تعديل كلمه السر</th>
                         @endpermission
+                        @permission('user-upgrad')
+                        <th align="center">تغير نوع المستخدم</th>
+                        @endpermission
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($datas as $data)
                         <tr>
+                            @permission('user-many-status')
                             <td align="center">
-
                                         <input type="checkbox" name="change_status[]"
                                                id="{{$data->id}}" value="{{$data->id}}">
-                                       
+
                             </td>
+                            @endpermission
                             <td align="center">{{ $data->username }}</td>
                             <td align="center">
                                 @foreach($data->role as $user_role)
@@ -114,6 +118,12 @@
                                    class="btn btn-success"> سجل تعديل كلمه السر</a>
                             </td>
                             @endpermission
+                            @permission('user-upgrad')
+                            <td>
+                                <a href="{{url('admin/user/upgrad/'.$data->id)}}"
+                                   class="btn btn-success">تغير نوع المستخدم</a>
+                            </td>
+                            @endpermission
                         </tr>
                     @endforeach
                     </tbody>
@@ -140,6 +150,9 @@
                         @endpermission
                         @permission('forgot-password')
                         <th align="center">سجل تعديل كلمه السر</th>
+                        @endpermission
+                        @permission('user-upgrad')
+                        <th align="center">تغير نوع المستخدم</th>
                         @endpermission
                     </tr>
                     </tfoot>

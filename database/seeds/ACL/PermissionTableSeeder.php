@@ -61,6 +61,11 @@ class PermissionTableSeeder extends Seeder
                 'description'=>'user status',
             ],
             [
+                'name'=>'user-upgrad',
+                'display_name'=>'user upgrad',
+                'description'=>'user upgrad',
+            ],
+            [
                 'name'=>'user-many-status',
                 'display_name'=>'user many status',
                 'description'=>'user many status',

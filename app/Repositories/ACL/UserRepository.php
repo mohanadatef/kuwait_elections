@@ -111,6 +111,15 @@ class UserRepository implements UserInterface
 
     public function Upgrad($id)
     {
-
+        $user = Role_user::where('user_id',$id)->first();
+        if($user->role_id == 3 )
+        {
+        $user->role_id = 4;
+        }
+        elseif($user->role_id == 4 )
+        {
+            $user->role_id = 3;
+        }
+        $user->update();
     }
 }
