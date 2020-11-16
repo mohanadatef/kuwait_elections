@@ -72,7 +72,7 @@
                                         <td align="center">{{ $data->registration_status }}</td>
                                         <td align="center">{{ $data->registration_number }}</td>
                                         <td align="center">{{ $data->registration_data }}</td>
-                                        <td align="center">{{ $data->circle }}</td>
+                                        <td align="center">{{ $data->circle1->title }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

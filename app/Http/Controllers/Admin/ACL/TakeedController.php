@@ -23,7 +23,7 @@ class TakeedController extends Controller
     public function index()
     {
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح قائمه الناخبين على لوحه التحكم');
-        $datas  = Takeed::paginate(200);
+        $datas  = Takeed::with('circle1')->paginate(2000);
         return view('admin.import.takeed.index',compact('datas'));
     }
 

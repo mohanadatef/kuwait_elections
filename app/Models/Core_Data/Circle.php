@@ -13,6 +13,10 @@ class Circle extends Model
     {
         return $this->hasMany('App\User');
     }
+    public function takeed()
+    {
+        return $this->hasMany('App\Models\ACL\Takeed','circle');
+    }
     protected $table = 'circles';
     public $timestamps = true;
 
