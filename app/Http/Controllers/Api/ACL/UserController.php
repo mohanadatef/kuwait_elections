@@ -75,18 +75,15 @@ class UserController extends Controller
         $image_user->category_id = $user->id;
         $image_user->category = 'profile';
         $image_user->status = 1;
-        /*$imageName = time().$request->image_user->getClientOriginalname();
-        Request()->image_user->move(public_path('images/user/profile'), $imageName);
-        $image_user->image = $imageName;
-        $image_user->image='profile_user.jpg';*/
         if ($request->image_user) {
-            $file = $request->image_user;
-            $image_data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file));
-            $f = finfo_open();
-            $mime_type = finfo_buffer($f, $image_data, FILEINFO_MIME_TYPE);
-            $imageName = time() . '.' . $mime_type;
-            $image_data->move(public_path('images/user/profile'), $imageName);
-            $image_user->image = $imageName;
+            $folderPath=public_path('images/user/profile/');
+            $image_parts = explode(";base64,", $request->image_user);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file =  $folderPath. time().'.'.$image_type;
+            file_put_contents($file, $image_base64);
+            $image_user->image = time().'.'.$image_type;
         } else {
             $image_user->image = 'profile_user.jpg';
         }
