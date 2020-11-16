@@ -28,10 +28,18 @@ class NomineeController extends Controller
         if ($election) {
             $nominee = User::find($election->nominee_id);
             if ($nominee) {
-                return response(['status' => 1,
-                    'election_status' => 1,
-                    'nominee' => array(new NomineeResource($nominee),
-                    )], 201);
+            $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
+            if (count($user_role) != 0) {
+                $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->pluck('id', 'id');
+                $nominees=User::wherein('id',$nominees)->get();
+                if (count($nominees) != 0) {
+                    return response([
+                        'status' => 1,
+                        'nominee' => array(new NomineeResource($nominee)),
+                        'nominee_list' => array( NomineeResource::collection($nominees)),
+                    ], 201);
+                    }
+                }
             }
             return response(['status' => 0], 400);
         }
