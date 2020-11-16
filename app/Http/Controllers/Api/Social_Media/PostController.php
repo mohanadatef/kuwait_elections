@@ -51,9 +51,17 @@ class PostController extends Controller
             $post_image->category = 'post';
             $post_image->status = 1;
             $post_image->category_id  = $post->id;
-            $imageName = time().$request->image_post->getClientOriginalname();
+            /*$imageName = time().$request->image_post->getClientOriginalname();
             Request()->image_post->move(public_path('images/post'), $imageName);
-            $post_image->image = $imageName;
+            $post_image->image = $imageName;*/
+            $folderPath=public_path('images/post/');
+            $image_parts = explode(";base64,", $request->image_post);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file =  $folderPath. time().uniqid().'.'.$image_type;
+            file_put_contents($file, $image_base64);
+            $post_image->image = time().uniqid().'.'.$image_type;
             $post_image->save();
         }
         if ($post) {
@@ -127,9 +135,18 @@ class PostController extends Controller
                 $post_image->category = 'post';
                 $post_image->status = 1;
                 $post_image->category_id  = $post->id;
-                $imageName = time().$request->image_post->getClientOriginalname();
+             /*   $imageName = time().$request->image_post->getClientOriginalname();
                 Request()->image_post->move(public_path('images/post'), $imageName);
                 $post_image->image = $imageName;
+                */
+                    $folderPath=public_path('images/post/');
+                    $image_parts = explode(";base64,", $request->image_post);
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = $image_type_aux[1];
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $file =  $folderPath. time().uniqid().'.'.$image_type;
+                    file_put_contents($file, $image_base64);
+                $post_image->image = time().uniqid().'.'.$image_type;
                 $post_image->save();
             }
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل  منشور للمستخدم عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id . " / " . $post->id);
