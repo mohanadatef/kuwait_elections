@@ -39,6 +39,12 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapMobileRoutes();
+
+        $this->mapAdminRoutes();
+
+        $this->mapTakeedRoutes();
+
         //
     }
 
@@ -69,5 +75,29 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapMobileRoutes()
+    {
+        Route::prefix('mobile')
+            ->middleware('mobile')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/mobile.php'));
+    }
+
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
+    }
+
+    protected function mapTakeedRoutes()
+    {
+        Route::prefix('takeed')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/takeed.php'));
     }
 }

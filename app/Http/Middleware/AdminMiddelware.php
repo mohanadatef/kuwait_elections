@@ -21,12 +21,13 @@ class AdminMiddelware
         {
             foreach (Auth::User()->role as $role)
             {
-               if($role->id == 3 || $role->id == 4)
+               if($role->id == 2 || $role->id == 1)
                {
-                   return redirect('/');
+                   return $next($request);
                }
             }
-            return $next($request);
+            Auth::logout();
+            return redirect('/login')->with('message_fales','برجاء الاتصال بالدعم الفنى');
         }
         else
         {

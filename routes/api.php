@@ -28,7 +28,6 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
 
         Route::group(['prefix' => 'image/profile'], function () {
             Route::get('index', 'ImageUserController@index');
-            Route::post('store', 'ImageUserController@store');
             Route::post('update', 'ImageUserController@update');
             Route::get('delete', 'ImageUserController@delete');
         });
@@ -36,7 +35,6 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
         Route::group(['prefix' => 'friend'], function () {
             Route::get('all_friend', 'FriendController@all_friend');
             Route::get('all_request_friend', 'FriendController@all_request_friend');
-            Route::get('check_friend', 'FriendController@check_friend');
             Route::post('send_friend', 'FriendController@send_friend');
             Route::post('accept_friend', 'FriendController@accept_friend');
             Route::get('delete_friend', 'FriendController@delete_friend');
@@ -51,10 +49,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::get('show_list', 'NomineeController@show_list');
             Route::post('election', 'NomineeController@election');
         });
-        Route::group(['prefix' => 'takeed'], function () {
-            Route::get('filter/index', 'TakeedController@index');
-            Route::get('filter', 'TakeedController@filter');
-        });
+
         Route::group(['prefix' => 'forgot_password'], function () {
             Route::post('check', 'ForgotPasswordController@check');
             Route::post('validate_code', 'ForgotPasswordController@validate_code');
