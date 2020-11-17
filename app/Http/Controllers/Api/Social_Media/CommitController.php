@@ -47,8 +47,8 @@ class CommitController extends Controller
         $commit = new Commit();
         $commit->details = $request->details;
         $commit->status = 1;
-        $commit->post_id = $request->post;
-        $commit->user_id = $request->id;
+        $commit->post_id = $request->post_id;
+        $commit->user_id = Auth::user()->id;
         if($request->commit_id)
         {
             $commit->commit_id = $request->commit_id;

@@ -16,7 +16,7 @@ class CommitResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image->first() ) {
+        if($this->image != null ) {
             return [
                 'commit_id' => $this->id,
                 'created_at' => $this->created_at,
