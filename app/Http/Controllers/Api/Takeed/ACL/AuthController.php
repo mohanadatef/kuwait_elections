@@ -15,24 +15,12 @@ class AuthController extends Controller
 {
     private $logRepository;
 
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct(LogRepository $LogRepository)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
         $this->logRepository = $LogRepository;
     }
 
-    /**
-     * Get a JWT token via given credentials.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');

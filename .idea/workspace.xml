@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c810955-b769-4985-b3e9-8490fb6dea14" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Core_Data/AreaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Core_Data/AreaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Core_Data/CircleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Core_Data/CircleController.php" afterDir="false" />
@@ -15,6 +16,7 @@
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupMemberController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupMemberController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupPostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupPostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/ACL/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/ACL/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/Core_Data/AreaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/Core_Data/AreaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/Core_Data/CircleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Web/Core_Data/CircleController.php" afterDir="false" />
@@ -54,14 +56,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Web/ACL/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+            <state relative-caret-position="546">
+              <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
               <folding>
                 <element signature="e#52#96#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -142,18 +153,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupPostController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="79" selection-end-column="5" />
-              <folding>
-                <element signature="e#70#126#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Web/Social_Media/Group/GroupPostController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="709">
@@ -208,7 +207,6 @@
         <option value="$PROJECT_DIR$/app/Http/Middleware/AdminMiddelware.php" />
         <option value="$PROJECT_DIR$/routes/takeed.php" />
         <option value="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Takeed/ACL/UserResource.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Takeed/Core_Data/CircleResource.php" />
         <option value="$PROJECT_DIR$/routes/mobile.php" />
@@ -249,6 +247,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Web/HomeController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Web/ACL/AuthController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php" />
       </list>
     </option>
   </component>
@@ -448,6 +447,25 @@
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
               <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Takeed" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Takeed" type="462c0819:PsiDirectoryNode" />
+              <item name="ACL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
               <item name="Web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -480,6 +498,14 @@
               <item name="Web" type="462c0819:PsiDirectoryNode" />
               <item name="Social_Media" type="462c0819:PsiDirectoryNode" />
               <item name="Group" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
@@ -568,18 +594,17 @@
       <workItem from="1605511512481" duration="16062000" />
       <workItem from="1605541937317" duration="19448000" />
       <workItem from="1605636531261" duration="15632000" />
-      <workItem from="1605684145677" duration="4091000" />
+      <workItem from="1605684145677" duration="4362000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="242328000" />
+    <option name="totallyTimeSpent" value="242599000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25733498" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25733498" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="npm" order="3" side_tool="true" />
@@ -597,7 +622,7 @@
       <window_info anchor="bottom" id="RNConsole" order="11" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.32922733" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32922733" />
-      <window_info anchor="bottom" id="Terminal" order="14" sideWeight="0.49938875" weight="0.58428806" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="14" sideWeight="0.49938875" visible="true" weight="0.58342665" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -635,9 +660,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Resources/Web/ACL/LogResource.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Resources/Web/Social_Media/CommitResource.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1003,11 +1025,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Web/ACL/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+        <state relative-caret-position="546">
+          <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
           <folding>
             <element signature="e#52#96#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Takeed/ACL/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="53" column="21" lean-forward="true" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="21" />
         </state>
       </provider>
     </entry>
