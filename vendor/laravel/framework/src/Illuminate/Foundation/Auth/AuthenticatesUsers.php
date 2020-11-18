@@ -160,7 +160,7 @@ trait AuthenticatesUsers
      */
     public function logout(Request $request)
     {
-        $this->logRepository->Create_Data(''.Auth::user()->id.'','تسجيل الخروج','تسجيل الخروج من لوحه التحكم');
+        $this->logRepository->Create_Data(''.Auth::user()->id.'','تسجيل الخروج','تسجيل الخروج');
         $this->guard()->logout();
 
         $request->session()->invalidate();

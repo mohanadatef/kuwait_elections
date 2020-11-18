@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use JWTAuth;
 
 class AuthController extends Controller
@@ -22,18 +23,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $user = User::where('email', $request->email)->first();
+        $user= DB::table('users')->where('civil_reference', $request->email)
+            ->orwhere('email', $request->email)->value('id');
+        $user=User::find($user);
         if ($user) {
+            $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
             if ($token = JWTAuth::attempt($credentials)) {
                 if ($user->status == 1) {
-                    if ($token = JWTAuth::attempt($credentials)) {
-                        $user = User::find(auth::user()->id);
-                        $user->remember_token = $token;
-                        $user->update();
-                        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
-                        return response(['status' => 1, 'user' => array(new UserResource($user))], 200);
-                    }
+                    $user->remember_token = $token;
+                    $user->update();
+                    $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
+                    return response(['status' => 1, 'user' => array(new UserResource($user))], 200);
                 }
                 return response(['status' => 0, 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
             }

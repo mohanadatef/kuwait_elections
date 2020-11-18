@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\Web;
 use App\Http\Resources\Web\ACL\NomineeResource;
 use App\Http\Resources\Web\ACL\UserResource;
 use App\Http\Resources\Web\Social_Media\PostResource;
-use App\Models\ACL\Election;
-use App\Models\ACL\Friend;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
@@ -29,7 +27,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        if (Auth::user() == true) {
+        if (Auth::check()) {
             $user = $this->userRepository->Get_One_Data(Auth::user()->id);
             if ($user != null) {
                 $this->logRepository->Create_Data(Auth::user()->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه');
@@ -43,10 +41,8 @@ class HomeController extends Controller
                 }])->wherein('user_id', $friend)->orwhere('user_id', Auth::user()->id)->where('status', 1)->orderby('created_at', 'DESC')->get();
                 $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
                 if (count($user_role) != 0) {
-                    $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->pluck('id', 'id');
-                    if (count($nominee) != 0) {
-                        $nominee = array_rand($nominee->toArray(), 1);
-                        $nominee = User::find($nominee);
+                    $nominee = User::with('image')->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->inRandomOrder()->first();
+                    if ($nominee) {
                         $nominee = array(new NomineeResource($nominee));
                     }
                 }
@@ -56,12 +52,10 @@ class HomeController extends Controller
         }
         $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
         if (count($user_role) != 0) {
-            $nominee = DB::table("users")->wherein('id', $user_role)->pluck('id', 'id');
-            if (count($nominee) != 0) {
-                $nominee = array_rand($nominee->toArray(), 1);
-                $nominee = User::find($nominee);
+                $nominee = User::with('image')->wherein('id', $user_role)->inRandomOrder()->first();
+            if ($nominee) {
                 $nominee = array(new NomineeResource($nominee));
-            }
+           }
         }
         $post = Post::with(['commit_post' => function ($query) {
             $query->where('status', 1);

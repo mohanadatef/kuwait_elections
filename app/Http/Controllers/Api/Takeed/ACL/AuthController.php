@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use JWTAuth;
 
 class AuthController extends Controller
@@ -23,17 +24,15 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $user = User::where('email', $request->email)->first();
+        $user= DB::table('users')->where('civil_reference', $request->email)
+            ->orwhere('email', $request->email)->value('id');
+        $user=User::find($user);
         if ($user) {
+            $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
             if ($token = JWTAuth::attempt($credentials)) {
                 if ($user->status == 1) {
-                    $role = Role_user::where('user_id', $user->id)->where('role_id', 1)
-                        ->orwhere('user_id', $user->id)->where('role_id', 2)
-                        ->orwhere('user_id', $user->id)->where('role_id', 5)->get();
-                    if (count($role) != 0) {
-                        if ($token = JWTAuth::attempt($credentials)) {
-                            $user = User::find(auth::user()->id);
+                    foreach ($user->role() as $role) {
+                        if ($role == 1 ||$role == 2||$role == 5) {
                             $user->remember_token = $token;
                             $user->update();
                             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تجسل الدخول', 'تسجيل الدخول');

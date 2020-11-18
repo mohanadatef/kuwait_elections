@@ -43,6 +43,6 @@ class LoginController extends Controller
     }
     function authenticated(Request $request, $user)
     {
-        $this->logRepository->Create_Data(''.Auth::user()->id.'','تسجيل الدخول','تسجيل الدخول من لوحه التحكم');
+        $this->logRepository->Create_Data(''.Auth::user()->id.'','تسجيل الدخول','تسجيل الدخول');
     }
 }

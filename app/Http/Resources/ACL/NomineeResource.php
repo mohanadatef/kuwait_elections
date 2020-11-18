@@ -17,7 +17,7 @@ class NomineeResource extends JsonResource
     {
         return [
             'nominee_id'=>$this->id,
-            'username'=>$this->username,
+           /* 'username'=>$this->username,
             'email'=>$this->email,
             'name'=>$this->name ,
             'family'=>$this->family ,
@@ -30,7 +30,7 @@ class NomineeResource extends JsonResource
             'gender'=>$this->gender,
             'job'=>$this->job,
             'address'=>$this->address,
-            'degree'=>$this->degree,
+            'degree'=>$this->degree,*/
             'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
         ];
     }
