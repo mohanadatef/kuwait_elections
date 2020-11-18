@@ -38,23 +38,15 @@ class NomineeController extends Controller
                     $nominee_list = array(NomineeResource::collection($nominees));
                 }
             }
-            return response(['status' => 1, 'status_election' => 1,
-                'nominee' => $nominee,
-                'nominee_list' => $nominee_list], 400);
+            return response(['status' => 1,'status_election' => 1,'nominee' => $nominee, 'nominee_list' => $nominee_list], 400);
         }
         if (count($user_role) != 0) {
-            $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->pluck('id', 'id');
-            if (count($nominee) != 0) {
-                $nominee = array_rand($nominee->toArray(), 1);
-                $nominee = User::find($nominee);
-                return response([
-                    'status' => 1,
-                    'status_election' => 0,
-                    'nominee' => array(new NomineeResource($nominee)),
-                ], 201);
+            $nominee = User::with('image')->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->inRandomOrder()->first();
+            if ($nominee) {
+                return response(['status' => 1,'status_election' => 0,'nominee' => array(new NomineeResource($nominee))],201);
             }
         }
-        return response(['status' => 1, 'status_election' => 0, 'nominee' => ''], 400);
+        return response(['status' => 1,'status_election' => 0, 'nominee' => ''], 200);
     }
 
     public function election(Request $request)

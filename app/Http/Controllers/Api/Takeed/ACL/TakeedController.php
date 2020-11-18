@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Takeed\ACL;
 
 use App\Http\Resources\Takeed\ACL\TakeedResource;
 use App\Http\Resources\Takeed\Core_Data\CircleResource;
-use App\Models\ACL\Takeed;
 use App\Models\Core_Data\Circle;
 use App\Repositories\ACL\LogRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +26,7 @@ class TakeedController extends Controller
     {
         $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
             'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data');
-        $takeed = Takeed::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
+        $takeed = User::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
             ->orwhere('circle', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
             ->select('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
                 'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data'

@@ -16,7 +16,7 @@ class LogResource extends JsonResource
     {
         return [
             'log_id'=>$this->id,
-            'username'=>$this->user->username,
+            'username'=>$this->user->name,
             'action'=>$this->action,
             'description'=>$this->description,
             'time'=>$this->created_at,

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Mobile\ACL;
 
 use App\Http\Resources\Mobile\ACL\TakeedResource;
 use App\Http\Resources\Mobile\Core_Data\CircleResource;
-use App\Models\ACL\Takeed;
 use App\Models\Core_Data\Circle;
 use App\Repositories\ACL\LogRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,13 +24,13 @@ class TakeedController extends Controller
 
     public function filter(Request $request)
     {
-        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','family_name_one','table_area','table_gender',
+        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','family_name_one','area','gender',
             'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data');
-        $takeed = Takeed::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
+        $takeed = User::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
             ->orwhere('circle', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
             ->paginate(25);
         if ($takeed) {
-            $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
+            $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed');
             return response(['takeed' => TakeedResource::collection($takeed), 'paginator' => [
                 'total_count' => $takeed->Total(),
                 'total_pages' => ceil($takeed->Total() / $takeed->PerPage()),
@@ -46,7 +46,7 @@ class TakeedController extends Controller
         $circle = Circle::all();
         $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','إسم العائلة','الجدول (أمة)','نوع الجدول',
             'مرجع الداخلية','الرقم المدني','سنة الميلاد','المهنة','العنوان','حالة القيد','رقم القيد','تاريخ القيد');
-        $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed عن طريق Api' . Auth::user()->username . " / " . Auth::user()->id);
+        $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed');
         return response(['circle' => CircleResource::collection($circle), 'colum_filter' => $colum_filter], 200);
     }
 }
