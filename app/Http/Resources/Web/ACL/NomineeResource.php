@@ -15,14 +15,16 @@ class NomineeResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->image->first())
+        {
         return [
             'nominee_id'=>$this->id,
             'username'=>$this->username,
             'email'=>$this->email,
             'name'=>$this->name ,
             'family'=>$this->family ,
-            'circle'=>$this->circle->title,
-            'area'=>$this->area->title,
+            /*'circle'=>$this->circle->title,*/
+            /*'area'=>$this->area->title,*/
             'mobile'=>$this->mobile,
             'role'=>$this->role[0]->display_name,
             'about'=>$this->about,
@@ -32,6 +34,24 @@ class NomineeResource extends JsonResource
             'address'=>$this->address,
             'degree'=>$this->degree,
             'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
+        ];
+        }
+        return [
+            'nominee_id'=>$this->id,
+            'username'=>$this->username,
+            'email'=>$this->email,
+            'name'=>$this->name ,
+            'family'=>$this->family ,
+            /*'circle'=>$this->circle->title,*/
+            /*'area'=>$this->area->title,*/
+            'mobile'=>$this->mobile,
+            'role'=>$this->role[0]->display_name,
+            'about'=>$this->about,
+            'birth_day'=>$this->birth_day,
+            'gender'=>$this->gender,
+            'job'=>$this->job,
+            'address'=>$this->address,
+            'degree'=>$this->degree,
         ];
     }
 }

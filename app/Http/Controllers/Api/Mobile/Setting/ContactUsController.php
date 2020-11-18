@@ -16,20 +16,17 @@ class ContactUsController extends Controller
     {
         $this->logRepository = $LogRepository;
     }
+
     public function index()
     {
-        $datas = Contact_Us::find(1);
+        $data = Contact_Us::find(1);
+        $data = array(new ContactUsResource($data));
         if(Auth::user() == true)
         {
-            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض اتصل بنا  Api' );
+            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض اتصل بنا' );
         }
-        return response([
-            'data' => array(new ContactUsResource($datas)),
-        ], 200);
-
+        return response(['status'=>1,'contact_us' => $data], 200);
     }
-
-
 }
 
 ?>

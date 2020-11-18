@@ -17,7 +17,7 @@ class UserResource extends JsonResource
     {
         return [
             'user_id'=>$this->id,
-            'username'=>$this->username,
+     /*       'username'=>$this->username,
             'email'=>$this->email,
             'name'=>$this->name,
             'family'=>$this->family,
@@ -29,7 +29,7 @@ class UserResource extends JsonResource
             'gender'=>$this->gender,
             'job'=>$this->job,
             'address'=>$this->address,
-            'token'=>$this->remember_token,
+            'token'=>$this->remember_token,*/
             'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
         ];
     }

@@ -80,7 +80,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapMobileRoutes()
     {
         Route::prefix('mobile')
-            ->middleware('mobile')
+            ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/mobile.php'));
     }

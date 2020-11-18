@@ -18,15 +18,13 @@ class PrivacyController extends Controller
     }
     public function index()
     {
-        $datas = Privacy::find(1);
+        $data = Privacy::find(1);
+        $data =array(new PrivacyResource($data));
         if(Auth::user() == true)
         {
-            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض عن الشروط و الاحكام  Api' );
+            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض عن الشروط و الاحكام' );
         }
-            return response([
-                'data' =>array(new PrivacyResource($datas))
-            ], 200);
-
+        return response(['status'=>1,'privacy'=>$data], 200);
     }
 }
 ?>

@@ -21,10 +21,11 @@ class AreaController extends Controller
     public function index()
     {
         $data = Area::where('status', '=', 1)->orderby('order', 'asc')->get();
+        $data=AreaResource::collection($data);
         if (Auth::user() == true) {
             $this->logRepository->Create_Data(''.Auth::user()->id . '', 'عرض', 'عرض قائمه المناطق');
         }
-        return response(['status'=>1,'area' => AreaResource::collection($data)], 200);
+        return response(['status'=>1,'area' => $data], 200);
     }
 }
 

@@ -17,13 +17,12 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-
        if($this->image->first() != null )
        {
         return [
             'post_id'=>$this->id,
             'details'=>$this->details,
-            'post_image'=> asset('public/images/post/'.$this->image->first()->image),
+            //'post_image'=> asset('public/images/post/'.$this->image->first()->image),
             'user'=> [new UserResource($this->resource->user)],
             'like_count'=> count($this->like),
             'like'=> [ LikeResource::collection($this->resource->like)],

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Takeed\ACL;
 
 use App\Http\Resources\Takeed\ACL\UserResource;
-use App\Models\ACL\Role_user;
 use App\Repositories\ACL\LogRepository;
 use App\User;
 use Illuminate\Http\Request;
@@ -15,47 +14,33 @@ class AuthController extends Controller
 {
     private $logRepository;
 
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
     public function __construct(LogRepository $LogRepository)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
         $this->logRepository = $LogRepository;
     }
 
-    /**
-     * Get a JWT token via given credentials.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $user = User::where('email', $request->email)->first();
+        $user=User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
         if ($user) {
+            $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
             if ($token = JWTAuth::attempt($credentials)) {
                 if ($user->status == 1) {
-                    $role = Role_user::where('user_id', $user->id)->where('role_id', 1)
-                        ->orwhere('user_id', $user->id)->where('role_id', 2)
-                        ->orwhere('user_id', $user->id)->where('role_id', 5)->get();
-                    if (count($role) != 0) {
-                        if ($token = JWTAuth::attempt($credentials)) {
-                            $user = User::find(auth::user()->id);
+                    foreach ($user->role() as $role) {
+                        if ($role == 1 ||$role == 2||$role == 5) {
                             $user->remember_token = $token;
                             $user->update();
-                            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'تجسل الدخول', 'تسجيل الدخول');
-                            return response(['status' => 1,'token' => $token,'user' => new UserResource($user)],200);
+                            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تجسل الدخول', 'تسجيل الدخول');
+                            return response(['status' => 1, 'token' => $token, 'user' => new UserResource($user)], 200);
                         }
                     }
                 }
+                return response(['status' => 0, 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
             }
+            return response(['status' => 0, 'message' => 'كلمه السر خطا'], 401);
         }
-        return response()->json(['status' => 0], 401);
+        return response(['status' => 0, 'message' => 'الايميل خطا'], 401);
     }
 
     public function me()
@@ -66,7 +51,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $this->logRepository->Create_Data(''.Auth::user()->id.'', 'تسجيل الخروج', 'تم تسجيل الخروج');
+        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل الخروج', 'تم تسجيل الخروج');
         $this->guard()->logout();
         return response()->json(['status' => 1]);
     }

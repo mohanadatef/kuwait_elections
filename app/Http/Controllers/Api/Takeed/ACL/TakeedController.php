@@ -24,10 +24,13 @@ class TakeedController extends Controller
 
     public function filter(Request $request)
     {
-        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','family_name_one','table_area','table_gender',
+        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
             'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data');
         $takeed = Takeed::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
             ->orwhere('circle', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
+            ->select('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
+                'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data'
+            ,'circle_id')
             ->paginate(25);
         if ($takeed) {
             $this->logRepository->Create_Data(''.Auth::user()->id.'', 'بحث', 'بحث فى takeed');
@@ -45,7 +48,7 @@ class TakeedController extends Controller
     public function index()
     {
         $circle = Circle::all();
-        $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','إسم العائلة','الجدول (أمة)','نوع الجدول',
+        $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','الجدول (أمة)','نوع الجدول',
             'مرجع الداخلية','الرقم المدني','سنة الميلاد','المهنة','العنوان','حالة القيد','رقم القيد','تاريخ القيد');
         $this->logRepository->Create_Data(''.Auth::user()->id.'', 'بحث', 'بحث فى takeed');
         return response(['status' => 1,'circle' => CircleResource::collection($circle), 'colum_filter' => $colum_filter], 200);

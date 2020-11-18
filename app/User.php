@@ -15,8 +15,9 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     protected $fillable = [
-        'username', 'email','status','password','remember_token','name','last_name','mobile','birth_day','gender','job','address'
-        ,'circle_id','area_id','about','degree','elections_image','family'
+         'email','status','password','remember_token','mobile','birth_day','gender','job','circle_id','area_id','about','degree',
+        'family_name','name','first_name','second_name','third_name','forth_name','internal_reference','civil_reference','address',
+        'registration_status','registration_number','registration_data'
     ];
 
     public function role()
