@@ -35,9 +35,11 @@ class AuthController extends Controller
                         return response(['status' => 1,'user' => array(new UserResource($user))], 200);
                     }
                 }
+                return response(['status' => 0,'message'=>'برجاء الاتصال بخدمه العملاء'], 401);
             }
+            return response(['status' => 0,'message'=>'كلمه السر خطا'], 401);
         }
-        return response()->json(['status' => 0], 401);
+        return response(['status' => 0,'message'=>'الايميل خطا'], 401);
     }
 
     public function me()

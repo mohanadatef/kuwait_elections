@@ -17,20 +17,17 @@ class SettingController extends Controller
     {
         $this->logRepository = $LogRepository;
     }
+
     public function index()
     {
-        $datas = Setting::find(1);
+        $data = Setting::find(1);
+        $data = array(new SettingResource($data));
         if(Auth::user() == true)
         {
-            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض الاعدادات  Api' );
+            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض الاعدادات' );
         }
-        return response([
-            'data' => array(new SettingResource($datas)),
-        ], 200);
-
+        return response(['status'=>1,'setting'=>$data], 200);
     }
-
-
 }
 
 ?>

@@ -25,17 +25,15 @@ class CallUsController extends Controller
             'mobile' => 'required|string',
         ]);
         if ($validate->fails()) {
-            return response(['message' => $validate->errors()], 422);
+            return response(['status' => 0,'message' => $validate->errors()], 422);
         }
         $call_us = new Call_Us();
         $call_us->create($request->all());
         if(Auth::user() == true)
         {
-            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'ارسال دعم فني', 'اتواصل مع الدعم الفني  Api' );
+            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'ارسال', 'اتواصل مع الدعم الفني' );
         }
-        return response([
-            'message' => 'تم الارسال بنجاح',
-        ], 200);
+        return response(['status' => 1], 200);
     }
 }
 

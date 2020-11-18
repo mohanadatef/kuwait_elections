@@ -19,11 +19,12 @@ class CircleController extends Controller
     public function index()
     {
         $data = Circle::where('status', '=', 1)->orderby('order','asc')->get();
+        $data=CircleResource::collection($data);
         if(Auth::user() == true)
         {
             $this->logRepository->Create_Data(''.Auth::user()->id.'', 'عرض', 'عرض قائمه الدوائر' );
         }
-        return response(['status'=>1,'circle'=> CircleResource::collection($data)],200);
+        return response(['status'=>1,'circle'=> $data],200);
     }
 
 }

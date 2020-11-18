@@ -48,14 +48,16 @@ class AuthController extends Controller
                             $user = User::find(auth::user()->id);
                             $user->remember_token = $token;
                             $user->update();
-                            $this->logRepository->Create_Data(''.Auth::user()->id.'', 'تجسل الدخول', 'تسجيل الدخول');
-                            return response(['status' => 1,'token' => $token,'user' => new UserResource($user)],200);
+                            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تجسل الدخول', 'تسجيل الدخول');
+                            return response(['status' => 1, 'token' => $token, 'user' => new UserResource($user)], 200);
                         }
                     }
                 }
+                return response(['status' => 0, 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
             }
+            return response(['status' => 0, 'message' => 'كلمه السر خطا'], 401);
         }
-        return response()->json(['status' => 0], 401);
+        return response(['status' => 0, 'message' => 'الايميل خطا'], 401);
     }
 
     public function me()
@@ -66,7 +68,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $this->logRepository->Create_Data(''.Auth::user()->id.'', 'تسجيل الخروج', 'تم تسجيل الخروج');
+        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل الخروج', 'تم تسجيل الخروج');
         $this->guard()->logout();
         return response()->json(['status' => 1]);
     }

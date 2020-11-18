@@ -13,6 +13,7 @@ use JWTAuth;
 class AuthController extends Controller
 {
     private $logRepository;
+
     public function __construct(LogRepository $LogRepository)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
@@ -31,12 +32,14 @@ class AuthController extends Controller
                         $user->remember_token = $token;
                         $user->update();
                         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
-                        return response(['status' => 1,'user' => array(new UserResource($user))], 200);
+                        return response(['status' => 1, 'user' => array(new UserResource($user))], 200);
                     }
                 }
+                return response(['status' => 0, 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
             }
+            return response(['status' => 0, 'message' => 'كلمه السر خطا'], 401);
         }
-        return response()->json(['status' => 0], 401);
+        return response(['status' => 0, 'message' => 'الايميل خطا'], 401);
     }
 
     public function me()
