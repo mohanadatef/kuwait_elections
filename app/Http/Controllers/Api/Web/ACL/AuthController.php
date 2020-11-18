@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use JWTAuth;
 
 class AuthController extends Controller
@@ -23,13 +23,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user= DB::table('users')->where('civil_reference', $request->email)
-            ->orwhere('email', $request->email)->value('id');
-        $user=User::find($user);
+        $user=User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
         if ($user) {
-            $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
-            if ($token = JWTAuth::attempt($credentials)) {
+            if (Hash::check($request->password, $user->password)) {
                 if ($user->status == 1) {
+                    $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
+                    $token = JWTAuth::attempt($credentials);
                     $user->remember_token = $token;
                     $user->update();
                     $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');

@@ -10,6 +10,7 @@ use App\Models\Social_Media\Commit;
 use App\Models\Social_Media\Like;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
