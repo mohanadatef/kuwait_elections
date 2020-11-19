@@ -36,9 +36,9 @@ class FriendController extends Controller
             $friend->status = 0;
             $friend->save();
             $this->logRepository->Create_Data('' . Auth::User()->id . '', 'ارسال', 'ارسال طلب صداقه');
-            return response(['status' => 1, 'request_friend_number' => $friend->id], 200);
+            return response(['status' => 1, 'data' => ['request_friend_number'=>$friend->id],'message'=>'تم ارسال طلب الصداقه'], 200);
         }
-        return response(['status' => 0], 400);
+        return response(['status' => 0,'data' =>array(),'message'=>'رقم المستخدم خطاء'], 400);
     }
 
     public function accept_friend(Request $request)
@@ -48,9 +48,9 @@ class FriendController extends Controller
             $friend->status = 1;
             $friend->update();
             $this->logRepository->Create_Data('' . Auth::User()->id . '', 'قبول', 'قبول طلب صداقه');
-            return response(['status' => 1, 'message' => 'تم قبول طلب صداقه'], 200);
+            return response(['status' => 1,'data' =>array(), 'message' => 'تم قبول طلب صداقه'], 200);
         }
-        return response(['status' => 0, 'message' => 'خطا فى تحميل البيانات'], 400);
+        return response(['status' => 0,'data' =>array(), 'message' => 'خطا فى تحميل البيانات'], 400);
     }
 
     public function delete_friend(Request $request)
@@ -59,9 +59,9 @@ class FriendController extends Controller
         if ($friend) {
             $friend->delete();
             $this->logRepository->Create_Data('' . Auth::User()->id . '', 'مسح', 'مسح  الصداقه');
-            return response(['status' => 1], 200);
+            return response(['status' => 1,'data' =>array(), 'message' => 'تم الغاء الصداقه'], 200);
         }
-        return response(['status' => 0], 400);
+        return response(['status' => 0,'data' =>array(), 'message' => 'خطا فى تحميل البيانات'], 400);
     }
 
     public function all_friend()
@@ -71,9 +71,11 @@ class FriendController extends Controller
             ->get();
         $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الاصدقاء');
         if ($friend) {
-            $friend = FriendResource::collection($friend);
+            return response(['status' => 1,
+                'data' => ['friend'=>FriendResource::collection($friend)],
+                'message'=>'جميع الاصدفاء'], 200);
         }
-        return response(['status' => 1, 'friend' => $friend], 200);
+        return response(['status' => 1, 'data' => ['friend'=>array()],'message'=>'لا يوجد بيانات لعرضها'], 200);
     }
 
     public function all_request_friend()

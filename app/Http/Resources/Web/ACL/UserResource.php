@@ -14,6 +14,7 @@ class UserResource extends JsonResource
         {
             return [
                 'user_id'=>$this->id,
+                'username'=>$this->first_name .' '.$this->second_name,
                 'email'=>$this->email,
                 'family_name'=>$this->family_name,
                 'name'=>$this->name,
@@ -36,12 +37,14 @@ class UserResource extends JsonResource
                 'mobile'=>$this->mobile,
                 'about'=>$this->about,
                 'degree'=>$this->degree,
-                'circle'=>$this->circle->title,
-                'area'=>$this->area->title,
+                'circle'=>$this->circle_id,
+                'area'=>$this->area_id,
+                'status_login'=>$this->status_login,
             ];
         }
         return [
             'user_id'=>$this->id,
+            'username'=>$this->first_name .' '.$this->second_name,
             'email'=>$this->email,
             'family_name'=>$this->family_name,
             'name'=>$this->name,
@@ -64,8 +67,9 @@ class UserResource extends JsonResource
             'mobile'=>$this->mobile,
             'about'=>$this->about,
             'degree'=>$this->degree,
-            'circle'=>$this->circle->title,
-            'area'=>$this->area->title,
+            'circle'=>$this->circle_id,
+            'area'=>$this->area_id,
+            'status_login'=>$this->status_login,
         ];
     }
 }

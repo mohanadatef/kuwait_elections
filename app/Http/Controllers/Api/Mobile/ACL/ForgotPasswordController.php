@@ -27,10 +27,10 @@ class ForgotPasswordController extends Controller
        $user = User::where('email',$request->email)->first();
        if($user)
        {
-           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'محاوله التاكد من وجود ايميل  Api' . $user->username );
+           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'محاوله التاكد من وجود ايميل' );
            if($user->status == 0)
            {
-               return response(['message' => 'برجاء الاتصال بالدعم الفني'], 200);
+               return response(['status'=>0,'data'=>array(),'message' => 'برجاء الاتصال بالدعم الفني'], 200);
            }
            $forgot_password = Forgot_Password::where('user_id',$user->id)->where('status',0)->first();
            if(!$forgot_password)
@@ -41,9 +41,9 @@ class ForgotPasswordController extends Controller
                $forgot_password->code = Str::random(5);
                $forgot_password->save();
            }
-           return response(['status'=>1,'message' => 'تم ارسال الكود على الايميل','code'=>$forgot_password->code], 200);
+           return response(['status'=>1,'data'=>['code'=>$forgot_password->code],'message' => 'تم ارسال الكود على الايميل'], 200);
        }
-       return response(['status'=>0,'message' => 'خطا فى تحميل البيانات'], 400);
+       return response(['status'=>0,'data'=>array(),'message' => 'لا يوجد بيانات'], 400);
    }
 
    public function validate_code(Request $request)
@@ -51,10 +51,10 @@ class ForgotPasswordController extends Controller
        $user = User::where('email',$request->email)->first();
        if($user)
        {
-           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'تاكيد كود التغير كلمه السر  Api' . $user->username );
+           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'تاكيد كود التغير كلمه السر' );
            if($user->status == 0)
            {
-               return response(['status'=>0,'message' => 'برجاء الاتصال بالدعم الفني'], 200);
+               return response(['status'=>0,'data'=>array(),'message' => 'برجاء الاتصال بالدعم الفني'], 200);
            }
            $forgot_password =  Forgot_Password::where('code',$request->code)->where('status',0)->where('user_id',$user->id)->first();
            if($forgot_password)
@@ -65,7 +65,7 @@ class ForgotPasswordController extends Controller
            }
            return response(['status' => 0], 400);
        }
-       return response(['status'=>0,'message' => 'خطا فى تحميل البيانات'], 400);
+       return response(['status'=>0,'data'=>array(),'message' => 'لا يوجد بيانات'], 400);
    }
 
    public function change_password(Request $request)
@@ -73,21 +73,21 @@ class ForgotPasswordController extends Controller
        $user = User::where('email',$request->email)->first();
        if($user)
        {
-           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'تغير كلمه السر  Api' . $user->username );
+           $this->logRepository->Create_Data($user->id, 'تغير كلمه السر', 'تغير كلمه السر');
            if($user->status == 0)
            {
-               return response(['message' => 'برجاء الاتصال بالدعم الفني'], 200);
+               return response(['status'=>1,'data'=>array(),'message' => 'برجاء الاتصال بالدعم الفني'], 200);
            }
            $validate = \Validator::make($request->all(), [
                'password' => 'required|string|min:6|confirmed',
            ]);
            if ($validate->fails()) {
-               return response(['status'=>0,'message' => $validate->errors()], 422);
+               return response(['status'=>0,'data'=>['error'=>$validate->errors()],'message' => 'خطا فى ادخال البيانات'], 422);
            }
            $user->password=Hash::make($request->password);
            $user->update();
-           return response(['status'=>1,'message' => 'تم تغير كلمه السر'], 201);
+           return response(['status'=>1,'data'=>array(),'message' => 'تم تغير كلمه السر'], 201);
        }
-       return response(['status'=>0,'message' => 'خطا فى تحميل البيانات'], 400);
+       return response(['status'=>0,'data'=>array(),'message' => 'لا يوجد بيانات'], 400);
    }
 }

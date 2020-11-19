@@ -27,6 +27,7 @@ class HomeController extends Controller
 
     public function index()
     {
+        $nominee=[];
         if (Auth::user() == true) {
             $user = $this->userRepository->Get_One_Data(Auth::user()->id);
             if ($user != null) {
@@ -48,7 +49,7 @@ class HomeController extends Controller
                         $nominee = array(new NomineeResource($nominee));
                     }
                 }
-                return response(['status' => 1, 'post' => PostResource::collection($post), 'user' => array(new UserResource($user)), 'nominee' => $nominee], 200);
+                return response(['status' => 1, 'data'=>['post' => PostResource::collection($post), 'user' => new UserResource($user), 'nominee' => $nominee],'message'=>''], 200);
             }
             return response(['status' => 0], 400);
         }

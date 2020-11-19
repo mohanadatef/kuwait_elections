@@ -4,6 +4,7 @@ namespace App\Http\Resources\Web\Social_Media;
 
 use App\Http\Resources\Web\ACL\UserResource;
 use App\Http\Resources\Web\Image\CommitImageResource;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommitResource extends JsonResource
@@ -19,7 +20,7 @@ class CommitResource extends JsonResource
         if($this->image != null ) {
             return [
                 'commit_id' => $this->id,
-                'created_at' => $this->created_at,
+                'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
                 'details' => $this->details,
                 'user' => [new UserResource($this->resource->user)],
                 'like_count' => count($this->like),
@@ -31,7 +32,7 @@ class CommitResource extends JsonResource
         }
         return [
             'commit_id' => $this->id,
-            'created_at' => $this->created_at,
+            'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details' => $this->details,
             'user' => [new UserResource($this->resource->user)],
             'like_count' => count($this->like),

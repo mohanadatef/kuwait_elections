@@ -43,10 +43,11 @@ class HomeController extends Controller
                 if (count($user_role) != 0) {
                     $nominee = User::with('image')->wherein('id', $user_role)->where('circle_id', Auth::user()->circle_id)->inRandomOrder()->first();
                     if ($nominee) {
-                        $nominee = array(new NomineeResource($nominee));
+                        return response(['status' => 1, 'post' => PostResource::collection($post),
+                            'user' => array(new UserResource($user)), 'nominee' => array(new NomineeResource($nominee))], 200);
                     }
                 }
-                return response(['status' => 1, 'post' => PostResource::collection($post), 'user' => array(new UserResource($user)), 'nominee' => $nominee], 200);
+                return response(['status' => 1, 'post' => PostResource::collection($post), 'user' => array(new UserResource($user)), 'nominee' => ''], 200);
             }
             return response(['status' => 0], 400);
         }
@@ -54,14 +55,18 @@ class HomeController extends Controller
         if (count($user_role) != 0) {
                 $nominee = User::with('image')->wherein('id', $user_role)->inRandomOrder()->first();
             if ($nominee) {
-                $nominee = array(new NomineeResource($nominee));
-           }
+                $post = Post::with(['commit_post' => function ($query) {
+                    $query->where('status', 1);
+                }], ['like' => function ($query) {
+                    $query->where('category', 'post');
+                }])->wherein('user_id', $user_role)->where('status', 1)->orderby('created_at', 'DESC')->get();
+                if($post)
+                {
+                    return response(['status' => 1, 'post' => PostResource::collection($post), 'nominee' => array(new NomineeResource($nominee))], 200);
+                }
+                return response(['status' => 1, 'post' => '', 'nominee' => array(new NomineeResource($nominee))], 200);
+            }
         }
-        $post = Post::with(['commit_post' => function ($query) {
-            $query->where('status', 1);
-        }], ['like' => function ($query) {
-            $query->where('category', 'post');
-        }])->wherein('user_id', $user_role)->where('status', 1)->orderby('created_at', 'DESC')->get();
-        return response(['status' => 1, 'post' => PostResource::collection($post), 'nominee' => $nominee], 200);
+        return response(['status' => 1, 'post' => '', 'nominee' => ''], 200);
     }
 }

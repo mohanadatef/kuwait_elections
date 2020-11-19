@@ -19,6 +19,7 @@ class NomineeResource extends JsonResource
         {
             return [
                 'nominee_id'=>$this->id,
+                'username'=>$this->first_name .' '.$this->second_name,
                 'email'=>$this->email,
                 'family_name'=>$this->family_name,
                 'name'=>$this->name,
@@ -47,6 +48,7 @@ class NomineeResource extends JsonResource
         }
         return [
             'nominee_id'=>$this->id,
+            'username'=>$this->first_name .' '.$this->second_name,
             'email'=>$this->email,
             'family_name'=>$this->family_name,
             'name'=>$this->name,

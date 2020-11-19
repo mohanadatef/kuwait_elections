@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Web\ACL;
 
-use App\Http\Resources\Image\ProfileImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NomineeResource extends JsonResource
@@ -19,6 +18,7 @@ class NomineeResource extends JsonResource
         {
             return [
                 'nominee_id'=>$this->id,
+                'username'=>$this->first_name .' '.$this->second_name,
                 'email'=>$this->email,
                 'family_name'=>$this->family_name,
                 'name'=>$this->name,
@@ -41,12 +41,13 @@ class NomineeResource extends JsonResource
                 'mobile'=>$this->mobile,
                 'about'=>$this->about,
                 'degree'=>$this->degree,
-                'circle'=>$this->circle->title,
-                'area'=>$this->area->title,
+                'circle'=>$this->circle_id,
+                'area'=>$this->area_id,
             ];
         }
         return [
             'nominee_id'=>$this->id,
+            'username'=>$this->first_name .' '.$this->second_name,
             'email'=>$this->email,
             'family_name'=>$this->family_name,
             'name'=>$this->name,
@@ -69,8 +70,8 @@ class NomineeResource extends JsonResource
             'mobile'=>$this->mobile,
             'about'=>$this->about,
             'degree'=>$this->degree,
-            'circle'=>$this->circle->title,
-            'area'=>$this->area->title,
+            'circle'=>$this->circle_id,
+            'area'=>$this->area_id,
         ];
     }
 }

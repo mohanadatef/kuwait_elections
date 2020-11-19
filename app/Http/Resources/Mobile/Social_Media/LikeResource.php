@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Mobile\Social_Media;
 
 use App\Http\Resources\Mobile\ACL\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LikeResource extends JsonResource
@@ -17,7 +18,7 @@ class LikeResource extends JsonResource
     {
         return [
             'like_id'=>$this->id,
-            'created_at'=>$this->created_at,
+            'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'user'=> [new UserResource($this->resource->user)],
         ];
     }

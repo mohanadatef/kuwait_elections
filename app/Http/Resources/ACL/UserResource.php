@@ -17,19 +17,19 @@ class UserResource extends JsonResource
     {
         return [
             'user_id'=>$this->id,
-     /*       'username'=>$this->username,
+            'username'=>$this->name,
             'email'=>$this->email,
             'name'=>$this->name,
-            'family'=>$this->family,
-            'circle'=>$this->circle->title,
-            'area'=>$this->area->title,
+            'family'=>$this->family_name,
+            'circle'=>$this->circle_id,
+            'area'=>$this->area_id,
             'mobile'=>$this->mobile,
             'role'=>$this->role[0]->id,
             'birth_day'=>$this->birth_day,
             'gender'=>$this->gender,
             'job'=>$this->job,
             'address'=>$this->address,
-            'token'=>$this->remember_token,*/
+            'token'=>$this->remember_token,
             'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
         ];
     }

@@ -39,10 +39,8 @@
                         @endpermission
                         <th align="center">اسم المستخدم</th>
                         <th align="center">نوع المستخدم</th>
-                        <th align="center">البريد الالكتروني</th>
-                        <th align="center">رقم الهاتف</th>
+                        <th align="center">الرقم المدنى</th>
                         <th align="center">الدائرة</th>
-                        <th align="center">المنطقه</th>
                         @permission('user-status')
                         <th align="center">الحاله</th>
                         @endpermission
@@ -71,16 +69,14 @@
 
                             </td>
                             @endpermission
-                            <td align="center">{{ $data->username }}</td>
+                            <td align="center">{{ $data->name }}</td>
                             <td align="center">
                                 @foreach($data->role as $user_role)
                                     [{{ $user_role->name }}],
                                 @endforeach
                             </td>
-                            <td align="center">{{ $data->email }}</td>
-                            <td align="center">{{ $data->mobile }}</td>
+                            <td align="center">{{ $data->civil_reference }}</td>
                             <td align="center">{{ $data->circle->title }}</td>
-                            <td align="center">{{ $data->area->title }}</td>
                             @permission('user-status')
                             <td align="center">
                                     @if($data->status ==1)
@@ -134,10 +130,8 @@
                         @endpermission
                         <th align="center">اسم المستخدم</th>
                         <th align="center">نوع المستخدم</th>
-                        <th align="center">البريد الالكتروني</th>
-                        <th align="center">رقم الهاتف</th>
+                        <th align="center">الرقم المدنى</th>
                         <th align="center">الدائرة</th>
-                        <th align="center">المنطقه</th>
                         @permission('user-status')
                         <th align="center">الحاله</th>
                         @endpermission

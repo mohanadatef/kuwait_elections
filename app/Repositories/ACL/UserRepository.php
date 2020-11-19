@@ -9,10 +9,9 @@ use App\Http\Requests\Admin\ACl\User\EditRequest;
 use App\Http\Requests\Admin\ACl\User\StatusEditRequest;
 use App\Interfaces\ACL\UserInterface;
 use App\Models\ACL\Role_user;
-use App\Models\Image;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -30,15 +29,22 @@ class UserRepository implements UserInterface
 
     public function Get_All_Datas()
     {
-
-        if(Auth::user()->role()->first()->name == 'Develper')
+        $user = DB::table('users')
+            ->where('id','>',99999)
+            ->select('id')
+            ->groupBy('id')
+            ->get();
+        foreach ($user as $u)
         {
-        return $this->user->all();
+            ini_set('max_execution_time', 12000);
+            ini_set('post_max_size', 120000);
+            ini_set('upload_max_filesize', 10000);
+            $role = new Role_user();
+            $role->role_id=3;
+            $role->user_id=$u->id;
+            $role->save();
         }
-        else
-        {
-            return $this->user->where('id','!=',1)->get();
-        }
+        return $this->user->with('circle')->where('id','!=',567695)->select('id','circle_id','name','civil_reference')->paginate(500);
     }
 
     public function Create_Data(CreateRequest $request)
@@ -46,13 +52,6 @@ class UserRepository implements UserInterface
         $data['status'] = 1;
         $data['password'] = Hash::make($request->password);
         $this->user->create(array_merge($request->all(),$data))->role()->sync((array)$request->role_id);
-        $user=User::where('username',$request->username)->first();
-        $image_user = new Image();
-        $image_user->category_id = $user->id;
-        $image_user->category = 'profile';
-        $image_user->status = 1;
-        $image_user->image = 'profile_user.jpg';
-        $image_user->save();
     }
 
     public function Get_One_Data($id)
