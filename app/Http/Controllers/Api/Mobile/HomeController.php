@@ -30,7 +30,7 @@ class HomeController extends Controller
         $nominee=array();
         if ($request->status_auth == 1) {
             $user = $this->userRepository->Get_One_Data($request->user_id);
-            if ($user) {
+            if (!$user) {
                 return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
             }
                 $this->logRepository->Create_Data(Auth::user()->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه');

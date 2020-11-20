@@ -80,7 +80,7 @@ class UserController extends Controller
     public function show(Request $request)
     {
         $user = $this->userRepository->Get_One_Data($request->user_id);
-        if ($user) {
+        if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
         if($request->status_auth == 1)
@@ -146,7 +146,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = $this->userRepository->Get_One_Data($request->user_id);
-        if ($user) {
+        if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
         $validate = \Validator::make($request->all(), [

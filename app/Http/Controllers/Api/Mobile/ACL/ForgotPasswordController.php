@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
     public function check(Request $request)
     {
         $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
-        if ($user) {
+        if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات'], 400);
         }
         $this->logRepository->Create_Data('' . $user->id . '', 'تغير كلمه السر', 'محاوله التاكد من وجود ايميل');
@@ -46,7 +46,7 @@ class ForgotPasswordController extends Controller
     public function validate_code(Request $request)
     {
         $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
-        if ($user) {
+        if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات للمستخدم'], 400);
         }
         $this->logRepository->Create_Data('' . $user->id . '', 'تغير كلمه السر', 'تاكيد كود التغير كلمه السر');
@@ -65,7 +65,7 @@ class ForgotPasswordController extends Controller
     public function change_password(Request $request)
     {
         $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
-        if ($user) {
+        if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات للمستخدم'], 400);
         }
         $this->logRepository->Create_Data('' . $user->id . '', 'تغير كلمه السر', 'تغير كلمه السر');
@@ -79,6 +79,7 @@ class ForgotPasswordController extends Controller
             return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى ادخال البيانات'], 422);
         }
         $user->password = Hash::make($request->password);
+        $user->status_login = 1;
         $user->update();
         return response(['status' => 1, 'data' => array(), 'message' => 'تم تغير كلمه السر'], 201);
     }

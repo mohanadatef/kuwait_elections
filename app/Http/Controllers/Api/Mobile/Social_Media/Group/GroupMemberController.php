@@ -27,7 +27,7 @@ class GroupMemberController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
         $group = Group::find($request->group_id);
-        if ($group) {
+        if (!$group) {
             $group_member = new Group_User();
             $group_member->group_id = $group->id;
             $group_member->user_id = $user->id;
@@ -45,7 +45,7 @@ class GroupMemberController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
         $group = Group::find($request->group_id);
-        if ($group) {
+        if (!$group) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات الجروب'], 400);
         }
         $group_member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
