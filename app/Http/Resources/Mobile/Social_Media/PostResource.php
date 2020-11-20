@@ -18,7 +18,7 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image->first())
+        if($this->resource->image)
         {
             return [
                 'post_id'=>$this->id,

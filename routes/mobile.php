@@ -20,6 +20,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
                 Route::get('show', 'UserController@show');
                 Route::get('search', 'UserController@search_user');
                 Route::post('update', 'UserController@update');
+                Route::post('change_password', 'UserController@change_password');
             });
             Route::group(['prefix' => 'image/profile'], function () {
                 Route::get('index', 'ImageUserController@index');
@@ -38,15 +39,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::group(['prefix' => 'log'], function () {
                 Route::get('index', 'LogController@index');
             });
-            Route::group(['prefix' => 'nominee'], function () {
-                Route::get('show', 'NomineeController@show');
-                Route::get('show_list', 'NomineeController@show_list');
-                Route::post('election', 'NomineeController@election');
-            });
-            Route::group(['prefix' => 'takeed'], function () {
-                Route::get('filter/index', 'TakeedController@index');
-                Route::get('filter', 'TakeedController@filter');
-            });
+
             Route::group(['prefix' => 'forgot_password'], function () {
                 Route::post('check', 'ForgotPasswordController@check');
                 Route::post('validate_code', 'ForgotPasswordController@validate_code');
@@ -81,6 +74,17 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
                     Route::post('join', 'GroupMemberController@join');
                     Route::get('leave', 'GroupMemberController@leave');
                 });
+            });
+        });
+        Route::group(['namespace' => 'Election'], function () {
+            Route::group(['prefix' => 'nominee'], function () {
+                Route::get('show', 'NomineeController@show');
+                Route::get('show_list', 'NomineeController@show_list');
+                Route::post('election', 'NomineeController@election');
+            });
+            Route::group(['prefix' => 'takeed'], function () {
+                Route::get('filter/index', 'TakeedController@index');
+                Route::get('filter', 'TakeedController@filter');
             });
         });
         Route::group(['namespace' => 'Setting'], function () {

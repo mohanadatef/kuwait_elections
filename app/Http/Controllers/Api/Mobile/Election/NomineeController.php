@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Mobile\ACL;
+namespace App\Http\Controllers\Api\Mobile\Election;
 
 use App\Http\Resources\Mobile\ACL\NomineeResource;
 use App\Models\ACL\Election;

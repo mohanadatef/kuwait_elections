@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers\Api\Mobile\ACL;
 
-use App\Http\Resources\Mobile\ACL\FriendResource;
 use App\Http\Resources\Mobile\ACL\UserResource;
 use App\Http\Resources\Mobile\Social_Media\PostResource;
-use App\Models\ACL\Friend;
-use App\Models\Image;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
@@ -174,4 +171,23 @@ class UserController extends Controller
             ], 201);
     }
 
+    public function change_password(Request $request)
+    {
+        $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
+        }
+        $validate = \Validator::make($request->all(), [
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        if ($validate->fails()) {
+            return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى البيانات المدخله'], 422);
+        }
+        $user->password=hash::make($request->password);
+        $user->save();
+        return response(['status' => 1,
+            'data'=>array(),
+            'message'=>'تم تحديت كلمه السر المستخدم بنجاح'
+        ], 201);
+    }
 }

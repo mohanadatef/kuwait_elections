@@ -17,7 +17,7 @@ class CommitResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image != null ) {
+        if($this->resource->image ) {
             return [
                 'commit_id' => $this->id,
                 'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
