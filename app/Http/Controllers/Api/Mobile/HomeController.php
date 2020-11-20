@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Mobile;
 
-use App\Http\Resources\Mobile\ACL\NomineeResource;
+use App\Http\Resources\Mobile\Election\NomineeResource;
 use App\Http\Resources\Mobile\ACL\UserResource;
 use App\Http\Resources\Mobile\Social_Media\PostResource;
 use App\Models\Social_Media\Post;
@@ -11,7 +11,6 @@ use App\Repositories\ACL\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -48,7 +47,7 @@ class HomeController extends Controller
                 if (count($user_role) != 0) {
                     $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
                     if ($nominee) {
-                        $nominee=User::with(['image'=>function($query){
+                        $nominee=User::with(['profile_image'=>function($query){
                             $query->where('category','profile')->where('status', 1);
                         }])->find($nominee->id);
                         $nominee = new NomineeResource($nominee);
@@ -60,7 +59,7 @@ class HomeController extends Controller
         if (count($user_role) != 0) {
             $nominee = DB::table("users")->wherein('id', $user_role)->inRandomOrder()->first();
             if ($nominee) {
-                $nominee=User::with(['image'=>function($query){
+                $nominee=User::with(['profile_image'=>function($query){
                     $query->where('category','profile')->where('status', 1);
                 }])->find($nominee->id);
                 $nominee = new NomineeResource($nominee);

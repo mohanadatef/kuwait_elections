@@ -7,7 +7,6 @@ use App\Models\Social_Media\Group;
 use App\Repositories\ACL\LogRepository;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {

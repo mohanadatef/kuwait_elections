@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\ACL;
+namespace App\Models\Election;
 
 use Illuminate\Database\Eloquent\Model;
 

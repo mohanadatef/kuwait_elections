@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Mobile\ACL;
+namespace App\Http\Resources\Mobile\Election;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

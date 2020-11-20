@@ -15,7 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image->first()->image)
+        if($this->profile_image)
         {
             return [
                 'user_id'=>$this->id,
@@ -33,7 +33,7 @@ class UserResource extends JsonResource
                 'registration_number'=>$this->registration_number,
                 'registration_data'=>$this->registration_data,
                 'token'=>$this->remember_token,
-                'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
+                'profile_image'=> asset('public/images/user/profile/'.$this->profile_image->image),
                 'role'=>$this->role[0]->id,
                 'birth_day'=>$this->birth_day,
                 'gender'=>$this->gender,

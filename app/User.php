@@ -68,6 +68,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Models\Image','category_id');
     }
+    public function profile_image()
+    {
+        return $this->belongsTo('App\Models\Image','category_id');
+    }
     public function forgot_password()
     {
         return $this->hasMany('App\Models\ACL\Forgot_Password');
@@ -78,7 +82,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function nominee()
     {
-        return $this->belongsTo('App\Models\ACL\Election','nominee_id');
+        return $this->belongsTo('App\Models\Election\Election','nominee_id');
     }
     public function getJWTIdentifier()
     {

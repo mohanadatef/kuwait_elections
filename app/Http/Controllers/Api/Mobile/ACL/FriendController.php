@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Api\Mobile\ACL;
 
 use App\Http\Resources\Mobile\ACL\FriendResource;
-use App\Http\Resources\Mobile\ACL\UserResource;
 use App\Models\ACL\Friend;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class FriendController extends Controller

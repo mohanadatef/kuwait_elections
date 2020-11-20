@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\Mobile\Election;
 
-use App\Http\Resources\Mobile\ACL\NomineeResource;
-use App\Models\ACL\Election;
+use App\Http\Resources\Mobile\Election\NomineeResource;
+use App\Models\Election\Election;
 use App\Repositories\ACL\LogRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class NomineeController extends Controller

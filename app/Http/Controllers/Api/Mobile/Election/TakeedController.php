@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Mobile\Election;
 
-use App\Http\Resources\Mobile\ACL\TakeedResource;
+use App\Http\Resources\Mobile\Election\TakeedResource;
 use App\Http\Resources\Mobile\Core_Data\CircleResource;
 use App\Models\Core_Data\Circle;
 use App\Repositories\ACL\LogRepository;
