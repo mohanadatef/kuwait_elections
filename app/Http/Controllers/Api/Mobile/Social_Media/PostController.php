@@ -21,12 +21,16 @@ class PostController extends Controller
 
     public function __construct(LogRepository $LogRepository)
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['show','show_all_post_user']]);
         $this->logRepository = $LogRepository;
     }
 
     public function store(Request $request)
     {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
         if ($request->image_post) {
             $validate = \Validator::make($request->all(), [
                 'details' => 'required|string|max:255',
@@ -38,12 +42,12 @@ class PostController extends Controller
             ]);
         }
         if ($validate->fails()) {
-            return response(['status' => 0, 'message' => $validate->errors()], 422);
+            return response(['status' => 0, 'data'=>['error' => $validate->errors()],'message'=>'خطا فى المدخلات'], 422);
         }
         $post = new Post();
         $post->details = $request->details;
         $post->status = 1;
-        $post->user_id = Auth::user()->id;
+        $post->user_id = $user->id;
         $post->save();
         if ($request->image_post) {
             $post_image = new Image();
@@ -62,31 +66,35 @@ class PostController extends Controller
         }
         if ($post) {
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل', 'تسجيل منشور جديد عن طريق');
-            return response(['status' => 1, 'post' => array(new PostResource($post))], 201);
+            return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'تم حفظ المنشور بنجاح'], 201);
         }
-        return response(['status' => 0, 'post' => $post], 400);
+        return response(['status' => 0, 'data' => array(),'message'=>'خطا فى الحفظ المنشور'], 400);
     }
 
     public function show_all_post_user(Request $request)
     {
-        $user = User::where('id', $request->user_id)->where('status', 1)->first();
-        if ($user) {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
             $post = Post::with(['commit_post' => function ($query) {
                 $query->where('status', 1);
             }], ['like' => function ($query) {
                 $query->where('category', 'post');
-            }])->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->get();
+            }])->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
-            if ($post != null) {
-                $post = PostResource::collection($post);
+            if ($post) {
+                return response(['status' => 1,'data'=>[ 'post' => PostResource::collection($post)],'message'=>'منشورات الخاصه بالمستخدم'], 200);
             }
-            return response(['status' => 1, 'post' => $post], 200);
-        }
-        return response(['status' => 0], 400);
+        return response(['status' => 1,'data'=>array(),'message'=>'لا يوجد منشورات الخاصه بالمستخدم'], 200);
     }
 
     public function show(Request $request)
     {
+        $post = Post::find($request->post_id);
+        if (!$post) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
         $post = Post::with(['commit_post' => function ($query) {
             $query->where('status', 1);
         }], ['like' => function ($query) {
@@ -95,7 +103,7 @@ class PostController extends Controller
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض  منشور للمستخدم');
         if ($post != null) {
             if ($post->status == 1) {
-                return response(['status' => 1, 'post' => array(new PostResource($post))], 200);
+                return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'عرض المنشور'], 200);
             }
         }
         return response(['status' => 0], 400);
@@ -104,7 +112,9 @@ class PostController extends Controller
     public function update(Request $request)
     {
         $post = Post::find($request->post_id);
-        if ($post != null) {
+        if (!$post) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
             if ($request->image_post) {
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
@@ -116,7 +126,7 @@ class PostController extends Controller
                 ]);
             }
             if ($validate->fails()) {
-                return response(['status' => 0, 'message' => $validate->errors()], 422);
+                return response(['status' => 0, 'data' => ['error'=>$validate->errors()],'message'=>'خطا فى المدخلات'], 422);
             }
             $post->details = $request->details;
             $post->update();
@@ -138,14 +148,15 @@ class PostController extends Controller
                 $post_image->save();
             }
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل  منشور للمستخدم');
-            return response(['status' => 1, 'post' => array(new PostResource($post))], 201);
-        }
-        return response(['status' => 0], 400);
+            return response(['status' => 1, 'data'=>['post' => new PostResource($post)],'message'=>'تم تعديل المنشور بنجاح'], 201);
     }
 
     public function delete(Request $request)
     {
         $post = Post::find($request->post_id);
+        if (!$post) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
         $commits = Commit::where('post_id', $post->id)->get();
         if ($commits) {
             foreach ($commits as $commit) {
@@ -246,45 +257,59 @@ class PostController extends Controller
         }
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح', 'مسح  منشور للمستخدم');
         $post->delete();
-        return response(['status' => 1], 200);
+        return response(['status' => 1,'data'=>array(),'message'=>'تم مسح المنشور بنجاح'], 200);
     }
 
     public function like(Request $request)
     {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
         $post = Post::find($request->post_id);
-        if ($post) {
-            $like = Like::where('category', 'post')->where('category_id', $request->id)->where('user_id', Auth::User()->id)->first();
-            if ($like == null) {
+        if (!$post) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
+            $like = Like::where('category', 'post')->where('category_id', $post->id)->where('user_id', $user->id)->first();
+            if (!$like) {
                 $like = new Like();
                 $like->category_id = $post->id;
                 $like->category = 'post';
-                $like->user_id = Auth::User()->id;
+                $like->user_id = $user->id;
                 $like->save();
-                $data = Like::with('user')->where('category', 'post')->where('category_id', $request->id)->get();
+                $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
+                $message='تم تسجيل الاعجاب بنجاح';
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
             } else {
                 $like->delete();
-                $data = Like::with('user')->where('category', 'post')->where('category_id', $post->id)->get();
+                $message='تم مسح الاعجاب بنجاح';
+                $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح الاعجاب', 'مسح اعجاب منشور للمستخدم');
             }
-            return response(['status' => 1, 'like' => array(new LikeResource($data)), 'count' => count($data)], 200);
-        }
-        return response(['status' => 0], 400);
+            return response(['status' => 1,'data'=>['like' => new LikeResource($data), 'count' => count($data)],'message'=>$message ], 200);
     }
 
     public function share(Request $request)
     {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
+        $post = Post::find($request->post_id);
+        if (!$post) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
         $posts = Post::find($request->post_id);
         if ($posts) {
             $post = new Post();
             $post->details = $posts->details;
             $post->status = 1;
-            $post->user_id = Auth::user()->id;
+            $post->user_id = $user->id;
             $post->post_id = $posts->id;
             $post->save();
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مشاركه', 'مشاركه منشور');
-            return response(['status' => 1, 'post' => array(new PostResource($post))], 201);
+            return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'تم مشاكره المنشور بنجاح'], 201);
         }
-        return response(['status' => 0], 400);
+        return response(['status' => 0,'data'=>array(),'message'=>'خطا فى مشاركه المنشور'], 400);
     }
 }

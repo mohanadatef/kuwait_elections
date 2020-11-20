@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function __construct(LogRepository $LogRepository, UserRepository $UserRepository)
     {
-        $this->middleware('auth:api', ['except' => ['store']]);
+        $this->middleware('auth:api', ['except' => ['store', 'search_user', 'show']]);
         $this->logRepository = $LogRepository;
         $this->userRepository = $UserRepository;
     }
@@ -33,6 +33,7 @@ class UserController extends Controller
     {
         $validate = \Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users',
+            'civil_reference' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'name' => 'required|string|max:255',
             'family' => 'required|string|max:255',
@@ -46,11 +47,12 @@ class UserController extends Controller
             'image_user' => 'string',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0, 'message' => $validate->errors()], 422);
+            return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى البيانات المدخله'], 422);
         }
         $user = new User();
         $user->status = 1;
         $user->name = $request->name;
+        $user->civil_reference = $request->civil_reference;
         $user->family = $request->family;
         $user->mobile = $request->mobile;
         $user->email = $request->email;
@@ -68,76 +70,38 @@ class UserController extends Controller
         $role[] = 3;
         $user->role()->sync((array)$role);
         $user->save();
-        $image_user = new Image();
-        $image_user->category_id = $user->id;
-        $image_user->category = 'profile';
-        $image_user->status = 1;
-        if ($request->image_user) {
-            $folderPath = public_path('images/user/profile/');
-            $image_parts = explode(";base64,", $request->image_user);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . time() . uniqid() . '.' . $image_type;
-            file_put_contents($file, $image_base64);
-            $image_user->image = time() . uniqid() . '.' . $image_type;
-        }
-        $image_user->save();
         if ($user) {
             $this->logRepository->Create_Data('' . $user->id . '', 'تسجيل', 'تسجيل مستخدم جديد');
-            return response([
-                'status' => 1,
-                'user' => array(new UserResource($user)),
-            ], 201);
+            return response(['status' => 1, 'data' => ['user' => new UserResource($user)], 'message' => 'تم التسجيل بنجاح'], 201);
         }
-        return response(['status' => 0, 'user' => ''], 400);
+        return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى حفظ البيانات'], 400);
     }
 
     public function show(Request $request)
     {
-        $user = $this->userRepository->Get_One_Data($request->id);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if ($user) {
-            $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الصفحه الشخصيه');
-            if ($user->id == Auth::User()->id) {
-                $post = Post::where('user_id', Auth::User()->id)->where('status', 1)->get();
-                if ($post) {
-                    $post = PostResource::collection($post);
-                }
-                return response([
-                    'status' => 1,
-                    'user' => array(new UserResource($user)),
-                    'post' => $post,
-                ], 200);
-            } else {
-                $friend = Friend::where('user_send_id', Auth::User()->id)
-                    ->where('user_receive_id', $user->id)->where('status', 1)
-                    ->orwhere('user_receive_id', Auth::User()->id)
-                    ->where('user_send_id', $user->id)->where('status', 1)->first();
-                $post = Post::where('user_id', $user->id)->where('status', 1)->get();
-                if ($post) {
-                    $post = PostResource::collection($post);
-                }
-                if ($friend) {
-                    $friend = array(new FriendResource($friend));
-                    $status_friend = 1;
-                }
-                if (count($friend) == 0) {
-                    $status_friend = 0;
-                } elseif ($friend->user_send_id == Auth::user()->id) {
-                    $status_friend = 2;
-                } elseif ($friend->user_send_id == Auth::user()->id) {
-                    $status_friend = 3;
-                }
-                return response([
-                    'status' => 1,
-                    'status_friend' => $status_friend,
-                    'friend' => $friend,
-                    'message' => 'يمكن قبول او رفض الطلب',
-                    'post' => $post,
-                ], 200);
-            }
+            return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
-        return response(['status' => 0, 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
+        if($request->status_auth == 1)
+        {
+        $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الصفحه الشخصيه');
+        }
+        $post = Post::where('user_id', $user->id)->where('status', 1)->paginate(25);
+        if ($post) {
+            $post = PostResource::collection($post);
+        }
+        else
+        {
+            $post=array();
+        }
+        return response([
+            'status' => 1,
+            'data'=>[
+            'user' => new UserResource($user),
+            'post' => $post],
+            'message'=>'عرض بيانات المستخدم'
+        ], 200);
     }
 
     public function search_user(Request $request)
@@ -160,49 +124,54 @@ class UserController extends Controller
                 ->orwhere('address', 'like', $request->word . '%')
                 ->orWhere('address', 'like', '%' . $request->word . '%')
                 ->where('status', 1)
-                ->get();
+                ->paginate(25);
             if ($user) {
-                if (Auth::user() == true) {
+                if($request->status_auth ==1)
+                {
                     $this->logRepository->Create_Data('' . Auth::user()->id . '', 'بحث', 'البحث عن مستخدم');
                 }
                 return response([
                     'status' => 1,
+                    'data'=>[
                     'user' => UserResource::collection($user)
+                    ],
+                    'message'=>'بيانات المستخدمين'
                 ], 200);
             }
+            return response(['status' => 1, 'data' => array(),'message'=>'لا يوجد مستخدمين'], 200);
         }
-        return response(['status' => 0, 'user' => ''], 400);
+        return response(['status' => 0, 'data' => array(),'message'=>'خطا فى المدخلات'], 400);
     }
 
     public function update(Request $request)
     {
+        $user = $this->userRepository->Get_One_Data($request->user_id);
+        if ($user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
+        }
         $validate = \Validator::make($request->all(), [
-            'username' => 'required|max:255|string|unique:users,username,' . Auth::user()->id . ',id',
-            'email' => 'required|email|max:255|string|unique:users,email,' . Auth::user()->id . ',id',
+            'email' => 'required|email|max:255|string|unique:users,email,' . $request->user_id . ',id',
+            'civil_reference' => 'required|string|max:255|unique:users,civil_reference'. $request->user_id . ',id',
             'name' => 'required|string|max:255',
             'family' => 'required|string|max:255',
             'gender' => 'required|string',
             'birth_day' => 'required|string',
-            'address' => 'required|string',
-            'job' => 'required|string',
-            'mobile' => 'required|string|unique:users,mobile,' . Auth::user()->id . ',id',
+            'address' => 'string',
+            'job' => 'string',
+            'mobile' => 'required|string|unique:users,mobile,' . $request->user_id . ',id',
             'degree' => 'string|max:255',
             'about' => 'string|max:255',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0, 'message' => $validate->errors()], 422);
+            return response(['status' => 0,'data'=>['error'=>$validate->errors()] ,'message' =>'خطا فى المدخلات' ], 422);
         }
-        $user = $this->userRepository->Get_One_Data(Auth::user()->id);
-        if ($user) {
             $user->update($request->all());
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل بيانات المستخدم');
             return response(['status' => 1,
-                'user' => array(new UserResource($user)),
+                'data'=>[
+                'user' => new UserResource($user)],
+                'message'=>'تم تحديت بيانات المستخدم بنجاح'
             ], 201);
-        }
-        return response(['status' => 0,
-            'user' => ''
-        ], 400);
     }
 
 }

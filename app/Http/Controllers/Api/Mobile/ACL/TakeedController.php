@@ -24,29 +24,34 @@ class TakeedController extends Controller
 
     public function filter(Request $request)
     {
-        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','family_name_one','area','gender',
+        $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','area','gender',
             'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data');
-        $takeed = User::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
-            ->orwhere('circle', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
+        $takeed = User::where('circle_id', $request->circle_id)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
+            ->orwhere('circle_id', $request->circle_id)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
             ->paginate(25);
         if ($takeed) {
             $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed');
-            return response(['takeed' => TakeedResource::collection($takeed), 'paginator' => [
+            return response(['status'=>1,
+                'data'=>[
+                    'takeed' => TakeedResource::collection($takeed),
+                    'paginator' => [
                 'total_count' => $takeed->Total(),
                 'total_pages' => ceil($takeed->Total() / $takeed->PerPage()),
                 'current_page' => $takeed->CurrentPage(),
-                'url_page' => url('api/takeed/filter?circle=' . $request->circle . '&filter=' . $request->filter . '&word=' . $request->word . '&page='),
-                'limit' => $takeed->PerPage()]], 200);
+                'url_page' => url('api/takeed/filter?circle_id=' . $request->circle_id . '&filter=' . $request->filter . '&word=' . $request->word . '&page='),
+                'limit' => $takeed->PerPage()]],
+                'message'=>'البيانات المراد البحث عنها'], 200);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        return response(['status'=>1,'data'=>array(),'message' => 'لا يوجد بيانات لعرضها'], 200);
     }
 
     public function index()
     {
         $circle = Circle::all();
-        $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','إسم العائلة','الجدول (أمة)','نوع الجدول',
+        $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','الجدول (أمة)','نوع الجدول',
             'مرجع الداخلية','الرقم المدني','سنة الميلاد','المهنة','العنوان','حالة القيد','رقم القيد','تاريخ القيد');
         $this->logRepository->Create_Data(Auth::user()->id, 'بحث', 'بحث فى takeed');
-        return response(['circle' => CircleResource::collection($circle), 'colum_filter' => $colum_filter], 200);
+        return response(['status'=>1,'data'=>['circle_id' => CircleResource::collection($circle),
+            'colum_filter' => $colum_filter],'message'=>'قائمه البحث'], 200);
     }
 }

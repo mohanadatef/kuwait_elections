@@ -22,35 +22,38 @@ class GroupMemberController extends Controller
 
     public function join(Request $request)
     {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
         $group = Group::find($request->group_id);
         if ($group) {
-            $user = User::find($request->user_id);
-            if ($user) {
-                $group_member = new Group_User();
-                $group_member->group_id = $group->id;
-                $group_member->user_id = $user->id;
-                $group_member->save();
-                $this->logRepository->Create_Data('' . Auth::user()->id . '', 'انضمام', 'ارسال دعوه للدخول المجموعه');
-                return response(['stauts'=>1], 200);
-            }
+            $group_member = new Group_User();
+            $group_member->group_id = $group->id;
+            $group_member->user_id = $user->id;
+            $group_member->save();
+            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'انضمام', 'ارسال دعوه للدخول المجموعه');
+            return response(['stauts' => 1, 'data' => array(), 'message' => 'تم الانضمام لجروب بنجاح'], 200);
         }
-        return response(['stauts'=>0], 400);
+        return response(['stauts' => 0, 'data' => array(), 'message' => 'خطا فى بيانات الجروب'], 400);
     }
 
     public function leave(Request $request)
     {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
         $group = Group::find($request->group_id);
         if ($group) {
-            $user = User::find($request->user_id);
-            if ($user) {
-                $group_member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
-                if ($group_member) {
-                    $group_member->delete();
-                    $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مغادره', 'مغادره المجموعه');
-                    return response(['stauts'=>1], 200);
-                }
-            }
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات الجروب'], 400);
         }
-        return response(['stauts'=>0], 400);
+        $group_member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
+        if ($group_member) {
+            $group_member->delete();
+            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مغادره', 'مغادره المجموعه');
+            return response(['stauts' => 1,'data' => array(), 'message' => 'تم مغاده الجروب'], 200);
+        }
+        return response(['stauts' => 1,'data' => array(), 'message' => 'غير مشترك فى الجروب'], 400);
     }
 }

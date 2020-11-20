@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Mobile\Social_Media\Group;
 use App\Http\Resources\Mobile\Social_Media\Group\GroupResource;
 use App\Models\Social_Media\Group;
 use App\Repositories\ACL\LogRepository;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +15,16 @@ class GroupController extends Controller
 
     public function __construct(LogRepository $LogRepository)
     {
-        $this->middleware('auth:api');
         $this->logRepository = $LogRepository;
     }
 
-    public function show_all_group()
+    public function show_all_group(Request $request)
     {
         $group = Group::all();
+        if($request->status_auth)
+        {
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل الجروب');
-        return response(['status'=>1, 'group' => GroupResource::collection($group)], 200);
+        }
+        return response(['status'=>1,'data'=>['group' => GroupResource::collection($group)] ,'message'=>'قائمه الجروبات'], 200);
     }
 }

@@ -29,22 +29,7 @@ class UserRepository implements UserInterface
 
     public function Get_All_Datas()
     {
-        $user = DB::table('users')
-            ->where('id','>',99999)
-            ->select('id')
-            ->groupBy('id')
-            ->get();
-        foreach ($user as $u)
-        {
-            ini_set('max_execution_time', 12000);
-            ini_set('post_max_size', 120000);
-            ini_set('upload_max_filesize', 10000);
-            $role = new Role_user();
-            $role->role_id=3;
-            $role->user_id=$u->id;
-            $role->save();
-        }
-        return $this->user->with('circle')->where('id','!=',567695)->select('id','circle_id','name','civil_reference')->paginate(500);
+        return $this->user->with('circle')->select('id','circle_id','name','civil_reference')->paginate(100);
     }
 
     public function Create_Data(CreateRequest $request)
