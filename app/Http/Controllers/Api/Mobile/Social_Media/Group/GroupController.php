@@ -21,9 +21,9 @@ class GroupController extends Controller
     public function show_all_group(Request $request)
     {
         $group = Group::all();
-        if($request->status_auth)
+        if($request->status_auth ==1)
         {
-        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل الجروب');
+        $this->logRepository->Create_Data('' . $request->user_id . '', 'عرض', 'عرض كل الجروب');
         }
         return response(['status'=>1,'data'=>['group' => GroupResource::collection($group)] ,'message'=>'قائمه الجروبات'], 200);
     }

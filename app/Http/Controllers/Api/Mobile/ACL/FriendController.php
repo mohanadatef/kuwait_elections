@@ -88,7 +88,7 @@ class FriendController extends Controller
             ->orwhere('user_receive_id', $user->id)->where('status', 1)
             ->get();
         if ($request->status_auth == 1) {
-            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض الاصدقاء');
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض الاصدقاء');
         }
         if ($friend) {
             return response(['status' => 1,
@@ -107,7 +107,7 @@ class FriendController extends Controller
         }
         $request_friend = Friend::where('user_receive_id', $user->id)->where('status', 0)->get();
         if ($request->status_auth == 1) {
-            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض طلبات صداقه');
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض طلبات صداقه');
         }
         if ($request_friend) {
             return response(['status' => 1,

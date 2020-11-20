@@ -82,7 +82,10 @@ class PostController extends Controller
             }], ['like' => function ($query) {
                 $query->where('category', 'post');
             }])->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
-            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
+        if($request->status_auth==1)
+        {
+        $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
+        }
             if ($post) {
                 return response(['status' => 1,'data'=>[ 'post' => PostResource::collection($post)],'message'=>'منشورات الخاصه بالمستخدم'], 200);
             }
@@ -91,6 +94,13 @@ class PostController extends Controller
 
     public function show(Request $request)
     {
+        if($request->status_auth==1)
+        {
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
+        }
+        }
         $post = Post::find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
@@ -100,13 +110,13 @@ class PostController extends Controller
         }], ['like' => function ($query) {
             $query->where('category', 'post');
         }])->where('id', $request->post_id)->where('status', 1)->first();
-        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض  منشور للمستخدم');
-        if ($post != null) {
-            if ($post->status == 1) {
-                return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'عرض المنشور'], 200);
-            }
+        if($request->status_auth==1) {
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض  منشور للمستخدم');
         }
-        return response(['status' => 0], 400);
+        if ($post) {
+            return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'عرض المنشور'], 200);
+        }
+        return response(['status' => 0,'data'=>array(),'message'=>'خطا فى تحميل بيانات المنشور'], 400);
     }
 
     public function update(Request $request)

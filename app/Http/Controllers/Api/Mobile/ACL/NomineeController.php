@@ -100,7 +100,6 @@ class NomineeController extends Controller
             return response(['status' => 1, 'data' => ['status_election' => 0, 'nominee' => array()], 'message' => 'لا يوجد مرشح لانتخاب'], 201);
         } elseif ($request->status_election == 1) {
             $nominees = array();
-            $nominee = array();
             $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
             if (count($user_role) != 0) {
                 $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
@@ -140,6 +139,7 @@ class NomineeController extends Controller
                     'message' => 'عرض بيانات المرشح الخاص بك'
                 ], 200);
             }
+            $nominee = array();
             return response(['status' => 0,
                 'data' => [
                     'status_election' => 1,
@@ -150,12 +150,13 @@ class NomineeController extends Controller
 
     public function show_list(Request $request)
     {
+        $nominees=array();
         if ($request->status_auth == 1) {
             $user = User::find($request->user_id);
             if (!$user) {
                 return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
             }
-            $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض قائمه المرشح');
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض قائمه المرشح');
         }
         $nominee = User::find($request->nominee_id);
         if ($nominee) {
@@ -170,12 +171,13 @@ class NomineeController extends Controller
             } else {
                 $nominees = DB::table("users")->wherein('id', $user_role)->get();
             }
+        }
             if ($nominees) {
-                $nominees = array(NomineeResource::collection($nominees));
+                $nominees = NomineeResource::collection($nominees);
             } else {
                 $nominees = array();
             }
-        }
+
         return response(['status' => 1, 'data' => ['nominee' => $nominee, 'nominee_list' => $nominees], 'message' => 'قائمه المرشحين'], 200);
     }
 }

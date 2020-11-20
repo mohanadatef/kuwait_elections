@@ -33,7 +33,7 @@ class HomeController extends Controller
             if (!$user) {
                 return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
             }
-                $this->logRepository->Create_Data(Auth::user()->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه');
+                $this->logRepository->Create_Data($user->id, 'عرض', 'عرض ببيانات الصفحه الرئيسيه');
                 $friend_s = DB::table('friends')->where('user_send_id', $user->id)->where('status', 1)->pluck('user_receive_id', 'id');
                 $friend_r = DB::table('friends')->where('user_receive_id', $user->id)->where('status', 1)->pluck('user_send_id', 'id');
                 $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
