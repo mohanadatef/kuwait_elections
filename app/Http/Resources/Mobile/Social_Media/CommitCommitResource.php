@@ -22,9 +22,9 @@ class CommitCommitResource extends JsonResource
             'commit_commit_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
             'commit_image'=> asset('public/images/commit/'.$this->image->first()->image),
         ];
     }
@@ -32,9 +32,9 @@ class CommitCommitResource extends JsonResource
             'commit_commit_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
         ];
     }
 

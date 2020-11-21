@@ -71,7 +71,7 @@ class HomeController extends Controller
             $query->where('category', 'post');
         }],['image'=>function($query){
             $query->where('category','post')->where('status', 1);
-        }])->wherein('user_id', $user_role)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+        }])->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
         return response(['status' => 1, 'data'=>['post' => PostResource::collection($post),  'nominee' => $nominee],'message'=>'الصفحه الرئيسيه'], 200);
     }
 }

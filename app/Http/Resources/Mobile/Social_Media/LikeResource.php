@@ -19,7 +19,7 @@ class LikeResource extends JsonResource
         return [
             'like_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
         ];
     }
 

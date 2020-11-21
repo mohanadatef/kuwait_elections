@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Mobile\ACL;
 
 use App\Http\Resources\Mobile\ACL\UserResource;
 use App\Http\Resources\Mobile\Social_Media\PostResource;
+use App\Models\Image;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
@@ -30,33 +31,37 @@ class UserController extends Controller
     {
         $validate = \Validator::make($request->all(), [
             'email' => 'required|string|email|max:255|unique:users',
-            'civil_reference' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'name' => 'required|string|max:255',
-            'family' => 'required|string|max:255',
-            'circle_id' => 'required|exists:circles,id',
-            'area_id' => 'required|exists:areas,id',
+            'first_name' => 'required|string|max:255',
+            'second_name' => 'required|string|max:255',
+            'civil_reference' => 'required|string|max:255|unique:users',
+            'family_name' => 'required|string|max:255',
+            'circle' => 'required|exists:circles,id',
+            'area' => 'required|exists:areas,id',
             'mobile' => 'required|string|unique:users',
             'gender' => 'required|string',
             'birth_day' => 'required|string',
             'address' => 'required|string',
             'job' => 'required|string',
-            'image_user' => 'string',
         ]);
         if ($validate->fails()) {
             return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى البيانات المدخله'], 422);
         }
         $user = new User();
         $user->status = 1;
-        $user->name = $request->name;
-        $user->civil_reference = $request->civil_reference;
-        $user->family = $request->family;
+        $user->family_name = $request->family_name;
         $user->mobile = $request->mobile;
+        $user->name = $request->first_name .' '. $request->second_name;
         $user->email = $request->email;
-        $user->circle_id = $request->circle_id;
-        $user->area_id = $request->area_id;
+        $user->circle_id = $request->circle;
+        $user->area_id = $request->area;
         $user->gender = $request->gender;
         $user->job = $request->job;
+        $user->civil_reference = $request->civil_reference;
+        $user->status_login = 1;
+        $user->status = 1;
+        $user->first_name = $request->first_name;
+        $user->second_name = $request->second_name;
         $user->address = $request->address;
         $user->birth_day = $request->birth_day;
         $user->password = Hash::make($request->password);
@@ -67,6 +72,21 @@ class UserController extends Controller
         $role[] = 3;
         $user->role()->sync((array)$role);
         $user->save();
+        if ($request->image_user) {
+            $image_user = new Image();
+            $image_user->category_id = $user->id;
+            $image_user->category = 'profile';
+            $image_user->status = 1;
+            $folderPath=public_path('images/user/profile/');
+            $image_parts = explode(";base64,", $request->image_user);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file =  $folderPath. time().uniqid().'.'.$image_type;
+            file_put_contents($file, $image_base64);
+            $image_user->image = time().uniqid().'.'.$image_type;
+            $image_user->save();
+        }
         if ($user) {
             $this->logRepository->Create_Data('' . $user->id . '', 'تسجيل', 'تسجيل مستخدم جديد');
             return response(['status' => 1, 'data' => ['user' => new UserResource($user)], 'message' => 'تم التسجيل بنجاح'], 201);

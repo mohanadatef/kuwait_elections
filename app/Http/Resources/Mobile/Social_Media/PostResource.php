@@ -25,11 +25,11 @@ class PostResource extends JsonResource
                 'details'=>$this->details,
                 'post_image'=> asset('public/images/post/'.$this->image->first()->image),
                 'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
-                'user'=> [new UserResource($this->resource->user)],
+                'user'=> new UserResource($this->resource->user),
                 'like_count'=> count($this->like),
-                'like'=> [ LikeResource::collection($this->resource->like)],
+                'like'=>  LikeResource::collection($this->resource->like),
                 'commit_count'=> count($this->commit_post),
-                'commit'=> [ CommitResource::collection($this->resource->commit_post)],
+                'commit'=>  CommitResource::collection($this->resource->commit_post),
 
             ];
         }
@@ -38,11 +38,11 @@ class PostResource extends JsonResource
             'details'=>$this->details,
             'post_image'=> '',
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
             'commit_count'=> count($this->commit_post),
-            'commit'=> [ CommitResource::collection($this->resource->commit_post)],
+            'commit'=> CommitResource::collection($this->resource->commit_post),
 
         ];
     }
