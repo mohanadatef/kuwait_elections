@@ -33,11 +33,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validate = \Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'name' => 'required|string|max:255',
-            'family' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'second_name' => 'required|string|max:255',
+            'civil_reference' => 'required|string|max:255',
+            'family_name' => 'required|string|max:255',
             'circle' => 'required|exists:circles,id',
             'area' => 'required|exists:areas,id',
             'mobile' => 'required|string|unique:users',
@@ -52,15 +53,19 @@ class UserController extends Controller
         }
         $user = new User();
         $user->status = 1;
-        $user->username = $request->username;
-        $user->name = $request->name;
-        $user->family = $request->family;
+        $user->family_name = $request->family_name;
         $user->mobile = $request->mobile;
+        $user->name = $request->first_name .' '. $request->second_name;
         $user->email = $request->email;
         $user->circle_id = $request->circle;
         $user->area_id = $request->area;
         $user->gender = $request->gender;
         $user->job = $request->job;
+        $user->civil_reference = $request->civil_reference;
+        $user->status_login = 1;
+        $user->status = 1;
+        $user->first_name = $request->first_name;
+        $user->second_name = $request->second_name;
         $user->address = $request->address;
         $user->birth_day = $request->birth_day;
         $user->password = Hash::make($request->password);

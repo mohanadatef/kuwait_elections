@@ -60,7 +60,7 @@ class HomeController extends Controller
             $nominee = DB::table("users")->wherein('id', $user_role)->inRandomOrder()->first();
             if ($nominee) {
                 $nominee=User::with(['profile_image'=>function($query){
-                    $query->where('category','profile')->where('status', 1);
+                    $query->where('category','profile');
                 }])->find($nominee->id);
                 $nominee = new NomineeResource($nominee);
             }

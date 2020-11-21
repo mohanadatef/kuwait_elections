@@ -14,7 +14,7 @@ class NomineeResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->profile_image)
+        if($this->image->first())
         {
             return [
                 'nominee_id'=>$this->id,
@@ -32,7 +32,7 @@ class NomineeResource extends JsonResource
                 'registration_number'=>$this->registration_number,
                 'registration_data'=>$this->registration_data,
                 'token'=>$this->remember_token,
-                'profile_image'=> asset('public/images/user/profile/'.$this->profile_image->image),
+                'profile_image'=> asset('public/images/user/profile/'.$this->image->first()->image),
                 'role'=>$this->role[0]->id,
                 'birth_day'=>$this->birth_day,
                 'gender'=>$this->gender,
