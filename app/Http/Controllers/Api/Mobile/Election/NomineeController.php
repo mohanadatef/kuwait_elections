@@ -79,7 +79,9 @@ class NomineeController extends Controller
             $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
             if ($user_role) {
                 if (count($election_f) != 0) {
-                    $nominee = DB::table("users")->wherein('id', $user_role)->whereNotIn('id', $election_f)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
+                    $nominee = User::with(['profile_image'=>function($query){
+                        $query->where('category','profile');
+                    }])->wherein('id', $user_role)->whereNotIn('id', $election_f)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
                     if ($nominee) {
                         return response(['status' => 1,
                             'data' => ['status_election' => 0, 'nominee' => new NomineeResource($nominee)], 'message' => 'برجاء انتخاب مرشح'], 201);
@@ -90,7 +92,9 @@ class NomineeController extends Controller
                         }
                     }
                 }
-                $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
+                $nominee = User::with(['profile_image'=>function($query){
+                    $query->where('category','profile');
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
                 if ($nominee) {
                     return response(['status' => 1,
                         'data' => ['status_election' => 0, 'nominee' => new NomineeResource($nominee)], 'message' => 'برجاء انتخاب مرشح'], 201);
@@ -101,7 +105,9 @@ class NomineeController extends Controller
             $nominees = array();
             $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
             if (count($user_role) != 0) {
-                $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
+                $nominees = User::with(['profile_image'=>function($query){
+                    $query->where('category','profile');
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
                 if ($nominees) {
                     $nominees = NomineeResource::collection($nominees);
                 }
@@ -117,7 +123,9 @@ class NomineeController extends Controller
                 $election->nominee_id = $request->nominee_id;
                 $election->status = 1;
                 $election->save();
-                $nominee = User::find($election->nominee_id);
+                $nominee = User::with(['profile_image'=>function($query){
+                    $query->where('category','profile');
+                }])->find($election->nominee_id);
                 $nominee = new NomineeResource($nominee);
                 return response(['status' => 1,
                     'data' => [
@@ -127,7 +135,9 @@ class NomineeController extends Controller
                     'message' => 'تم انتخاب المرشح بنجاح'
                 ], 200);
             }
-            $nominee = User::find($check->nominee_id);
+            $nominee = User::with(['profile_image'=>function($query){
+                $query->where('category','profile');
+            }])->find($check->nominee_id);
             $nominee = new NomineeResource($nominee);
             if ($nominee) {
                 return response(['status' => 1,
