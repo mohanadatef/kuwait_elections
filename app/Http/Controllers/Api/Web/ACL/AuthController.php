@@ -23,22 +23,22 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user=User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                if ($user->status == 1) {
-                    $credentials = ['civil_reference'=>$user->civil_reference, 'password'=>$request->password];
-                    $token = JWTAuth::attempt($credentials);
-                    $user->remember_token = $token;
-                    $user->update();
-                    $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
-                    return response(['status' => 1, 'user' => array(new UserResource($user))], 200);
-                }
-                return response(['status' => 0, 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
-            }
-            return response(['status' => 0, 'message' => 'كلمه السر خطا'], 401);
+        $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'الايميل خطا'], 401);
         }
-        return response(['status' => 0, 'message' => 'الايميل خطا'], 401);
+        if (!Hash::check($request->password, $user->password)) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'كلمه السر خطا'], 401);
+        }
+        if (!$user->status == 1) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
+        }
+        $credentials = ['civil_reference' => $user->civil_reference, 'password' => $request->password];
+        $token = JWTAuth::attempt($credentials);
+        $user->remember_token = $token;
+        $user->update();
+        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
+        return response(['status' => 1, 'user' => new UserResource($user), 'message' => 'تم التسجيل بنجاح'], 200);
     }
 
     public function me()

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Web\ACL;
 
 use App\Http\Resources\Web\ACL\LogResource;
 use App\Repositories\ACL\LogRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class LogController extends Controller
 {
@@ -18,13 +18,17 @@ class LogController extends Controller
         $this->logRepository = $LogRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $log = $this->logRepository->Get_All_Datas_User(Auth::User()->id);
-        $this->logRepository->Create_Data(''.Auth::User()->id.'', 'عرض', 'عرض سجل النشاطات');
-        if ($log != null) {
-            $log =  LogResource::collection($log);
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        return response(['status'=>1,'log' => $log], 400);
+        $log = $this->logRepository->Get_All_Datas_User($user->id);
+        $this->logRepository->Create_Data(''.$user->id.'', 'عرض', 'عرض سجل النشاطات');
+        if ($log) {
+            return response(['status'=>1,'log' => LogResource::collection($log),'message'=>'سجل نشاطات المستخدم'], 200);
+        }
+        return response(['status'=>1,'data'=>array(),'message'=>'لا يوجد نشاطات لعرضها'], 200);
     }
 }
