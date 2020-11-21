@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vote_Nominee extends Model
 {
     protected $fillable = [
-        'vote_id','nominee_id'
+        'vote_id','nominee_id','nominee_count'
     ];
     public function nominee()
     {
