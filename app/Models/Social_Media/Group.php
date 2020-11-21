@@ -11,7 +11,7 @@ class Group extends Model
     ];
     public function image()
     {
-        return $this->hasMany('App\Models\Image','category_id');
+        return $this->belongsTo('App\Models\Image','category_id');
     }
     public function group_user()
     {

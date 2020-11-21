@@ -19,7 +19,7 @@ class GroupController extends Controller
 
     public function show_all_group(Request $request)
     {
-        $group = Group::all();
+        $group = Group::with('image')->get();
         if($request->status_auth ==1)
         {
         $this->logRepository->Create_Data('' . $request->user_id . '', 'عرض', 'عرض كل الجروب');

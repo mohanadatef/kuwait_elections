@@ -157,7 +157,9 @@ class NomineeController extends Controller
             }
             $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض قائمه المرشح');
         }
-        $nominee = User::find($request->nominee_id);
+        $nominee = User::with(['profile_image'=>function($query){
+            $query->where('category','profile')->where('status', 1);
+        }])->find($request->nominee_id);
         if ($nominee) {
             $nominee = array(new NomineeResource($nominee));
         } else {
@@ -166,9 +168,13 @@ class NomineeController extends Controller
         $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
         if (count($user_role) != 0) {
             if ($request->status_auth == 1) {
-                $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
+                $nominees = User::with(['profile_image'=>function($query){
+                    $query->where('category','profile')->where('status', 1);
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
             } else {
-                $nominees = DB::table("users")->wherein('id', $user_role)->get();
+                $nominees = User::with(['profile_image'=>function($query){
+                    $query->where('category','profile')->where('status', 1);
+                }])->wherein('id', $user_role)->get();
             }
         }
             if ($nominees) {
