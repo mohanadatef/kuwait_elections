@@ -76,7 +76,7 @@ class ForgotPasswordController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى ادخال البيانات'], 422);
+            return response(['status' => 0, 'data' => array(), 'message' => $validate->errors()], 422);
         }
         $user->password = Hash::make($request->password);
         $user->status_login = 1;

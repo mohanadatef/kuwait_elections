@@ -48,7 +48,7 @@ class CommitController extends Controller
             ]);
         }
         if ($validate->fails()) {
-            return response(['status' => 0, 'data'=>['error' => $validate->errors()],'message'=>'خطا فى المدخلات'], 422);
+            return response(['status' => 0, 'data'=>array(),'message'=>$validate->errors()], 422);
         }
         $commit = new Commit();
         $commit->details = $request->details;
@@ -103,7 +103,7 @@ class CommitController extends Controller
                 ]);
             }
             if ($validate->fails()) {
-                return response(['status' => 0, 'data'=>['error' => $validate->errors()],'message'=>'خطا فى المدخلات'], 422);
+                return response(['status' => 0, 'data'=>array(),'message'=>$validate->errors()], 422);
             }
             $commit->details = $request->details;
             $commit->save();

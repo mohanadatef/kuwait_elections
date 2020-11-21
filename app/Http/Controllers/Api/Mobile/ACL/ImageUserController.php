@@ -47,7 +47,7 @@ class ImageUserController extends Controller
             'image_profile' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
         if ($validate->fails()) {
-            return response(['status'=>0,'data'=>['error' => $validate->errors()], 'message' => 'خطا فى ادخال البيانات'], 422);
+            return response(['status'=>0,'data'=>array(), 'message' => $validate->errors()], 422);
         }
         $user_image = Image::find($request->image_id);
         if ($user_image) {

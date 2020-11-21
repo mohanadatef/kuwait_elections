@@ -41,7 +41,7 @@ class GroupPostController extends Controller
             ]);
         }
         if ($validate->fails()) {
-            return response(['status'=>0,'data'=>['error'=>$validate->errors()],'message' => 'خطا فى المدخلات'], 422);
+            return response(['status'=>0,'data'=>array(),'message' => $validate->errors()], 422);
         }
         $post = new Post();
         $post->details = $request->details;

@@ -45,7 +45,7 @@ class UserController extends Controller
             'job' => 'required|string',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى البيانات المدخله'], 422);
+            return response(['status' => 0, 'data' => array(), 'message' => $validate->errors()], 422);
         }
         $user = new User();
         $user->status = 1;
@@ -180,7 +180,7 @@ class UserController extends Controller
             'about' => 'string|max:255',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0,'data'=>['error'=>$validate->errors()] ,'message' =>'خطا فى المدخلات' ], 422);
+            return response(['status' => 0,'data'=>array() ,'message' =>$validate->errors()], 422);
         }
             $user->update($request->all());
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل بيانات المستخدم');
@@ -201,7 +201,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0, 'data' => ['error' => $validate->errors()], 'message' => 'خطا فى البيانات المدخله'], 422);
+            return response(['status' => 0, 'data' => array(), 'message' => $validate->errors()], 422);
         }
         $user->password=hash::make($request->password);
         $user->save();

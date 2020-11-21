@@ -17,7 +17,7 @@ class CallUsController extends Controller
             'mobile' => 'required|string',
         ]);
         if ($validate->fails()) {
-            return response(['status' => 0,'data'=>['error'=>$validate->errors()],'message' =>'خطا فى المدخلات' ], 422);
+            return response(['status' => 0,'data'=>array(),'message' =>$validate->errors() ], 422);
         }
         $call_us = new Call_Us();
         $call_us->create($request->all());
