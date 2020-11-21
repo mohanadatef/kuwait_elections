@@ -13,9 +13,9 @@ class Circle extends Model
     {
         return $this->hasMany('App\User');
     }
-    public function takeed()
+    public function vote()
     {
-        return $this->hasMany('App\Models\ACL\Takeed','circle');
+        return $this->hasMany('App\Models\Election\Vote');
     }
     protected $table = 'circles';
     public $timestamps = true;
