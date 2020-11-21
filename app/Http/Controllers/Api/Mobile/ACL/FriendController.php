@@ -25,11 +25,11 @@ class FriendController extends Controller
 
     public function send_friend(Request $request)
     {
-        $user_send = User::find($request->user_send_id);
+        $user_send = $this->userRepository->Get_One_Data($request->user_send_id);
         if (!$user_send) {
             return response(['status' => 0, 'data' => array(), 'message' => 'رقم المستخدم المرسل خطاء'], 400);
         }
-        $user_receive = User::find($request->user_receive_id);
+        $user_receive = $this->userRepository->Get_One_Data($request->user_receive_id);
         if (!$user_receive) {
             return response(['status' => 0, 'data' => array(), 'message' => 'رقم المستخدم المرسل اليه خطاء'], 400);
         }
@@ -44,7 +44,7 @@ class FriendController extends Controller
 
     public function accept_friend(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
@@ -61,7 +61,7 @@ class FriendController extends Controller
 
     public function delete_friend(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
@@ -77,7 +77,7 @@ class FriendController extends Controller
 
     public function all_friend(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
@@ -98,7 +98,7 @@ class FriendController extends Controller
 
     public function all_request_friend(Request $request)
     {
-        $user = User::find($request->user_id);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
