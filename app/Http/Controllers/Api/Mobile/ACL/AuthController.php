@@ -37,7 +37,7 @@ class AuthController extends Controller
         $token = JWTAuth::attempt($credentials);
         $user->remember_token = $token;
         $user->update();
-        $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الدخول', 'تم تسجبل الدخول');
+        $this->logRepository->Create_Data('' . $user->id . '', 'الدخول', 'تم تسجبل الدخول');
         return response(['status' => 1, 'data' => ['user' => new UserResource($user)], 'message' => 'تم التسجيل بنجاح'], 200);
     }
 

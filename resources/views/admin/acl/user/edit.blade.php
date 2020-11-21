@@ -40,27 +40,21 @@
                 <form id="edit" action="{{url('admin/user/update/'.$data->id)}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     {{method_field('patch')}}
-                    <div class="form-group{{ $errors->has('username') ? ' has-error' : "" }}">
-                        اسم المستخدم : <input type="text" class="form-control" name="username" value="{{$data->username}}"
+                    <div class="form-group{{ $errors->has('civil_reference') ? ' has-error' : "" }}">
+                        اسم المستخدم : <input type="text" class="form-control" name="civil_reference" value="{{$data->civil_reference}}"
                                            placeholder="برجاء ادخال اسم المستخدم">
                     </div>
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : "" }}">
-                        البريد الالكتروني : <input type="email" class="form-control" name="email" value="{{$data->email}}" placeholder="برجاء ادخال البريد الالكتروني">
-                    </div>
-                    <div class="form-group{{ $errors->has('mobile') ? ' has-error' : "" }}">
-                        رقم الهاتف : <input type="text" value="{{$data->mobile}}" class="form-control"
-                                        name="mobile"
-                                        placeholder="برجاء ادخال رقم الهاتف">
-                    </div>
-                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
-                        الاسم الاول : <input type="text" value="{{$data->first_name}}" class="form-control"
-                                             name="first_name"
-                                             placeholder="برجاء ادخال رقم الهاتف">
-                    </div>
-                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : "" }}">
-                        اسم العائله : <input type="text" value="{{$data->last_name}}" class="form-control"
-                                             name="last_name"
-                                             placeholder="برجاء ادخال رقم الهاتف">
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : "" }}">
+                        <table class="table">
+                            <tr>
+                                <td width="40%" align="right"><label>برجاء تحميل صوره</label></td>
+                                <td width="30"><input type="file" value="{{Request::old('image')}}" name="image"/></td>
+                            </tr>
+                            <tr>
+                                <td width="40%" align="right"></td>
+                                <td width="30"><span class="text-muted">jpg, png, gif</span></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
                         اختار الدائرة :

@@ -24,15 +24,15 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|string|max:255|unique:users',
-            'name' => 'required|string|max:255',
-            'family' => 'required|string|max:255',
-            'mobile' => 'required|string|unique:users',
-            'role_id' => 'required|exists:roles,id',
-            'circle_id' => 'required|exists:circles,id',
-            'area_id' => 'required|exists:areas,id',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'username' => 'string|max:255|unique:users',
+            'name' => 'string|max:255',
+            'family' => 'string|max:255',
+            'mobile' => 'string|unique:users',
+            'role_id' => 'exists:roles,id',
+            'circle_id' => 'exists:circles,id',
+            'area_id' => 'exists:areas,id',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'string|min:6|confirmed',
         ];
     }
     public function messages()

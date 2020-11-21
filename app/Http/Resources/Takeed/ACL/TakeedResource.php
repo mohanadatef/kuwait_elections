@@ -21,7 +21,7 @@ class TakeedResource extends JsonResource
             $this->second_name,
             $this->third_name,
             $this->forth_name,
-            $this->area_id,
+            $this->area->title,
             $this->gender,
             $this->internal_reference,
             $this->civil_reference,
@@ -31,7 +31,7 @@ class TakeedResource extends JsonResource
             $this->registration_status,
             $this->registration_number,
             $this->registration_data,
-            $this->circle_id
+            $this->circle->title
         ];
     }
 }

@@ -9,9 +9,9 @@ use App\Http\Requests\Admin\ACl\User\EditRequest;
 use App\Http\Requests\Admin\ACl\User\StatusEditRequest;
 use App\Interfaces\ACL\UserInterface;
 use App\Models\ACL\Role_user;
+use App\Models\Image;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -29,7 +29,7 @@ class UserRepository implements UserInterface
 
     public function Get_All_Datas()
     {
-        return $this->user->with('circle')->select('id','circle_id','name','civil_reference')->paginate(100);
+        return $this->user->with('circle')->select('id','circle_id','name','civil_reference')->orderBy('id','DESC')->paginate(100);
     }
 
     public function Create_Data(CreateRequest $request)
@@ -49,6 +49,17 @@ class UserRepository implements UserInterface
        $user = $this->Get_One_Data($id);
         $user->role()->sync((array)$request->role_id);
             $user->update($request->all());
+            if($request->image)
+            {
+        $profile_image = new Image();
+        $profile_image->category_id = $user->id;
+        $profile_image->category = 'profile';
+        $profile_image->status = 1;
+        $imageName = $request->image->getClientOriginalname().'-'.time() .'.'.Request()->image->getClientOriginalExtension();
+        Request()->image->move(public_path('images/user/profile'), $imageName);
+        $profile_image->image  = $imageName;
+        $profile_image->save();
+            }
     }
 
     public function Update_Password_Data(PasswordRequest $request, $id)

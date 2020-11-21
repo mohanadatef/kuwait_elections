@@ -39,28 +39,24 @@
             <div class="box-body">
                 <form id="user_create" action="{{url('admin/user/store')}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    <div class="form-group{{ $errors->has('username') ? ' has-error' : "" }}">
-                        اسم المستخدم : <input type="text" value="{{Request::old('username')}}" class="form-control"
-                                           name="username"
-                                           placeholder="برجاء ادخال اسم المستخدم">
-                    </div>
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : "" }}">
-                        البريد الاكتروني : <input type="email" value="{{Request::old('email')}}" class="form-control"
-                                       name="email" placeholder="برجاء ادخال البريد الالكتروني">
+                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
+                        civil_reference : <input type="text" value="{{Request::old('civil_reference')}}" class="form-control"
+                                             name="civil_reference"
+                                             placeholder="برجاء ادخال رقم الهاتف">
                     </div>
                     <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
                         الاسم الاول : <input type="text" value="{{Request::old('first_name')}}" class="form-control"
                                             name="first_name"
                                             placeholder="برجاء ادخال رقم الهاتف">
                     </div>
-                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : "" }}">
-                        اسم العائله : <input type="text" value="{{Request::old('last_name')}}" class="form-control"
-                                            name="last_name"
+                    <div class="form-group{{ $errors->has('second_name') ? ' has-error' : "" }}">
+                        اسم second_name : <input type="text" value="{{Request::old('second_name')}}" class="form-control"
+                                            name="second_name"
                                             placeholder="برجاء ادخال رقم الهاتف">
                     </div>
-                    <div class="form-group{{ $errors->has('mobile') ? ' has-error' : "" }}">
-                        رقم الهاتف : <input type="text" value="{{Request::old('mobile')}}" class="form-control"
-                                           name="mobile"
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : "" }}">
+                        رقم name : <input type="text" value="{{Request::old('name')}}" class="form-control"
+                                           name="name"
                                            placeholder="برجاء ادخال رقم الهاتف">
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : "" }}">
@@ -72,7 +68,7 @@
                                                        class="form-control" name="password_confirmation"
                                                        placeholder="برجاء تاكيد كلمه السر">
                     </div>
-                    <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
+                    <div class="form-group{{ $errors->has('circle_id') ? ' has-error' : "" }}">
                         اختار الدائرة :
                         <select id="circle" class="form-control select2" data-placeholder="برجاء اختيار الدائرة" name="circle_id">
                             <option value="0" selected>اختار الدائرة</option>

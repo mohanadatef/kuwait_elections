@@ -24,14 +24,14 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|max:255|string|unique:users,username,'.$this->id.',id',
-            'role_id' => 'required|exists:roles,id',
-            'email' => 'required|email|max:255|string|unique:users,email,'.$this->id.',id',
-            'mobile' => 'required|string|unique:users,mobile,'.$this->id.',id',
-            'circle_id' => 'required|exists:circles,id',
-            'area_id' => 'required|exists:areas,id',
-            'name' => 'required|string|max:255',
-            'family' => 'required|string|max:255',
+            /*'username' => 'max:255|string|unique:users,username,'.$this->id.',id',
+            'role_id' => 'exists:roles,id',
+            'email' => 'email|max:255|string|unique:users,email,'.$this->id.',id',
+            'mobile' => 'string|unique:users,mobile,'.$this->id.',id',
+            'circle_id' => 'exists:circles,id',
+            'area_id' => 'exists:areas,id',
+            'name' => 'string|max:255',
+            'family' => 'string|max:255',*/
         ];
 
     }

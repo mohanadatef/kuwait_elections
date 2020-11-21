@@ -26,8 +26,8 @@ class TakeedController extends Controller
     {
         $colum_filter1 = array('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
             'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data');
-        $takeed = User::where('circle', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
-            ->orwhere('circle', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
+        $takeed = User::where('circle_id', $request->circle)->where($colum_filter1[$request->filter], 'like', $request->word . '%')
+            ->orwhere('circle_id', $request->circle)->Where($colum_filter1[$request->filter], 'like', '%' . $request->word . '%')
             ->select('family_name','name','first_name','second_name','third_name','forth_name','area_id','gender',
                 'internal_reference','civil_reference','birth_day','job','address','registration_status','registration_number','registration_data'
             ,'circle_id')

@@ -1,5 +1,5 @@
 <?php
-
+Auth::routes();
 Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function () {
 
     Route::get('', 'HomeController@index');
