@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\ACL;
 
 use App\Imports\TakeedImport;
-use App\Models\ACL\Takeed;
 use App\Repositories\ACL\LogRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class TakeedController extends Controller
     public function index()
     {
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح قائمه الناخبين على لوحه التحكم');
-        $datas  = Takeed::with('circle1')->paginate(500);
+        $datas  = User::with('circle')->paginate(500);
         return view('admin.import.takeed.index',compact('datas'));
     }
 

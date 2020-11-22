@@ -37,7 +37,6 @@
                                     <th align="center">الإسم الثاني</th>
                                     <th align="center">الإسم الثالث</th>
                                     <th align="center">الإسم الرابع</th>
-                                    <th align="center">إسم العائلة1</th>
                                     <th align="center">الجدول (أمة)</th>
                                     <th align="center">نوع الجدول</th>
                                     <th align="center">مرجع الداخلية</th>
@@ -61,9 +60,12 @@
                                         <td align="center">{{ $data->second_name }}</td>
                                         <td align="center">{{ $data->third_name }}</td>
                                         <td align="center">{{ $data->forth_name }}</td>
-                                        <td align="center">{{ $data->family_name_one }}</td>
-                                        <td align="center">{{ $data->table_area }}</td>
-                                        <td align="center">{{ $data->table_gender }}</td>
+                                        <td align="center">{{ $data->area->title }}</td>
+                                        @if($data->gender == 1)
+                                        <td align="center"> رجل</td>
+                                        @else
+                                            <td align="center"> انثى</td>
+                                        @endif
                                         <td align="center">{{ $data->internal_reference }}</td>
                                         <td align="center">{{ $data->civil_reference }}</td>
                                         <td align="center">{{ $data->birth_day }}</td>
@@ -72,7 +74,7 @@
                                         <td align="center">{{ $data->registration_status }}</td>
                                         <td align="center">{{ $data->registration_number }}</td>
                                         <td align="center">{{ $data->registration_data }}</td>
-                                        <td align="center">{{ $data->circle1->title }}</td>
+                                        <td align="center">{{ $data->circle->title }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -85,7 +87,6 @@
                                     <th align="center">الإسم الثاني</th>
                                     <th align="center">الإسم الثالث</th>
                                     <th align="center">الإسم الرابع</th>
-                                    <th align="center">إسم العائلة1</th>
                                     <th align="center">الجدول (أمة)</th>
                                     <th align="center">نوع الجدول</th>
                                     <th align="center">مرجع الداخلية</th>
