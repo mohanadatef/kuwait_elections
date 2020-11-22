@@ -47,10 +47,17 @@ class TakeedController extends Controller
 
     public function index()
     {
-        $circle = Circle::all();
-        $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','الجدول (أمة)','نوع الجدول',
-            'مرجع الداخلية','الرقم المدني','سنة الميلاد','المهنة','العنوان','حالة القيد','رقم القيد','تاريخ القيد');
-        $this->logRepository->Create_Data(''.Auth::user()->id.'', 'بحث', 'بحث فى takeed');
-        return response(['status' => 1,'circle' => CircleResource::collection($circle), 'colum_filter' => $colum_filter], 200);
+        $user=Auth::user()->role;
+            foreach ($user as $role) {
+
+                if ($role->id == 1 ||$role->id == 2||$role->id == 5) {
+                    $circle = Circle::all();
+                    $colum_filter = array('إسم العائلة', 'الإسم', 'الإسم الأول','الإسم الثاني','الإسم الثالث','الإسم الرابع','الجدول (أمة)','نوع الجدول',
+                        'مرجع الداخلية','الرقم المدني','سنة الميلاد','المهنة','العنوان','حالة القيد','رقم القيد','تاريخ القيد');
+                    $this->logRepository->Create_Data(''.Auth::user()->id.'', 'بحث', 'بحث فى takeed');
+                    return response(['status' => 1,'circle' => CircleResource::collection($circle), 'colum_filter' => $colum_filter], 200);
+                }
+            }
+        return response(['status' => 0], 200);
     }
 }
