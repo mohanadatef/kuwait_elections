@@ -24,29 +24,27 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            /*'username' => 'max:255|string|unique:users,username,'.$this->id.',id',
-            'role_id' => 'exists:roles,id',
-            'email' => 'email|max:255|string|unique:users,email,'.$this->id.',id',
-            'mobile' => 'string|unique:users,mobile,'.$this->id.',id',
-            'circle_id' => 'exists:circles,id',
-            'area_id' => 'exists:areas,id',
+            'family_name' => 'string|max:255',
             'name' => 'string|max:255',
-            'family' => 'string|max:255',*/
-        ];
-
-    }
-    public function messages()
-    {
-        return [
-            'password.required' => 'برجاء ادخال كلمه السر',
-            'username.required' => 'برجاء ادخال اسم المستخدم',
-            'mobile.required' => 'برجاء ادخال الهاتف',
-            'role_id.required' => 'برجاء ادخال نوع المستخدم',
-            'circle_id.required' => 'برجاء ادخال الدائرة',
-            'area_id.required' => 'برجاء ادخال المنطقه',
-            'email.required' => 'برجاء ادخال البريد الالكتروني',
-            'name.required' => 'برجاء ادخال اسم الاول',
-            'family.required' => 'برجاء ادخال اسم العائله',
+            'first_name' => 'string|max:255',
+            'second_name' => 'string|max:255',
+            'third_name' => 'string|max:255',
+            'forth_name' => 'exists:areas,id',
+            'area_id' => 'exists:areas,id',
+            'gender' => 'string',
+            'internal_reference' => 'string',
+            'civil_reference' => 'string|unique:users,civil_reference,'.$this->id.',id',
+            'job' => 'string|max:255',
+            'address' => 'string|max:255',
+            'registration_status' => 'string|max:255',
+            'registration_number' => 'string|max:255',
+            'registration_data' => 'string|max:255',
+            'circle_id' => 'exists:circles,id',
+            'password' => 'string|min:6|confirmed',
+            'mobile' => 'string|max:255|unique:users,mobile,'.$this->id.',id',
+            'about' => 'string|max:255',
+            'email' => 'email|max:255|string|unique:users,email,'.$this->id.',id',
+            'birth_day' => 'data',
         ];
     }
 

@@ -24,29 +24,27 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'string|max:255|unique:users',
+            'family_name' => 'string|max:255',
             'name' => 'string|max:255',
-            'family' => 'string|max:255',
-            'mobile' => 'string|unique:users',
-            'role_id' => 'exists:roles,id',
-            'circle_id' => 'exists:circles,id',
+            'first_name' => 'string|max:255',
+            'second_name' => 'string|max:255',
+            'third_name' => 'string|max:255',
+            'forth_name' => 'exists:areas,id',
             'area_id' => 'exists:areas,id',
-            'email' => 'string|email|max:255|unique:users',
+            'gender' => 'string',
+            'internal_reference' => 'string',
+            'civil_reference' => 'string|unique:users',
+            'job' => 'string|max:255',
+            'address' => 'string|max:255',
+            'registration_status' => 'string|max:255',
+            'registration_number' => 'string|max:255',
+            'registration_data' => 'string|max:255',
+            'circle_id' => 'exists:circles,id',
             'password' => 'string|min:6|confirmed',
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'password.required' => 'برجاء ادخال كلمه السر',
-            'username.required' => 'برجاء ادخال اسم المستخدم',
-            'name.required' => 'برجاء ادخال اسم ',
-            'family.required' => 'برجاء ادخال اسم القابيله',
-            'mobile.required' => 'برجاء ادخال الهاتف',
-            'role_id.required' => 'برجاء ادخال نوع المستخدم',
-            'circle_id.required' => 'برجاء ادخال الدائرة',
-            'area_id.required' => 'برجاء ادخال المنطقه',
-            'email.required' => 'برجاء ادخال البريد الالكتروني',
+            'mobile' => 'string|max:255|unique:users',
+            'about' => 'string|max:255',
+            'email' => 'email|max:255|string|unique:users',
+            'birth_day' => 'data',
         ];
     }
 }

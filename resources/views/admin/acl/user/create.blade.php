@@ -40,24 +40,74 @@
                 <form id="user_create" action="{{url('admin/user/store')}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
-                        civil_reference : <input type="text" value="{{Request::old('civil_reference')}}" class="form-control"
-                                             name="civil_reference"
-                                             placeholder="برجاء ادخال رقم الهاتف">
+                        الاسم كامل : <input type="text" value="{{Request::old('name')}}" class="form-control"
+                                             name="name"
+                                             placeholder="برجاء ادخال الاسم كامل">
                     </div>
                     <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
                         الاسم الاول : <input type="text" value="{{Request::old('first_name')}}" class="form-control"
                                             name="first_name"
-                                            placeholder="برجاء ادخال رقم الهاتف">
+                                            placeholder="برجاء ادخال الاول">
                     </div>
                     <div class="form-group{{ $errors->has('second_name') ? ' has-error' : "" }}">
-                        اسم second_name : <input type="text" value="{{Request::old('second_name')}}" class="form-control"
+                        اسم الثاني : <input type="text" value="{{Request::old('second_name')}}" class="form-control"
                                             name="second_name"
-                                            placeholder="برجاء ادخال رقم الهاتف">
+                                            placeholder="برجاء ادخال اسم الثاني">
                     </div>
-                    <div class="form-group{{ $errors->has('name') ? ' has-error' : "" }}">
-                        رقم name : <input type="text" value="{{Request::old('name')}}" class="form-control"
-                                           name="name"
-                                           placeholder="برجاء ادخال رقم الهاتف">
+                    <div class="form-group{{ $errors->has('third_name') ? ' has-error' : "" }}">
+                        الاسم الثالث : <input type="text" value="{{Request::old('third_name')}}" class="form-control"
+                                             name="third_name"
+                                             placeholder="برجاء ادخال الثالث">
+                    </div>
+                    <div class="form-group{{ $errors->has('forth_name') ? ' has-error' : "" }}">
+                        اسم الرابع : <input type="text" value="{{Request::old('forth_name')}}" class="form-control"
+                                            name="forth_name"
+                                            placeholder="برجاء ادخال اسم الرابع">
+                    </div>
+                    <div class="form-group{{ $errors->has('internal_reference') ? ' has-error' : "" }}">
+                        المرجع الداخلي : <input type="text" value="{{Request::old('internal_reference')}}" class="form-control"
+                                            name="internal_reference"
+                                            placeholder="برجاء ادخال المرجع الداخلي">
+                    </div>
+                    <div class="form-group{{ $errors->has('civil_reference') ? ' has-error' : "" }}">
+                        المرجع المدني : <input type="text" value="{{Request::old('civil_reference')}}" class="form-control"
+                                                name="civil_reference"
+                                                placeholder="برجاء ادخال المرجع المدني">
+                    </div>
+                    <div class="form-group{{ $errors->has('job') ? ' has-error' : "" }}">
+                        مهنة : <input type="text" value="{{Request::old('job')}}" class="form-control"
+                                      name="job"
+                                      placeholder="برجاء ادخال مهنة">
+                    </div>
+                    <div class="form-group{{ $errors->has('address') ? ' has-error' : "" }}">
+                        عنوان : <input type="text" value="{{Request::old('address')}}" class="form-control"
+                                               name="address"
+                                               placeholder="برجاء ادخال عنوان">
+                    </div>
+                    <div class="form-group{{ $errors->has('registration_status') ? ' has-error' : "" }}">
+                        حالة التسجيل : <input type="text" value="{{Request::old('registration_status')}}" class="form-control"
+                                              name="registration_status"
+                                              placeholder="برجاء ادخال حالة التسجيل">
+                    </div>
+                    <div class="form-group{{ $errors->has('registration_number') ? ' has-error' : "" }}">
+                        رقم التسجيل : <input type="text" value="{{Request::old('registration_number')}}" class="form-control"
+                                             name="registration_number"
+                                             placeholder="برجاء ادخال رقم التسجيل">
+                    </div>
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : "" }}">
+                        البريد الإلكتروني : <input type="email" value="{{Request::old('email')}}" class="form-control"
+                                             name="email"
+                                             placeholder="برجاء ادخال البريد الإلكتروني">
+                    </div>
+                    <div class="form-group{{ $errors->has('mobile') ? ' has-error' : "" }}">
+                        التليفون المحمول : <input type="text" value="{{Request::old('mobile')}}" class="form-control"
+                                                   name="mobile"
+                                                   placeholder="برجاء ادخال التليفون المحمول">
+                    </div>
+                    <div class="form-group{{ $errors->has('about') ? ' has-error' : "" }}">
+                        الحمله الانتخابيه : <input type="text" value="{{Request::old('about')}}" class="form-control"
+                                                  name="about"
+                                                  placeholder="برجاء ادخال الحمله الانتخابيه">
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : "" }}">
                         كلمه السر : <input type="password" value="{{Request::old('password')}}" class="form-control"
@@ -67,6 +117,18 @@
                         تاكيد كلمه السر : <input type="password" value="{{Request::old('password')}}"
                                                        class="form-control" name="password_confirmation"
                                                        placeholder="برجاء تاكيد كلمه السر">
+                    </div>
+                    <div class="form-group{{ $errors->has('image') ? ' has-error' : "" }}">
+                        <table class="table">
+                            <tr>
+                                <td width="40%" align="right"><label>برجاء تحميل صوره</label></td>
+                                <td width="30"><input type="file" value="{{Request::old('image')}}" name="image"/></td>
+                            </tr>
+                            <tr>
+                                <td width="40%" align="right"></td>
+                                <td width="30"><span class="text-muted">jpg, png, gif</span></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="form-group{{ $errors->has('circle_id') ? ' has-error' : "" }}">
                         اختار الدائرة :

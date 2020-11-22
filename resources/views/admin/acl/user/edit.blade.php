@@ -40,9 +40,75 @@
                 <form id="edit" action="{{url('admin/user/update/'.$data->id)}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     {{method_field('patch')}}
+                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
+                        الاسم كامل : <input type="text" value="{{$data->name}}" class="form-control"
+                                            name="name"
+                                            placeholder="برجاء ادخال الاسم كامل">
+                    </div>
+                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
+                        الاسم الاول : <input type="text" value="{{$data->first_name}}" class="form-control"
+                                             name="first_name"
+                                             placeholder="برجاء ادخال الاول">
+                    </div>
+                    <div class="form-group{{ $errors->has('second_name') ? ' has-error' : "" }}">
+                        اسم الثاني : <input type="text" value="{{$data->second_name}}" class="form-control"
+                                            name="second_name"
+                                            placeholder="برجاء ادخال اسم الثاني">
+                    </div>
+                    <div class="form-group{{ $errors->has('third_name') ? ' has-error' : "" }}">
+                        الاسم الثالث : <input type="text" value="{{$data->third_name}}" class="form-control"
+                                              name="third_name"
+                                              placeholder="برجاء ادخال الثالث">
+                    </div>
+                    <div class="form-group{{ $errors->has('forth_name') ? ' has-error' : "" }}">
+                        اسم الرابع : <input type="text" value="{{$data->forth_name}}" class="form-control"
+                                            name="forth_name"
+                                            placeholder="برجاء ادخال اسم الرابع">
+                    </div>
+                    <div class="form-group{{ $errors->has('internal_reference') ? ' has-error' : "" }}">
+                        المرجع الداخلي : <input type="text" value="{{$data->internal_reference}}" class="form-control"
+                                                name="internal_reference"
+                                                placeholder="برجاء ادخال المرجع الداخلي">
+                    </div>
                     <div class="form-group{{ $errors->has('civil_reference') ? ' has-error' : "" }}">
-                        اسم المستخدم : <input type="text" class="form-control" name="civil_reference" value="{{$data->civil_reference}}"
-                                           placeholder="برجاء ادخال اسم المستخدم">
+                        المرجع المدني : <input type="text" value="{{$data->civil_reference}}" class="form-control"
+                                               name="civil_reference"
+                                               placeholder="برجاء ادخال المرجع المدني">
+                    </div>
+                    <div class="form-group{{ $errors->has('job') ? ' has-error' : "" }}">
+                        مهنة : <input type="text" value="{{$data->job}}" class="form-control"
+                                      name="job"
+                                      placeholder="برجاء ادخال مهنة">
+                    </div>
+                    <div class="form-group{{ $errors->has('address') ? ' has-error' : "" }}">
+                        عنوان : <input type="text" value="{{$data->address}}" class="form-control"
+                                       name="address"
+                                       placeholder="برجاء ادخال عنوان">
+                    </div>
+                    <div class="form-group{{ $errors->has('registration_status') ? ' has-error' : "" }}">
+                        حالة التسجيل : <input type="text" value="{{$data->registration_status}}" class="form-control"
+                                              name="registration_status"
+                                              placeholder="برجاء ادخال حالة التسجيل">
+                    </div>
+                    <div class="form-group{{ $errors->has('registration_number') ? ' has-error' : "" }}">
+                        رقم التسجيل : <input type="text" value="{{$data->registration_number}}" class="form-control"
+                                             name="registration_number"
+                                             placeholder="برجاء ادخال رقم التسجيل">
+                    </div>
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : "" }}">
+                        البريد الإلكتروني : <input type="email" value="{{$data->email}}" class="form-control"
+                                                   name="email"
+                                                   placeholder="برجاء ادخال البريد الإلكتروني">
+                    </div>
+                    <div class="form-group{{ $errors->has('mobile') ? ' has-error' : "" }}">
+                        التليفون المحمول : <input type="text" value="{{$data->mobile}}" class="form-control"
+                                                  name="mobile"
+                                                  placeholder="برجاء ادخال التليفون المحمول">
+                    </div>
+                    <div class="form-group{{ $errors->has('about') ? ' has-error' : "" }}">
+                        الحمله الانتخابيه : <input type="text" value="{{$data->about}}" class="form-control"
+                                                   name="about"
+                                                   placeholder="برجاء ادخال الحمله الانتخابيه">
                     </div>
                     <div class="form-group{{ $errors->has('image') ? ' has-error' : "" }}">
                         <table class="table">
@@ -56,7 +122,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="form-group{{ $errors->has('country_id') ? ' has-error' : "" }}">
+                    <div class="form-group{{ $errors->has('circle_id') ? ' has-error' : "" }}">
                         اختار الدائرة :
                         <select id="circle" class="form-control" data-placeholder="برجاء اختار الدائرة" name="circle_id">
                             <option value="0" selected>اختار الدائرة</option>
