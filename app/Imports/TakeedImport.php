@@ -2,14 +2,14 @@
 
 namespace App\Imports;
 
-use App\Models\ACL\Takeed;
+use App\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class TakeedImport implements ToModel
 {
     public function model(array $row)
     {
-        return new Takeed([
+        return new User([
             'family_name' => $row[0],
             'name' => $row[1],
             'first_name' => $row[2],
