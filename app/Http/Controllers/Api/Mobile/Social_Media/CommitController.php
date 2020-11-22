@@ -95,7 +95,7 @@ class CommitController extends Controller
             if ($request->image_commit) {
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
-                    'image_commit' => 'image|mimes:jpg,jpeg,png|max:2048',
+                    'image_commit' => 'string',
                 ]);
             } else {
                 $validate = \Validator::make($request->all(), [
@@ -202,6 +202,6 @@ class CommitController extends Controller
             $data = Like::with('user')->where('category', 'commit')->where('category_id', $commit->id)->get();
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح', 'مسح اعجاب منشور للمستخدم');
         }
-        return response(['status' => 1, 'data' => ['like' => new LikeResource($data), 'count' => count($data)], 'message' => $message], 200);
+        return response(['status' => 1, 'data' => ['like' => LikeResource::collection($data), 'count' => count($data)], 'message' => $message], 200);
     }
 }

@@ -53,7 +53,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
                 Route::get('show', 'PostController@show');
                 Route::post('update', 'PostController@update');
                 Route::get('delete', 'PostController@delete');
-                Route::post('like', 'PostController@like');
+                Route::get('like', 'PostController@like');
                 Route::get('share', 'PostController@share');
             });
             Route::group(['prefix' => 'commit'], function () {

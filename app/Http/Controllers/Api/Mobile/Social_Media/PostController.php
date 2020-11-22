@@ -34,7 +34,7 @@ class PostController extends Controller
         if ($request->image_post) {
             $validate = \Validator::make($request->all(), [
                 'details' => 'required|string|max:255',
-                'image_post' => 'image|mimes:jpg,jpeg,png,gi|max:2048',
+                'image_post' => 'string',
             ]);
         } else {
             $validate = \Validator::make($request->all(), [
@@ -64,6 +64,11 @@ class PostController extends Controller
             $post_image->image = time() . uniqid() . '.' . $image_type;
             $post_image->save();
         }
+     /*   $post=Post::with(['commit_post' => function ($query) {
+            $query->where('status', 1);
+        }], ['like' => function ($query) {
+            $query->where('category', 'post');
+        }])->find($post->id);*/
         if ($post) {
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل', 'تسجيل منشور جديد عن طريق');
             return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'تم حفظ المنشور بنجاح'], 201);
@@ -296,7 +301,7 @@ class PostController extends Controller
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح الاعجاب', 'مسح اعجاب منشور للمستخدم');
             }
-            return response(['status' => 1,'data'=>['like' => new LikeResource($data), 'count' => count($data)],'message'=>$message ], 200);
+            return response(['status' => 1,'data'=>['like' => LikeResource::collection($data), 'count' => count($data)],'message'=>$message ], 200);
     }
 
     public function share(Request $request)
