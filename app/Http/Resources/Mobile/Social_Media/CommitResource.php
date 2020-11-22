@@ -4,6 +4,7 @@ namespace App\Http\Resources\Mobile\Social_Media;
 
 use App\Http\Resources\Mobile\ACL\UserResource;
 use App\Http\Resources\Mobile\Image\CommitImageResource;
+use App\Models\Image;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,24 +18,24 @@ class CommitResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->resource->image->first()->image ) {
+        $image=Image::where('category','commit')->where('category_id',$this->id)->first();
+        if($image ) {
             return [
                 'commit_id' => $this->id,
                 'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
                 'details' => $this->details,
-                'commit_image' => asset('public/images/commit/' . $this->resource->image->first()->image),
                 'user' => new UserResource($this->resource->user),
                 'like_count' => count($this->like),
                 'like' => LikeResource::collection($this->resource->like),
                 'like_commit' => count($this->commit_commit),
                 'commit_commit' => CommitCommitResource::collection($this->resource->commit_commit),
+                'commit_image' => asset('public/images/commit/' . $image->image),
             ];
         }
         return [
             'commit_id' => $this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details' => $this->details,
-            'commit_image' =>'',
             'user' => new UserResource($this->resource->user),
             'like_count' => count($this->like),
             'like' => LikeResource::collection($this->resource->like),

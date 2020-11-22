@@ -36,13 +36,10 @@ class HomeController extends Controller
                 $friend_s = DB::table('friends')->where('user_send_id', $user->id)->where('status', 1)->pluck('user_receive_id', 'id');
                 $friend_r = DB::table('friends')->where('user_receive_id', $user->id)->where('status', 1)->pluck('user_send_id', 'id');
                 $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
-                $post = Post::with(['commit_post' => function ($query) {
-                    $query->where('status', 1);
-                }], ['like' => function ($query) {
-                    $query->where('category', 'post');
-                }],['image'=>function($query){
-                $query->where('category','post')->where('status', 1);
-            }])->wherein('user_id', $friend)->orwhere('user_id', $user->id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+                $post = Post::with('commit_post','like','image')
+                    ->wherein('user_id', $friend)
+                    ->orwhere('user_id', $user->id)
+                    ->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
                 $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
                 if (count($user_role) != 0) {
                     $nominee = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
@@ -65,13 +62,7 @@ class HomeController extends Controller
                 $nominee = new NomineeResource($nominee);
             }
         }
-        $post = Post::with(['commit_post' => function ($query) {
-            $query->where('status', 1);
-        }], ['like' => function ($query) {
-            $query->where('category', 'post');
-        }],['image'=>function($query){
-            $query->where('category','post')->where('status', 1);
-        }])->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+        $post = Post::with('commit_post','like','image')->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
         return response(['status' => 1, 'data'=>['post' => PostResource::collection($post),  'nominee' => $nominee],'message'=>'الصفحه الرئيسيه'], 200);
     }
 }
