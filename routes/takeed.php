@@ -1,5 +1,7 @@
 <?php
 //$htt = $_SERVER['HTTP_ORIGIN'];
+/*$allowedOrigins = ['http://localhost:3000','http://pano.deal360.ae/'];
+header('Access-Control-Allow-Origin: *,'.$allowedOrigins);*/
 header('Access-Control-Allow-Origin: *');
 header('Accept: application/json');
 header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
