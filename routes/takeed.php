@@ -19,11 +19,12 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
                 Route::post('refresh', 'AuthController@refresh');
                 Route::post('me', 'AuthController@me');
             });
+        });
             Route::group(['namespace' => 'Election'], function () {
             Route::group(['prefix' => 'takeed'], function () {
                 Route::get('filter/index', 'TakeedController@index');
                 Route::get('filter', 'TakeedController@filter');
-            });
+
             });
         });
     });

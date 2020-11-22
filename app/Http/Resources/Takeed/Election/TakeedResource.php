@@ -14,6 +14,8 @@ class TakeedResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->gender ==1)
+        {
         return [
             $this->family_name,
             $this->name,
@@ -22,7 +24,7 @@ class TakeedResource extends JsonResource
             $this->third_name,
             $this->forth_name,
             $this->area->title,
-            $this->gender,
+            'رجل',
             $this->internal_reference,
             $this->civil_reference,
             $this->birth_day,
@@ -33,5 +35,27 @@ class TakeedResource extends JsonResource
             $this->registration_data,
             $this->circle->title
         ];
+        }else
+        {
+            return [
+                $this->family_name,
+                $this->name,
+                $this->first_name,
+                $this->second_name,
+                $this->third_name,
+                $this->forth_name,
+                $this->area->title,
+               "انثي",
+                $this->internal_reference,
+                $this->civil_reference,
+                $this->birth_day,
+                $this->job,
+                $this->address,
+                $this->registration_status,
+                $this->registration_number,
+                $this->registration_data,
+                $this->circle->title
+            ];
+        }
     }
 }
