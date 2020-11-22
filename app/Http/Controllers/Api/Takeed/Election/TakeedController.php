@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Takeed\ACL;
+namespace App\Http\Controllers\Api\Takeed\Election;
 
-use App\Http\Resources\Takeed\ACL\TakeedResource;
+use App\Http\Resources\Takeed\Election\TakeedResource;
 use App\Http\Resources\Takeed\Core_Data\CircleResource;
 use App\Models\Core_Data\Circle;
 use App\Repositories\ACL\LogRepository;

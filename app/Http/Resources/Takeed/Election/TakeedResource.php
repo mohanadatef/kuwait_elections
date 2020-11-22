@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Takeed\ACL;
+namespace App\Http\Resources\Takeed\Election;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
