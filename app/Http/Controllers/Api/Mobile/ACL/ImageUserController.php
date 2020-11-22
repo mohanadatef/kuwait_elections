@@ -58,13 +58,12 @@ class ImageUserController extends Controller
             $profile_image->category = 'profile';
             $profile_image->status = 1;
             $folderPath=public_path('images/user/profile/');
-            $image_parts = explode(";base64,", $request->image_profile);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file =  $folderPath. time().uniqid().'.'.$image_type;
+            $image_type = 'png';
+            $image_base64 = base64_decode($request->image_profile);
+            $imageName=time() . uniqid() . '.' . $image_type;
+            $file = $folderPath . $imageName;
             file_put_contents($file, $image_base64);
-            $profile_image->image = time().uniqid().'.'.$image_type;
+            $profile_image->image = $imageName;
             $profile_image->save();
             $this->logRepository->Create_Data(''.$user->id.'','تعديل', 'تعديل صور الشخصيه لمستخدم');
             return response(['status'=>1,'data'=>['image'=>new ProfileImageResource($profile_image)], 'message' => 'تم تغير الصوره الشخصيه'], 200);

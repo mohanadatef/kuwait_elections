@@ -37,7 +37,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'first_name' => 'required|string|max:255',
             'second_name' => 'required|string|max:255',
-            'civil_reference' => 'required|string|max:255',
+            'civil_reference' => 'required|string|max:255|unique:users',
             'family_name' => 'required|string|max:255',
             'circle' => 'required|exists:circles,id',
             'area' => 'required|exists:areas,id',
@@ -82,17 +82,14 @@ class UserController extends Controller
         $image_user->status = 1;
         if ($request->image_user) {
             $folderPath=public_path('images/user/profile/');
-            $image_parts = explode(";base64,", $request->image_user);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file =  $folderPath. time().uniqid().'.'.$image_type;
+            $image_type = 'png';
+            $image_base64 = base64_decode($request->image_user);
+            $imageName=time() . uniqid() . '.' . $image_type;
+            $file = $folderPath . $imageName;
             file_put_contents($file, $image_base64);
-            $image_user->image = time().uniqid().'.'.$image_type;
-        } else {
-            $image_user->image = 'profile_user.jpg';
-        }
+            $image_user->image = $imageName;
         $image_user->save();
+        }
         if ($user) {
             $this->logRepository->Create_Data($user->id, 'تسجيل مستخدم جديد', 'تسجيل مستخدم جديد عن طريق Api' . $user->username . " / " . $user->id);
             $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");

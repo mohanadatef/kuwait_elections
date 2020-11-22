@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f38daf86-2fe0-4caa-8e7b-d491f102d6e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/routes/takeed.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/takeed.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +17,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/takeed.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+            <state relative-caret-position="608">
+              <caret line="89" column="44" selection-start-line="89" selection-start-column="44" selection-end-line="89" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="573">
+              <caret line="86" column="32" lean-forward="true" selection-start-line="75" selection-start-column="11" selection-end-line="86" selection-end-column="32" />
+              <folding>
+                <element signature="e#55#102#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="443">
+              <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+              <folding>
+                <element signature="e#55#112#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/PostController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="369">
+              <caret line="140" column="18" selection-start-line="140" selection-start-column="18" selection-end-line="146" selection-end-column="48" />
+              <folding>
+                <element signature="e#65#121#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -72,20 +110,15 @@
         <option value="$PROJECT_DIR$/app/Models/Social_Media/Group.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Mobile/Social_Media/Group/GroupResource.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Mobile/Social_Media/CommitCommitResource.php" />
         <option value="$USER_HOME$/Downloads/elections/index.html" />
         <option value="$USER_HOME$/Downloads/elections/main.d2b8464bdf50c07e5e6b.js" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ForgotPasswordController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Setting/CallUsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/Group/GroupPostController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Mobile/Election/NomineeResource.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Election/NomineeController.php" />
-        <option value="$PROJECT_DIR$/routes/mobile.php" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/Mobile/Social_Media/LikeResource.php" />
         <option value="$PROJECT_DIR$/app/Models/Image.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/HomeController.php" />
@@ -100,7 +133,12 @@
         <option value="$PROJECT_DIR$/app/Repositories/ACL/UserRepository.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Admin/ACL/User/EditRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/Admin/ACL/User/CreateRequest.php" />
+        <option value="$PROJECT_DIR$/routes/mobile.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/routes/takeed.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php" />
       </list>
     </option>
   </component>
@@ -230,7 +268,66 @@
             <path>
               <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
               <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="ACL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Mobile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="ACL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="Social_Media" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -316,11 +413,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98138000" />
+    <option name="totallyTimeSpent" value="100739000" />
   </component>
   <component name="TodoView" selected-index="3" />
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2616137" />
@@ -416,13 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="78" column="8" selection-start-line="78" selection-start-column="8" selection-end-line="81" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/elections/index.html" />
     <entry file="file://$USER_HOME$/Downloads/elections/main.d2b8464bdf50c07e5e6b.js" />
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/AuthController.php">
@@ -454,16 +544,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
-          <folding>
-            <element signature="e#55#112#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -525,16 +605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="46" column="33" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="e#55#102#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -649,20 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="171" column="26" selection-start-line="171" selection-start-column="26" selection-end-line="171" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/mobile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="77" column="5" lean-forward="true" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Resources/Mobile/Social_Media/LikeResource.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -704,16 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="165" lean-forward="true" selection-start-line="165" selection-end-line="165" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/PostController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="146" column="48" lean-forward="true" selection-start-line="140" selection-start-column="16" selection-end-line="146" selection-end-column="48" />
-          <folding>
-            <element signature="e#65#121#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -814,10 +860,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/mobile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/takeed.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
+        <state relative-caret-position="68">
+          <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/Social_Media/PostController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="140" column="18" selection-start-line="140" selection-start-column="18" selection-end-line="146" selection-end-column="48" />
+          <folding>
+            <element signature="e#65#121#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="89" column="44" selection-start-line="89" selection-start-column="44" selection-end-line="89" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="86" column="32" lean-forward="true" selection-start-line="75" selection-start-column="11" selection-end-line="86" selection-end-column="32" />
+          <folding>
+            <element signature="e#55#102#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Mobile/ACL/ImageUserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+          <folding>
+            <element signature="e#55#112#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
