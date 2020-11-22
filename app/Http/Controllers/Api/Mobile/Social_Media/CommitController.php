@@ -65,20 +65,15 @@ class CommitController extends Controller
             $commit_image_save->category = 'commit';
             $commit_image_save->status = 1;
             $folderPath = public_path('images/commit/');
-            $image_parts = explode(";base64,", $request->image_commit);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . time() . uniqid() . '.' . $image_type;
+            $image_type = 'png';
+            $image_base64 = base64_decode($request->image_commit);
+            $imageName=time() . uniqid() . '.' . $image_type;
+            $file = $folderPath . $imageName;
             file_put_contents($file, $image_base64);
-            $commit_image_save->image_commit = time() . uniqid() . '.' . $image_type;
+            $commit_image_save->image_commit = $imageName;
             $commit_image_save->save();
         }
-        $post = Post::with(['commit_post' => function ($query) {
-            $query->where('status', 1);
-        }], ['like' => function ($query) {
-            $query->where('category', 'post')->orderby('created_at', 'asc');
-        }])->where('id', $request->post_id)->where('status', 1)->first();
+        $post = Post::with('commit_post','like','image' )->find( $request->post_id);
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل', 'تسجيل تعليق جديد فى منشور');
         if ($post) {
             return response(['status' => 1,'data'=>['post' => new PostResource($post)] ,'message'=>'تم تسجيل التعليق بنجاح'], 201);
@@ -88,7 +83,7 @@ class CommitController extends Controller
 
     public function update(Request $request)
     {
-        $commit = Commit::find($request->commit_id);
+        $commit = Commit::with('image','post','user','like','commit_commit')->find($request->commit_id);
         if (!$commit) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات التعليق'], 400);
         }
@@ -115,20 +110,15 @@ class CommitController extends Controller
                 $commit_image_save->category = 'commit';
                 $commit_image_save->status = 1;
                 $folderPath = public_path('images/commit/');
-                $image_parts = explode(";base64,", $request->image_commit);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . time() . uniqid() . '.' . $image_type;
+                $image_type = 'png';
+                $image_base64 = base64_decode($request->image_commit);
+                $imageName=time() . uniqid() . '.' . $image_type;
+                $file = $folderPath . $imageName;
                 file_put_contents($file, $image_base64);
-                $commit_image_save->image_commit = time() . uniqid() . '.' . $image_type;
+                $commit_image_save->image_commit = $imageName;
                 $commit_image_save->save();
             }
-            $post = Post::with(['commit_post' => function ($query) {
-                $query->where('status', 1);
-            }], ['like' => function ($query) {
-                $query->where('category', 'post');
-            }])->where('id', $commit->post_id)->where('status', 1)->first();
+        $post = Post::with('commit_post','like','image' )->find( $commit->post_id);
             if ($post) {
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل تعليق منشور');
                 return response(['status' => 1,'data'=>['post' => new PostResource($post)] ,'message'=>'تم تعديل التعليق بنجاح'], 201);
@@ -138,7 +128,7 @@ class CommitController extends Controller
 
     public function delete(Request $request)
     {
-        $commit = Commit::find($request->commit_id);
+        $commit = Commit::with('image','post','user','like','commit_commit')->find($request->commit_id);
         if (!$commit) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات التعليق'], 400);
         }
@@ -182,7 +172,7 @@ class CommitController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        $commit = Commit::find($request->commit_id);
+        $commit = Commit::with('image','post','user','like','commit_commit')->find($request->commit_id);
         if (!$commit) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات التعليق'], 400);
         }

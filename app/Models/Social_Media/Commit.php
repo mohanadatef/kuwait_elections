@@ -27,7 +27,7 @@ class Commit extends Model
     }
     public function image()
     {
-        return $this->belongsTo('App\Models\Image','category_id');
+        return $this->hasMany('App\Models\Image','category_id');
     }
     protected $table = 'commits';
     public $timestamps = true;

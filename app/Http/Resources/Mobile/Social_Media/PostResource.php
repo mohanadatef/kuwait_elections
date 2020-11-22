@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Mobile\Social_Media;
 
 use App\Http\Resources\Mobile\ACL\UserResource;
-use App\Http\Resources\Mobile\Image\CommitImageResource;
-use App\Http\Resources\Mobile\Image\PostImageResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,12 +16,12 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->resource->image)
+        if($this->resource->image->first()->image)
         {
             return [
                 'post_id'=>$this->id,
                 'details'=>$this->details,
-                'post_image'=> asset('public/images/post/'.$this->image->first()->image),
+                'post_image'=> asset('public/images/post/'.$this->resource->image->first()->image),
                 'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
                 'user'=> new UserResource($this->resource->user),
                 'like_count'=> count($this->like),

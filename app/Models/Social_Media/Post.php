@@ -24,7 +24,7 @@ class Post extends Model
     }
     public function image()
     {
-        return $this->belongsTo('App\Models\Image','category_id');
+        return $this->hasMany('App\Models\Image','category_id');
     }
     public function group()
     {

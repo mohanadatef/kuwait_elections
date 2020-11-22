@@ -55,20 +55,15 @@ class PostController extends Controller
             $post_image->status = 1;
             $post_image->category_id = $post->id;
             $folderPath = public_path('images/post/');
-            $image_parts = explode(";base64,", $request->image_post);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = $folderPath . time() . uniqid() . '.' . $image_type;
+            $image_type = 'png';
+            $image_base64 = base64_decode($request->image_post);
+            $imageName=time() . uniqid() . '.' . $image_type;
+            $file = $folderPath . $imageName;
             file_put_contents($file, $image_base64);
-            $post_image->image = time() . uniqid() . '.' . $image_type;
+            $post_image->image = $imageName;
             $post_image->save();
         }
-     /*   $post=Post::with(['commit_post' => function ($query) {
-            $query->where('status', 1);
-        }], ['like' => function ($query) {
-            $query->where('category', 'post');
-        }])->find($post->id);*/
+        $post = Post::with('image','like','commit_post')->find($post->id);
         if ($post) {
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل', 'تسجيل منشور جديد عن طريق');
             return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'تم حفظ المنشور بنجاح'], 201);
@@ -82,11 +77,7 @@ class PostController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
-            $post = Post::with(['commit_post' => function ($query) {
-                $query->where('status', 1);
-            }], ['like' => function ($query) {
-                $query->where('category', 'post');
-            }])->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+            $post = Post::with('commit_post','like','image')->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
         if($request->status_auth==1)
         {
         $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
@@ -106,27 +97,22 @@ class PostController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
         }
-        $post = Post::find($request->post_id);
+        $post = Post::with('image','like','commit_post')->find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
-        $post = Post::with(['commit_post' => function ($query) {
-            $query->where('status', 1);
-        }], ['like' => function ($query) {
-            $query->where('category', 'post');
-        }])->where('id', $request->post_id)->where('status', 1)->first();
         if($request->status_auth==1) {
             $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض  منشور للمستخدم');
         }
         if ($post) {
-            return response(['status' => 1,'data'=>[ 'post' => new PostResource($post)],'message'=>'عرض المنشور'], 200);
+            return response(['status' => 1,'data'=>[ 'post' =>new PostResource($post)],'message'=>'عرض المنشور'], 200);
         }
         return response(['status' => 0,'data'=>array(),'message'=>'خطا فى تحميل بيانات المنشور'], 400);
     }
 
     public function update(Request $request)
     {
-        $post = Post::find($request->post_id);
+        $post = Post::with('image','like','commit_post')->find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
@@ -153,13 +139,12 @@ class PostController extends Controller
                 $post_image->status = 1;
                 $post_image->category_id = $post->id;
                 $folderPath = public_path('images/post/');
-                $image_parts = explode(";base64,", $request->image_post);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                $file = $folderPath . time() . uniqid() . '.' . $image_type;
+                $image_type = 'png';
+                $image_base64 = base64_decode($request->image_post);
+                $imageName=time() . uniqid() . '.' . $image_type;
+                $file = $folderPath . $imageName;
                 file_put_contents($file, $image_base64);
-                $post_image->image = time() . uniqid() . '.' . $image_type;
+                $post_image->image = $imageName;
                 $post_image->save();
             }
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تعديل', 'تعديل  منشور للمستخدم');
@@ -168,7 +153,7 @@ class PostController extends Controller
 
     public function delete(Request $request)
     {
-        $post = Post::find($request->post_id);
+        $post = Post::with('image','like','commit_post')->find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
@@ -281,7 +266,7 @@ class PostController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        $post = Post::find($request->post_id);
+        $post = Post::with('image','like','commit_post')->find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
@@ -310,7 +295,7 @@ class PostController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        $post = Post::find($request->post_id);
+        $post = Post::with('image','like','commit_post')->find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
