@@ -30,17 +30,8 @@ class VoteRepository implements VoteInterface
 
     public function Create_Data(CreateRequest $request)
     {
-        $this->vote->status = 1;
-        $this->vote->title=$request->title;
-        $this->vote->circle_id=$request->circle_id;
-        $this->vote->save();
-        foreach ($request->nominee_id as $nominee_id)
-        {
-        $this->vote_nominee->vote_id=$this->vote->id;
-        $this->vote_nominee->nominee_id=$nominee_id->id;
-        $this->vote_nominee->nominee_count=0;
-        $this->vote_nominee->save();
-        }
+        $data['status'] = 1;
+        $this->vote->create(array_merge($data,$request));
     }
 
     public function Get_One_Data($id)
