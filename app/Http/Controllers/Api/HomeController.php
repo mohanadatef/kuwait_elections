@@ -50,7 +50,8 @@ class HomeController extends Controller
             }])->find($nominee->id);
             $nominee = new NomineeResource($nominee);
         }
-        $post = Post::with('commit_post', 'like', 'image')->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+        $post = Post::with('commit_post', 'like', 'image')->where('status', 1)
+            ->where('group_id', 0)->orderby('created_at', 'DESC')->paginate(25);
         return response(['status' => 1, 'data' => ['count_post' => count($post),
             'post' => PostResource::collection($post), 'user' => array(),
             'nominee' => $nominee,
@@ -73,6 +74,7 @@ class HomeController extends Controller
             $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
             $post = Post::with('commit_post', 'like', 'image')
                 ->wherein('user_id', $friend)
+                ->where('status', 1)
                 ->orwhere('user_id', $user->id)
                 ->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
             $nominee = DB::table('users')
@@ -87,6 +89,9 @@ class HomeController extends Controller
                     $query->where('category', 'profile')->where('status', 1);
                 }])->find($nominee->id);
                 $nominee = new NomineeResource($nominee);
+            }
+            else{
+                $nominee=array();
             }
             $friend = User::wherein('id', $friend)->where('status', 1)->get();
             if ($friend) {
