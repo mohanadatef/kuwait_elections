@@ -15,7 +15,7 @@ class CircleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key'=>$this->id,
+            'circle_id'=>$this->id,
             'title'=>$this->title,
         ];
     }

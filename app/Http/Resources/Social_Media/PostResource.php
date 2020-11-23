@@ -3,8 +3,8 @@
 namespace App\Http\Resources\Social_Media;
 
 use App\Http\Resources\ACL\UserResource;
-use App\Http\Resources\Image\CommitImageResource;
-use App\Http\Resources\Image\PostImageResource;
+use App\Models\Image;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -18,28 +18,32 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
 
-       if($this->image->first() != null )
-       {
-        return [
-            'post_id'=>$this->id,
-            'details'=>$this->details,
-            'post_image'=> asset('public/images/post/'.$this->image->first()->image),
-            'user'=> [new UserResource($this->resource->user)],
-            'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
-            'commit_count'=> count($this->commit_post),
-            'commit'=> [ CommitResource::collection($this->resource->commit_post)],
-        ];
-       }
+        $image=Image::where('category','post')->where('category_id',$this->id)->first();
+        if($image)
+        {
+            return [
+                'post_id'=>$this->id,
+                'details'=>$this->details,
+                'post_image'=> asset('public/images/post/'.$image->image),
+                'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
+                'user'=> new UserResource($this->resource->user),
+                'like_count'=> count($this->like),
+                'like'=>  LikeResource::collection($this->resource->like),
+                'commit_count'=> count($this->commit_post),
+                'commit'=>  CommitResource::collection($this->resource->commit_post),
+            ];
+        }
         return [
             'post_id'=>$this->id,
             'details'=>$this->details,
             'post_image'=> '',
-            'user'=> [new UserResource($this->resource->user)],
+            'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
             'commit_count'=> count($this->commit_post),
-            'commit'=> [ CommitResource::collection($this->resource->commit_post)],
+            'commit'=> CommitResource::collection($this->resource->commit_post),
+
         ];
     }
 

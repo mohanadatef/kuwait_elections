@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Api\ACL;
 
-use App\Http\Resources\ACL\UserResource;
+use App\Http\Resources\ACL\FriendResource;
 use App\Models\ACL\Friend;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class FriendController extends Controller
@@ -20,118 +17,101 @@ class FriendController extends Controller
 
     public function __construct(LogRepository $LogRepository, UserRepository $UserRepository)
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['all_friend', 'all_request_friend']]);
         $this->logRepository = $LogRepository;
         $this->userRepository = $UserRepository;
     }
 
-    public function check_friend(Request $request)
-    {
-        $user = User::find($request->user);
-        if ($user) {
-            $friend_send = Friend::where('user_send_id', Auth::User()->id)->where('user_receive_id', $request->user)->first();
-            $friend_receive = Friend::where('user_receive_id', Auth::User()->id)->where('user_send_id', $request->user)->first();
-            if ($friend_send) {
-                if ($friend_send->status == 0) {
-                    return response(['message' => 'بمكن الغاء الطلب', 'request_number' => $friend_send->id], 200);
-                } else {
-                    return response(['message' => 'يمكن الغاء الصداقه', 'request_number' => $friend_send->id], 200);
-                }
-            }
-            if ($friend_receive) {
-                if ($friend_receive->status == 0) {
-                    return response(['message' => 'بمكن قبول الطلب', 'request_number' => $friend_receive->id], 200);
-                } else {
-                    return response(['message' => 'يمكن الغاء الصداقه', 'request_number' => $friend_receive->id], 200);
-                }
-            }
-            if (Auth::User()->id != $user->id) {
-                return response(['message' => 'يمكن ارسال الطلب'], 200);
-            }
-        }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
-    }
-
     public function send_friend(Request $request)
     {
-        $user = User::find($request->user);
-        if ($user) {
-            $frind = new Friend();
-            $frind->user_send_id = Auth::User()->id;
-            $frind->user_receive_id = $request->user;
-            $frind->save();
-            $this->logRepository->Create_Data(''.Auth::User()->id.'', 'ارسال', 'ارسال طلب صداقه  Api' . Auth::User()->username );
-            return response(['message' => 'تم ارسال طلب','request_number' => $frind->id], 200);
+        $user_send = $this->userRepository->Get_One_Data($request->user_send_id);
+        if (!$user_send) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'رقم المستخدم المرسل خطاء'], 400);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        $user_receive = $this->userRepository->Get_One_Data($request->user_receive_id);
+        if (!$user_receive) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'رقم المستخدم المرسل اليه خطاء'], 400);
+        }
+        $friend = new Friend();
+        $friend->user_send_id = $user_send->id;
+        $friend->user_receive_id = $user_receive->id;
+        $friend->status = 0;
+        $friend->save();
+        $this->logRepository->Create_Data('' . $user_send->id . '', 'ارسال', 'ارسال طلب صداقه');
+        return response(['status' => 1, 'data' => ['request_friend_number' => $friend->id], 'message' => 'تم ارسال طلب الصداقه'], 200);
     }
 
     public function accept_friend(Request $request)
     {
-        $user = User::find($request->user);
-        if ($user) {
-            $frind = Friend::find($request->request_number);
-            $frind->status = 1;
-            $frind->update();
-            $this->logRepository->Create_Data(''.Auth::User()->id.'', 'قبول', 'قبول طلب صداقه  Api' . Auth::User()->username );
-            return response(['message' => 'تم قبول طلب','request_number' => $frind->id], 200);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        $friend = Friend::find($request->request_friend_number);
+        if ($friend) {
+            $friend->status = 1;
+            $friend->update();
+            $this->logRepository->Create_Data('' . $user->id . '', 'قبول', 'قبول طلب صداقه');
+            return response(['status' => 1, 'data' => array(), 'message' => 'تم قبول طلب صداقه'], 200);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات طلب الصداقه'], 400);
+
     }
 
     public function delete_friend(Request $request)
     {
-        $user = User::find($request->user);
-        if ($user) {
-            $frind = Friend::find($request->request_number);
-            $frind->delete();
-            $this->logRepository->Create_Data(''.Auth::User()->id.'', 'مسح', 'مسح  صداقه  Api' . Auth::User()->username );
-            return response(['message' => 'تم مسح الصداقه'], 200);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        $friend = Friend::find($request->request_friend_number);
+        if ($friend) {
+            $friend->delete();
+            $this->logRepository->Create_Data('' . $user->id . '', 'مسح', 'مسح  الصداقه');
+            return response(['status' => 1, 'data' => array(), 'message' => 'تم الغاء الصداقه'], 200);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات'], 400);
+
     }
 
     public function all_friend(Request $request)
     {
-        $user = User::find($request->user);
-        if ($user) {
-        $friend_send = DB::table('friends')->where('user_send_id', $request->user)->where('status', 1)->pluck('user_receive_id','id');
-        $friend_receive = DB::table('friends')->where('user_receive_id', $request->user)->where('status', 1)->pluck('user_send_id','id');
-        $friend = array_merge($friend_send->toArray(),$friend_receive->toArray());
-        $user = User::wherein('id',$friend)->get();
-        if($user)
-        {
-            $this->logRepository->Create_Data(''.Auth::User()->id.'', 'عرض', 'عرض الاصدقاء  Api' . Auth::User()->username );
-            return response(['message' => 'جميع الاصدقاء','data'=>UserResource::collection($user)], 200);
+        $user = $this->userRepository->Get_One_Data($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        else
-        {
-            $this->logRepository->Create_Data(''.Auth::User()->id.'', 'عرض', 'عرض الاصدقاء  Api' . Auth::User()->username );
-            return response(['message' => 'لا يوجد اصدقاء'], 200);
+        $friend = Friend::where('user_send_id', $user->id)->where('status', 1)
+            ->orwhere('user_receive_id', $user->id)->where('status', 1)
+            ->get();
+        if ($request->status_auth == 1) {
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض الاصدقاء');
         }
+        if ($friend) {
+            return response(['status' => 1,
+                'data' => ['friend' => FriendResource::collection($friend)],
+                'message' => 'جميع الاصدقاء'], 200);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        return response(['status' => 1, 'data' => ['friend' => array()], 'message' => 'لا يوجد بيانات لعرضها'], 200);
+
     }
 
     public function all_request_friend(Request $request)
     {
-        $user = User::find($request->user);
-        if ($user) {
-            $friend_send = DB::table('friends')->where('user_send_id', $request->user)->where('status', 0)->pluck('user_receive_id','id');
-            $friend_receive = DB::table('friends')->where('user_receive_id', $request->user)->where('status', 0)->pluck('user_send_id','id');
-            $friend = array_merge($friend_send->toArray(),$friend_receive->toArray());
-            $user = User::wherein('id',$friend)->get();
-            if($user)
-            {
-                $this->logRepository->Create_Data(''.Auth::User()->id.'', 'عرض', 'عرض طلبات صداقه  Api' . Auth::User()->username );
-                return response(['message' => 'جميع طلبات الصداقه','data'=>UserResource::collection($user)], 200);
-            }
-            else
-            {
-                $this->logRepository->Create_Data(''.Auth::User()->id.'', 'عرض', 'عرض طلبات صداقه  Api' . Auth::User()->username );
-                return response(['message' => 'لا يوجد طلبات صداقه'], 200);
-            }
+        $user = $this->userRepository->Get_One_Data($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
-        return response(['message' => 'خطا فى تحميل البيانات'], 400);
+        $request_friend = Friend::where('user_receive_id', $user->id)->where('status', 0)->get();
+        if ($request->status_auth == 1) {
+            $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض طلبات صداقه');
+        }
+        if ($request_friend) {
+            return response(['status' => 1,
+                'data' => ['request_friend' => FriendResource::collection($request_friend)],
+                'message' => 'كل طلبات الصداقه'], 200);
+        }
+        return response(['status' => 1,
+            'data' => array(),
+            'message' => 'كل طلبات الصداقه'], 200);
     }
 }

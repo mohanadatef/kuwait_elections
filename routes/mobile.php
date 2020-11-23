@@ -9,7 +9,6 @@ header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
-    Route::group(['namespace' => 'Mobile'], function () {
         Route::group(['namespace' => 'ACL'], function () {
             Route::post('sign_up', 'UserController@store');
             Route::group(['prefix' => 'auth'], function () {
@@ -105,5 +104,4 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::get('Area_List', 'AreaController@index');
         });
         Route::get('/', 'HomeController@index');
-    });
 });

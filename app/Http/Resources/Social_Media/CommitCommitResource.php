@@ -4,6 +4,7 @@ namespace App\Http\Resources\Social_Media;
 
 use App\Http\Resources\ACL\UserResource;
 use App\Http\Resources\Image\CommitImageResource;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommitCommitResource extends JsonResource
@@ -19,21 +20,21 @@ class CommitCommitResource extends JsonResource
         if($this->image != null ) {
         return [
             'commit_commit_id'=>$this->id,
-            'created_at'=>$this->created_at,
+            'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
             'commit_image'=> asset('public/images/commit/'.$this->image->first()->image),
         ];
     }
         return [
             'commit_commit_id'=>$this->id,
-            'created_at'=>$this->created_at,
+            'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
-            'user'=> [new UserResource($this->resource->user)],
+            'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
-            'like'=> [ LikeResource::collection($this->resource->like)],
+            'like'=>  LikeResource::collection($this->resource->like),
         ];
     }
 
