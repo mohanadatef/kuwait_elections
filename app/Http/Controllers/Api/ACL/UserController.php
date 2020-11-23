@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
+use App\Repositories\Setting\SettingRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,12 +20,14 @@ class UserController extends Controller
 {
     private $logRepository;
     private $userRepository;
+    private $settingRepository;
 
-    public function __construct(LogRepository $LogRepository, UserRepository $UserRepository)
+    public function __construct(LogRepository $LogRepository, UserRepository $UserRepository,SettingRepository $SettingRepository)
     {
         $this->middleware('auth:api', ['except' => ['store', 'search_user', 'show']]);
         $this->logRepository = $LogRepository;
         $this->userRepository = $UserRepository;
+        $this->settingRepository = $SettingRepository;
     }
 
     public function store(Request $request)
@@ -88,7 +91,7 @@ class UserController extends Controller
         }
         if ($user) {
             $this->logRepository->Create_Data('' . $user->id . '', 'تسجيل', 'تسجيل مستخدم جديد');
-            return response(['status' => 1, 'data' => ['user' => new UserResource($user)], 'message' => 'تم التسجيل بنجاح'], 201);
+            return response(['status' => 1, 'data' => ['user' => new UserResource($user),'setting' => $this->settingRepository->Get_all_In_Response()], 'message' => 'تم التسجيل بنجاح'], 201);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى حفظ البيانات'], 400);
     }

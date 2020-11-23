@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\ACL;
 
 use App\Http\Resources\ACL\UserResource;
 use App\Repositories\ACL\LogRepository;
+use App\Repositories\Setting\SettingRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +14,14 @@ use JWTAuth;
 
 class AuthController extends Controller
 {
+    private $settingRepository;
     private $logRepository;
 
-    public function __construct(LogRepository $LogRepository)
+    public function __construct(LogRepository $LogRepository,SettingRepository $SettingRepository)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
         $this->logRepository = $LogRepository;
+        $this->settingRepository = $SettingRepository;
     }
 
     public function login(Request $request)
@@ -38,7 +41,7 @@ class AuthController extends Controller
         $user->remember_token = $token;
         $user->update();
         $this->logRepository->Create_Data('' . $user->id . '', 'الدخول', 'تم تسجبل الدخول');
-        return response(['status' => 1, 'data' => ['user' => new UserResource($user)], 'message' => 'تم التسجيل بنجاح'], 200);
+        return response(['status' => 1, 'data' => ['user' => new UserResource($user),'setting' => $this->settingRepository->Get_all_In_Response()], 'message' => 'تم التسجيل بنجاح'], 200);
     }
 
     public function me()

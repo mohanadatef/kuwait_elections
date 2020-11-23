@@ -11,4 +11,5 @@ interface SettingInterface{
     public function Create_Data(CreateRequest $request);
     public function Get_One_Data($id);
     public function Update_Data(EditRequest  $request, $id);
+    public function Get_all_In_Response();
 }

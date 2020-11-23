@@ -5,6 +5,7 @@ namespace App\Repositories\Setting;
 
 use App\Http\Requests\Admin\Setting\Setting\CreateRequest;
 use App\Http\Requests\Admin\Setting\Setting\EditRequest;
+use App\Http\Resources\Setting\SettingResource;
 use App\Interfaces\Setting\SettingInterface;
 use App\Models\Setting\Setting;
 
@@ -61,5 +62,10 @@ class SettingRepository implements SettingInterface
         {
             $setting->update($request->all());
         }
+    }
+
+    public function Get_all_In_Response()
+    {
+       return new SettingResource($this->setting->first());
     }
 }

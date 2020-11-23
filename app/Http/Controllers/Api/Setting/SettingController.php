@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Api\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Setting\SettingResource;
-use App\Models\Setting\Setting;
+use App\Repositories\Setting\SettingRepository;
 
 
 class SettingController extends Controller
 {
+    private $settingRepository;
+
+    public function __construct(SettingRepository $SettingRepository)
+    {
+        $this->settingRepository = $SettingRepository;
+    }
     public function index()
     {
-        $data = Setting::find(1);
-        return response(['status'=>1,'data'=>['setting' => new SettingResource($data)],'message'=>'اعدادات الشركه'], 200);
+        return response(['status'=>1,'data'=>['setting' => $this->settingRepository->Get_all_In_Response()],'message'=>'اعدادات الشركه'], 200);
     }
 }
 
