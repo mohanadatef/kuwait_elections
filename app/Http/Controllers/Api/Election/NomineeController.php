@@ -8,6 +8,7 @@ use App\Repositories\ACL\LogRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class NomineeController extends Controller
@@ -26,18 +27,24 @@ class NomineeController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        if($user->id == Auth::user()->id)
+        {
         $nominee = array();
         $nominee_list = array();
         $election = Election::where('user_id', $user->id)->where('status', 1)->first();
         $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض المرشح الموصى بيه');
-        $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
+        $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "user_id");
         if ($election) {
             $nominee = User::find($election->nominee_id);
             if ($nominee) {
+                if($nominee->status==1)
                 $nominee = new NomineeResource($nominee);
             }
             if (count($user_role) != 0) {
-                $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->pluck('id', 'id');
+                $nominees = DB::table("users")->wherein('id', $user_role)->where('circle_id', $user->circle_id)->where('status',1)->pluck('id', 'id');
                 $nominees = User::wherein('id', $nominees)->get();
                 if (count($nominees) != 0) {
                     $nominee_list = NomineeResource::collection($nominees);
@@ -50,13 +57,15 @@ class NomineeController extends Controller
                     'nominee_list' => $nominee_list], 'message' => 'تم الانتخاب مسبق'], 200);
         }
         if (count($user_role) != 0) {
-            $nominee = User::with('image')->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
+            $nominee = User::with('image')->wherein('id', $user_role)->where('circle_id', $user->circle_id)->where('status',1)->inRandomOrder()->first();
             if ($nominee) {
                 $nominee = new NomineeResource($nominee);
             }
         }
         return response(['status' => 1, 'data' => ['status_election' => 0,
             'nominee' => $nominee], 'message' => 'برجاء انتخاب مرشح'], 200);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
 
     public function election(Request $request)
@@ -65,6 +74,11 @@ class NomineeController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        if($user->id == Auth::user()->id)
+        {
         $this->logRepository->Create_Data('' . $user->id . '', 'انتخاب', 'انتخاب المرشح');
         if ($request->status_election == 0) {
             $check = Election::where('user_id', $user->id)->where('nominee_id', $request->nominee_id)->where('status', 0)->first();
@@ -81,7 +95,7 @@ class NomineeController extends Controller
                 if (count($election_f) != 0) {
                     $nominee = User::with(['profile_image'=>function($query){
                         $query->where('category','profile');
-                    }])->wherein('id', $user_role)->whereNotIn('id', $election_f)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
+                    }])->wherein('id', $user_role)->whereNotIn('id', $election_f)->where('circle_id', $user->circle_id)->where('status',1)->inRandomOrder()->first();
                     if ($nominee) {
                         return response(['status' => 1,
                             'data' => ['status_election' => 0, 'nominee' => new NomineeResource($nominee)], 'message' => 'برجاء انتخاب مرشح'], 201);
@@ -94,7 +108,7 @@ class NomineeController extends Controller
                 }
                 $nominee = User::with(['profile_image'=>function($query){
                     $query->where('category','profile');
-                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->inRandomOrder()->first();
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->where('status',1)->inRandomOrder()->first();
                 if ($nominee) {
                     return response(['status' => 1,
                         'data' => ['status_election' => 0, 'nominee' => new NomineeResource($nominee)], 'message' => 'برجاء انتخاب مرشح'], 201);
@@ -107,7 +121,7 @@ class NomineeController extends Controller
             if (count($user_role) != 0) {
                 $nominees = User::with(['profile_image'=>function($query){
                     $query->where('category','profile');
-                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->where('status',1)->get();
                 if ($nominees) {
                     $nominees = NomineeResource::collection($nominees);
                 }
@@ -126,7 +140,9 @@ class NomineeController extends Controller
                 $nominee = User::with(['profile_image'=>function($query){
                     $query->where('category','profile');
                 }])->find($election->nominee_id);
-                $nominee = new NomineeResource($nominee);
+                if($nominee->status==1) {
+                    $nominee = new NomineeResource($nominee);
+                }
                 return response(['status' => 1,
                     'data' => [
                         'status_election' => 1,
@@ -138,7 +154,9 @@ class NomineeController extends Controller
             $nominee = User::with(['profile_image'=>function($query){
                 $query->where('category','profile');
             }])->find($check->nominee_id);
-            $nominee = new NomineeResource($nominee);
+            if($nominee->status==1) {
+                $nominee = new NomineeResource($nominee);
+            }
             if ($nominee) {
                 return response(['status' => 1,
                     'data' => [
@@ -155,6 +173,8 @@ class NomineeController extends Controller
                     'nominee' => $nominee,
                     'nominee_list' => $nominees], 'message' => 'خطا فى تحميل البيانات'], 400);
         }
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
 
     public function show_list(Request $request)
@@ -165,13 +185,19 @@ class NomineeController extends Controller
             if (!$user) {
                 return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
             }
+            if ($user->status == 0) {
+                return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+            }
             $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض قائمه المرشح');
         }
         $nominee = User::with(['profile_image'=>function($query){
             $query->where('category','profile')->where('status', 1);
         }])->find($request->nominee_id);
         if ($nominee) {
-            $nominee = array(new NomineeResource($nominee));
+            if($nominee->status==1)
+            {
+            $nominee = new NomineeResource($nominee);
+            }
         } else {
             $nominee = array();
         }
@@ -180,11 +206,12 @@ class NomineeController extends Controller
             if ($request->status_auth == 1) {
                 $nominees = User::with(['profile_image'=>function($query){
                     $query->where('category','profile')->where('status', 1);
-                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->get();
+                }])->wherein('id', $user_role)->where('circle_id', $user->circle_id)->where('status',1)->get();
+
             } else {
                 $nominees = User::with(['profile_image'=>function($query){
                     $query->where('category','profile')->where('status', 1);
-                }])->wherein('id', $user_role)->get();
+                }])->wherein('id', $user_role)->where('status',1)->get();
             }
         }
             if ($nominees) {

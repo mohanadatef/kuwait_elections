@@ -13,9 +13,12 @@ class AboutUsController extends Controller
 {
     public function index()
     {
-        $data = About_Us::find(1);
-        $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
-        $nominee = User::wherein('id',$user_role)->where('status', 1)->get();
+        $nominee = DB::table('users')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_user.role_id', 4)
+            ->where('users.status', 1)
+            ->pluck('users.id','users.id');
+        $nominee = User::wherein('id',$nominee)->get();
         if($nominee)
         {
         $nominee=NomineeResource::collection($nominee);
@@ -25,7 +28,7 @@ class AboutUsController extends Controller
         $nominee=array();
         }
         return response(['status'=>1, 'data'=>[
-            'about_us' =>new AboutUsResource($data)
+            'about_us' =>new AboutUsResource(About_Us::find(1))
             ,'nominee'=>$nominee],
             'message'=>'بيانات صفحه عن الشركه'], 200);
     }
