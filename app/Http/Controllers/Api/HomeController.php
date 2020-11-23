@@ -31,6 +31,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $nominee = array();
+        $friend = array();
         if ($request->status_auth == 1) {
             $user = $this->userRepository->Get_One_Data($request->user_id);
             if (!$user) {
@@ -57,7 +58,15 @@ class HomeController extends Controller
                 }])->find($nominee->id);
                 $nominee = new NomineeResource($nominee);
             }
-            return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post), 'user' => new UserResource($user), 'nominee' => $nominee, 'setting' => $this->settingRepository->Get_all_In_Response()], 'message' => 'الصفحه الرئيسيه'], 200);
+            $friend=User::wherein('id',$friend)->where('status',1)->get();
+            if($friend)
+            {
+                $friend=UserResource::collection($friend);
+            }
+            return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post),
+                'user' => new UserResource($user), 'nominee' => $nominee,
+                'setting' => $this->settingRepository->Get_all_In_Response(),
+                'friend'=>$friend], 'message' => 'الصفحه الرئيسيه'], 200);
         }
         $nominee = DB::table('users')
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
@@ -72,7 +81,10 @@ class HomeController extends Controller
             $nominee = new NomineeResource($nominee);
         }
         $post = Post::with('commit_post', 'like', 'image')->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
-        return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post), 'nominee' => $nominee, 'setting' => $this->settingRepository->Get_all_In_Response()], 'message' => 'الصفحه الرئيسيه'], 200);
+        return response(['status' => 1, 'data' => ['count_post' => count($post),
+            'post' => PostResource::collection($post),'user' =>array(),
+            'nominee' => $nominee,
+            'setting' => $this->settingRepository->Get_all_In_Response(),'friend'=>array()], 'message' => 'الصفحه الرئيسيه'], 200);
     }
 }
 
