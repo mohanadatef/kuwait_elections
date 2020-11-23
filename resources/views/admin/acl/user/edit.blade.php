@@ -40,7 +40,7 @@
                 <form id="edit" action="{{url('admin/user/update/'.$data->id)}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     {{method_field('patch')}}
-                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : "" }}">
                         الاسم كامل : <input type="text" value="{{$data->name}}" class="form-control"
                                             name="name"
                                             placeholder="برجاء ادخال الاسم كامل">

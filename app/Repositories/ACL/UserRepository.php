@@ -125,6 +125,6 @@ class UserRepository implements UserInterface
 
     public function Get_List_Nominee_Circle($id)
     {
-        return $this->user->where('role_users.role_id',4)->where('circle_id',$id)->get();
+        return $this->user->where('role_users.role_id',4)->where('circle_id',$id);
     }
 }

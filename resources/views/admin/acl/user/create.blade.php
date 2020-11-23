@@ -37,9 +37,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <form id="user_create" action="{{url('admin/user/store')}}" method="POST" enctype="multipart/form-data">
+                <form id="create" action="{{url('admin/user/store')}}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : "" }}">
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : "" }}">
                         الاسم كامل : <input type="text" value="{{Request::old('name')}}" class="form-control"
                                              name="name"
                                              placeholder="برجاء ادخال الاسم كامل">

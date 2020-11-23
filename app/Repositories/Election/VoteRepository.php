@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\ACL;
+namespace App\Repositories\Election;
 
 use App\Http\Requests\Admin\Election\Vote\CreateRequest;
 use App\Http\Requests\Admin\Election\Vote\EditRequest;
 use App\Http\Requests\Admin\Election\Vote\StatusEditRequest;
-use App\Interfaces\ACL\VoteInterface;
+use App\Interfaces\Election\VoteInterface;
 use App\Models\Election\Vote;
 use Illuminate\Http\Request;
 
@@ -22,15 +22,13 @@ class VoteRepository implements VoteInterface
 
     public function Get_All_Datas()
     {
-        return $this->vote->with('circle')->all();
+        return $this->vote->all();
     }
 
     public function Create_Data(CreateRequest $request)
     {
         $data['status'] = 1;
-        $data['status_login'] = 0;
-        $data['password'] = Hash::make($request->password);
-        $this->vote->create(array_merge($request->all(), $data))->role()->sync((array)$request->role_id);
+        $this->vote->create(array_merge($request->all(), $data));
     }
 
     public function Get_One_Data($id)
@@ -41,7 +39,6 @@ class VoteRepository implements VoteInterface
     public function Update_Data(EditRequest $request, $id)
     {
         $vote = $this->Get_One_Data($id);
-        $vote->role()->sync((array)$request->role_id);
         $vote->update($request->all());
     }
 

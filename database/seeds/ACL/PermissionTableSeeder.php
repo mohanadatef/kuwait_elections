@@ -467,6 +467,43 @@ class PermissionTableSeeder extends Seeder
                 'display_name'=>'takeed',
                 'description'=>'takeed',
             ],
+            //election
+            [
+                'name'=>'election-list',
+                'display_name'=>'election list',
+                'description'=>'list election',
+            ],
+            //vote
+            [
+                'name'=>'vote-list',
+                'display_name'=>'vote list',
+                'description'=>'list vote',
+            ],
+            [
+                'name'=>'vote-index',
+                'display_name'=>'index vote',
+                'description'=>'index data in vote',
+            ],
+            [
+                'name'=>'vote-create',
+                'display_name'=>'create vote',
+                'description'=>'create data in vote',
+            ],
+            [
+                'name'=>'vote-edit',
+                'display_name'=>'edit vote',
+                'description'=>'edit data in vote',
+            ],
+            [
+                'name'=>'vote-status',
+                'display_name'=>'vote status',
+                'description'=>'vote status',
+            ],
+            [
+                'name'=>'vote-many-status',
+                'display_name'=>'vote many status',
+                'description'=>'vote many status',
+            ],
         ];
         foreach ($permissions as $key=>$value)
         {

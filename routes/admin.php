@@ -140,4 +140,15 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::get('/index/{id}/{category}', 'LikeController@Like_index')->middleware('permission:like-index-category');
         });
     });
+    Route::group(["namespace" => "Election", 'middleware' => 'permission:election-list'], function () {
+        Route::prefix('/vote')->middleware('permission:vote-list')->group(function () {
+            Route::get('/index', 'VoteController@index')->middleware('permission:vote-index');
+            Route::get('/create', 'VoteController@create')->middleware('permission:vote-create');
+            Route::Post('/store', 'VoteController@store')->middleware('permission:vote-create');
+            Route::get('/edit/{id}', 'VoteController@edit')->middleware('permission:vote-edit');
+            Route::patch('/update/{id}', 'VoteController@update')->middleware('permission:vote-edit');
+            Route::get('/change_status/{id}', 'VoteController@change_status')->middleware('permission:vote-status');
+            Route::get('/change_many_status', 'VoteController@change_many_status')->middleware('permission:vote-many-status');
+        });
+    });
 });

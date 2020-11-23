@@ -217,6 +217,35 @@
                 </ul>
             </li>
             @endpermission
+            @permission('election-list')
+            <li class="treeview">
+                <a href="#"><i class="fa fa-group"></i> <span>الانتخابات</span><span class="pull-right-container"><i
+                                class="fa fa-angle-right pull-left"></i></span></a>
+                <ul class="treeview-menu">
+                    @permission('vote-list')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>الاستبيانات</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @permission('vote-index')
+                            <li><a href="{{ url('/admin/vote/index') }}"><i
+                                            class="fa fa-group"></i><span>قائمة الاستبيانات</span></a>
+                            </li>
+                            @endpermission
+                            @permission('vote-create')
+                            <li><a href="{{ url('/admin/vote/create') }}"><i
+                                            class="fa fa-group"></i><span>اضافة اسنتبيان</span></a></li>
+                            @endpermission
+                        </ul>
+                    </li>
+                    @endpermission
+                </ul>
+            </li>
+            @endpermission
             @permission('core-data-list')
             <li class="treeview">
                 <a href="#"><i class="fa fa-group"></i> <span>بيانات الموقع</span><span class="pull-right-container"><i

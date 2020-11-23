@@ -7,7 +7,7 @@ use App\Http\Requests\Admin\Election\Vote\EditRequest;
 use App\Http\Requests\Admin\Election\Vote\StatusEditRequest;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
-use App\Repositories\ACL\VoteRepository;
+use App\Repositories\Election\VoteRepository;
 use App\Repositories\Core_Data\CircleRepository;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +50,8 @@ class VoteController extends Controller
     public function edit($id)
     {
         $data = $this->voteRepository->Get_One_Data($id);
-        $nominee = $this->userRepository->Get_List_Nominee_Circle($data->circle_id);
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح صفحه الاستبيان للتعديل');
-        return view('admin.election.vote.edit',compact('data','nominee'));
+        return view('admin.election.vote.edit',compact('data'));
 
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\ACL;
+namespace App\Interfaces\Election;
 
 use App\Http\Requests\Admin\Election\Vote\CreateRequest;
 use App\Http\Requests\Admin\Election\Vote\EditRequest;
