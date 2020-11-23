@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Social_Media;
 
 use App\Http\Resources\ACL\UserResource;
-use App\Http\Resources\Image\CommitImageResource;
+use App\Models\Image;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +17,8 @@ class CommitCommitResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image != null ) {
+        $image=Image::where('category','commit')->where('category_id',$this->id)->first();
+        if($image ) {
         return [
             'commit_commit_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
@@ -25,7 +26,7 @@ class CommitCommitResource extends JsonResource
             'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
             'like'=>  LikeResource::collection($this->resource->like),
-            'commit_image'=> asset('public/images/commit/'.$this->image->first()->image),
+            'commit_image'=> asset('public/images/commit/'.$image->image),
         ];
     }
         return [

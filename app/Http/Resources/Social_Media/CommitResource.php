@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Social_Media;
 
 use App\Http\Resources\ACL\UserResource;
-use App\Http\Resources\Image\CommitImageResource;
 use App\Models\Image;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\ACL;
 
-use App\Http\Resources\Image\ProfileImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 

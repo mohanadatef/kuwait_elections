@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Takeed\ACL;
 
-use App\Http\Resources\Image\ProfileImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource

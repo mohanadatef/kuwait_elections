@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Mobile\Setting\AboutUsResource;
-use App\Http\Resources\Mobile\Election\NomineeResource;
+use App\Http\Resources\Setting\AboutUsResource;
+use App\Http\Resources\Election\NomineeResource;
 use App\Models\Setting\About_Us;
 use App\User;
 use Illuminate\Support\Facades\DB;
