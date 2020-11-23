@@ -53,7 +53,7 @@ class HomeController extends Controller
                         $nominee = new NomineeResource($nominee);
                     }
                 }
-                return response(['status' => 1, 'data'=>['post' => PostResource::collection($post), 'user' => new UserResource($user), 'nominee' => $nominee,'setting' => $this->settingRepository->Get_all_In_Response()],'message'=>'الصفحه الرئيسيه'], 200);
+                return response(['status' => 1, 'data'=>['count_post'=>count($post),'post' => PostResource::collection($post), 'user' => new UserResource($user), 'nominee' => $nominee,'setting' => $this->settingRepository->Get_all_In_Response()],'message'=>'الصفحه الرئيسيه'], 200);
         }
         $user_role = DB::table("role_user")->where('role_id', 4)->pluck("user_id", "id");
         if (count($user_role) != 0) {
@@ -66,7 +66,7 @@ class HomeController extends Controller
             }
         }
         $post = Post::with('commit_post','like','image')->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
-        return response(['status' => 1, 'data'=>['post' => PostResource::collection($post),  'nominee' => $nominee,'setting' => $this->settingRepository->Get_all_In_Response()],'message'=>'الصفحه الرئيسيه'], 200);
+        return response(['status' => 1, 'data'=>['count_post'=>count($post), 'post' => PostResource::collection($post),  'nominee' => $nominee,'setting' => $this->settingRepository->Get_all_In_Response()],'message'=>'الصفحه الرئيسيه'], 200);
     }
 }
 

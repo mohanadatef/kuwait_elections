@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f38daf86-2fe0-4caa-8e7b-d491f102d6e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Election/VoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Election/VoteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Interfaces/Election/VoteInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Interfaces/Election/VoteInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/ACL/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ACL/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Election/VoteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Election/VoteRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/acl/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/acl/user/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/acl/user/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/acl/user/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,13 +49,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Election/VoteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="867">
               <caret line="51" column="57" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
               <folding>
                 <element signature="e#55#111#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="454">
+              <caret line="55" column="84" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
+              <folding>
+                <element signature="e#44#92#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+              <folding>
+                <element signature="e#58#107#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,36 +111,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="341">
               <caret line="58" column="70" selection-start-line="58" selection-start-column="70" selection-end-line="58" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/admin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="144" column="94" lean-forward="true" selection-start-line="144" selection-start-column="94" selection-end-line="144" selection-end-column="94" />
-              <folding>
-                <element signature="e#4255#6062#1#PHP" />
-                <element signature="e#6154#9262#1#PHP" />
-                <element signature="e#9364#10835#1#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="239" column="60" selection-start-line="239" selection-start-column="60" selection-end-line="239" selection-end-column="60" />
-              <folding>
-                <element signature="e#286#4966#0#HTML" />
-                <element signature="e#5042#11027#0#HTML" />
-                <element signature="e#11109#13629#0#HTML" />
-                <element signature="e#13714#16510#0#HTML" />
-                <element signature="e#16589#17731#0#HTML" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -166,7 +151,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/CommitController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Takeed/ACL/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Takeed/Election/TakeedController.php" />
         <option value="$PROJECT_DIR$/app/Http/Resources/ACL/LogResource.php" />
@@ -202,7 +186,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ACL/UserController.php" />
         <option value="$PROJECT_DIR$/app/Interfaces/ACL/UserInterface.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php" />
         <option value="$PROJECT_DIR$/app/Repositories/ACL/UserRepository.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/acl/user/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/acl/user/edit.blade.php" />
@@ -216,6 +199,8 @@
         <option value="$PROJECT_DIR$/resources/views/admin/election/vote/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/election/vote/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Election/VoteController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php" />
       </list>
     </option>
   </component>
@@ -365,7 +350,7 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
@@ -373,81 +358,8 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="Election" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Repositories" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Repositories" type="462c0819:PsiDirectoryNode" />
-              <item name="ACL" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Repositories" type="462c0819:PsiDirectoryNode" />
-              <item name="Election" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="seeds" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="seeds" type="462c0819:PsiDirectoryNode" />
-              <item name="ACL" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="election" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="election" type="462c0819:PsiDirectoryNode" />
-              <item name="vote" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Social_Media" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -533,11 +445,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124032000" />
+    <option name="totallyTimeSpent" value="125034000" />
   </component>
   <component name="TodoView" selected-index="3" />
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="7" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2616137" />
@@ -868,30 +780,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#44#92#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/acl/user/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="41" column="63" selection-start-line="41" selection-start-column="63" selection-end-line="41" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="44" column="93" lean-forward="true" selection-start-line="44" selection-start-column="93" selection-end-line="44" selection-end-column="93" />
-          <folding>
-            <element signature="e#58#107#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,10 +904,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Election/VoteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="867">
           <caret line="51" column="57" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
           <folding>
             <element signature="e#55#111#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/Social_Media/PostController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="e#58#107#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="55" column="84" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
+          <folding>
+            <element signature="e#44#92#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -83,7 +83,7 @@ class PostController extends Controller
         $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
         }
             if ($post) {
-                return response(['status' => 1,'data'=>[ 'post' => PostResource::collection($post)],'message'=>'منشورات الخاصه بالمستخدم'], 200);
+                return response(['status' => 1,'data'=>[ 'count_post'=>count($post),'post' => PostResource::collection($post)],'message'=>'منشورات الخاصه بالمستخدم'], 200);
             }
         return response(['status' => 1,'data'=>array(),'message'=>'لا يوجد منشورات الخاصه بالمستخدم'], 200);
     }
