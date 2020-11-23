@@ -77,4 +77,6 @@ class VoteController extends Controller
         $this->logRepository->Create_Data(''.Auth::user()->id.'','تغير حاله','تغير حاله اكثر من الاستبيان');
         return redirect()->back()->with('message', 'تم تغير الحاله الاستبيان بنجاح');
     }
+
+
 }

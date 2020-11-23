@@ -20,5 +20,6 @@ interface UserInterface{
     public function Update_Status_Datas(StatusEditRequest $request);
     public function Get_Role_For_Data($id);
     public function Upgrad($id);
+    public function Get_List_Nominee_Circle($id);
 
 }
