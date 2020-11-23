@@ -129,7 +129,8 @@ class UserRepository implements UserInterface
         return DB::table('users')
             ->join('role_user', 'role_user.user_id', '=', 'users.id')
             ->where('role_user.role_id', '=',4)
-            ->where('users.circle_id', '=',$id)
+            ->where('users.circle_id', $id)
+            ->where('users.status', 1)
             ->select('users.id','users.name')
             ->pluck('users.name','users.id');
     }
