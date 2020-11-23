@@ -11,7 +11,7 @@ class Vote_Nominee extends Model
     ];
     public function nominee()
     {
-        return $this->hasMany('App\User','nominee_id');
+        return $this->belongsTo('App\User','nominee_id');
     }
     public function vote()
     {

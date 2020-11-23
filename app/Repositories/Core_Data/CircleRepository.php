@@ -13,67 +13,67 @@ use Illuminate\Http\Request;
 class CircleRepository implements CircleInterface
 {
 
-    protected $country;
+    protected $circle;
 
-    public function __construct(Circle $country)
+    public function __construct(Circle $circle)
     {
-        $this->country = $country;
+        $this->circle = $circle;
     }
 
     public function Get_All_Datas()
     {
-        return $this->country->orderby('order','asc')->get();
+        return $this->circle->orderby('order','asc')->get();
     }
 
     public function Create_Data(CreateRequest $request)
     {
         $data['status'] = 1;
-        $this->country->create(array_merge($request->all(),$data));
+        $this->circle->create(array_merge($request->all(),$data));
     }
 
     public function Get_One_Data($id)
     {
-        return $this->country->find($id);
+        return $this->circle->find($id);
     }
 
     public function Update_Data(EditRequest $request, $id)
     {
-       $country = $this->Get_One_Data($id);
-        $country->update($request->all());
+       $circle = $this->Get_One_Data($id);
+        $circle->update($request->all());
     }
 
     public function Update_Status_One_Data($id)
     {
-        $country = $this->Get_One_Data($id);
-        if ($country->status == 1) {
-            $country->status = '0';
-        } elseif ($country->status == 0) {
-            $country->status = '1';
+        $circle = $this->Get_One_Data($id);
+        if ($circle->status == 1) {
+            $circle->status = '0';
+        } elseif ($circle->status == 0) {
+            $circle->status = '1';
         }
-        $country->update();
+        $circle->update();
     }
 
     public function Get_Many_Data(Request $request)
     {
-      return  $this->country->wherein('id',$request->change_status)->get();
+      return  $this->circle->wherein('id',$request->change_status)->get();
     }
 
     public function Update_Status_Datas(StatusEditRequest $request)
     {
-        $countrys = $this->Get_Many_Data($request);
-        foreach($countrys as $country)
+        $circles = $this->Get_Many_Data($request);
+        foreach($circles as $circle)
         {
-            if ($country->status == 1) {
-                $country->status = '0';
-            } elseif ($country->status == 0) {
-                $country->status = '1';
+            if ($circle->status == 1) {
+                $circle->status = '0';
+            } elseif ($circle->status == 0) {
+                $circle->status = '1';
             }
-            $country->update();
+            $circle->update();
         }
     }
 
     public function Get_List_Data()
     {
-            return $this->country->select('title','id')->where('status',1)->orderby('order','asc')->get();
+            return $this->circle->select('title','id')->where('status',1)->orderby('order','asc')->get();
     }
 }

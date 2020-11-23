@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Election\Vote\EditRequest;
 use App\Http\Requests\Admin\Election\Vote\StatusEditRequest;
 use App\Interfaces\Election\VoteInterface;
 use App\Models\Election\Vote;
+use App\Models\Election\Vote_Nominee;
 use Illuminate\Http\Request;
 
 
@@ -14,10 +15,12 @@ class VoteRepository implements VoteInterface
 {
 
     protected $vote;
+    protected $vote_nominee;
 
-    public function __construct(Vote $vote)
+    public function __construct(Vote $vote,Vote_Nominee $vote_nominee)
     {
         $this->vote = $vote;
+        $this->vote_nominee = $vote_nominee;
     }
 
     public function Get_All_Datas()
@@ -27,8 +30,17 @@ class VoteRepository implements VoteInterface
 
     public function Create_Data(CreateRequest $request)
     {
-        $data['status'] = 1;
-        $this->vote->create(array_merge($request->all(), $data));
+        $this->vote->status = 1;
+        $this->vote->title=$request->title;
+        $this->vote->circle_id=$request->circle_id;
+        $this->vote->save();
+        foreach ($request->nominee_id as $nominee_id)
+        {
+        $this->vote_nominee->vote_id=$this->vote->id;
+        $this->vote_nominee->nominee_id=$nominee_id->id;
+        $this->vote_nominee->nominee_count=0;
+        $this->vote_nominee->save();
+        }
     }
 
     public function Get_One_Data($id)

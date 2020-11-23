@@ -50,8 +50,9 @@ class VoteController extends Controller
     public function edit($id)
     {
         $data = $this->voteRepository->Get_One_Data($id);
+        $nominee = $this->userRepository->Get_List_Nominee_Circle($data->circle_id);
         $this->logRepository->Create_Data(''.Auth::user()->id.'','عرض','فتح صفحه الاستبيان للتعديل');
-        return view('admin.election.vote.edit',compact('data'));
+        return view('admin.election.vote.edit',compact('data','nominee'));
 
     }
 

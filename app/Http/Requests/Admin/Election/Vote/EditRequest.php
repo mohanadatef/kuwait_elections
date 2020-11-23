@@ -24,8 +24,8 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|unique:votes,title,'.$this->id.',id',
-            'circle_id' => 'exists:circles,id',
+            'title' => 'required|string|unique:votes,title,'.$this->id.',id',
+            'circle_id' => 'required|exists:circles,id',
         ];
     }
 

@@ -17,6 +17,7 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::get('/change_many_status', 'UserController@change_many_status')->middleware('permission:user-many-status');
             Route::get('/upgrad/{id}', 'UserController@upgrad_user')->middleware('permission:user-upgrad');
         });
+        Route::get('/get-nominee-list', 'UserController@Get_List_Nominee_Circle');
         Route::prefix('/friend')->middleware('permission:friend-list')->group(function () {
             Route::get('/request', 'FriendController@request_index')->middleware('permission:friend-request');
             Route::get('/', 'FriendController@friend_index')->middleware('permission:friend-friend');

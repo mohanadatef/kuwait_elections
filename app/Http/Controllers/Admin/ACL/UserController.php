@@ -11,6 +11,7 @@ use App\Repositories\ACL\RoleRepository;
 use App\Repositories\ACL\UserRepository;
 use App\Repositories\Core_Data\AreaRepository;
 use App\Repositories\Core_Data\CircleRepository;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -106,5 +107,11 @@ class UserController extends Controller
         $this->userRepository->Upgrad($id);
         $this->logRepository->Create_Data(''.Auth::user()->id.'','تغير نوع المستخدم','تغير نوع  مستخدم فى لوحه التحكم');
         return redirect()->back()->with('message', 'تم تغير نوع للمستخدم بنجاح');
+    }
+
+    public function Get_List_Nominee_Circle(Request $request)
+    {
+        $data = $this->userRepository->Get_List_Nominee_Circle($request->circle_id);
+        return response()->json($data);
     }
 }

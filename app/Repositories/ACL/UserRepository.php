@@ -12,6 +12,7 @@ use App\Models\ACL\Role_user;
 use App\Models\Image;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -125,6 +126,11 @@ class UserRepository implements UserInterface
 
     public function Get_List_Nominee_Circle($id)
     {
-        return $this->user->where('role_users.role_id',4)->where('circle_id',$id);
+        return DB::table('users')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_user.role_id', '=',4)
+            ->where('users.circle_id', '=',$id)
+            ->select('users.id','users.name')
+            ->pluck('users.name','users.id');
     }
 }

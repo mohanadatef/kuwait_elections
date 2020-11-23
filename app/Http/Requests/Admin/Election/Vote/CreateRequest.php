@@ -24,8 +24,9 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|unique:votes',
-            'circle_id' => 'exists:circles,id',
+            'title' => 'required|string|unique:votes',
+            'circle_id' => 'required|exists:circles,id',
+            'nominee_id' => 'required|exists:users,id',
         ];
     }
 }
