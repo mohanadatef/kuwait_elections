@@ -191,8 +191,8 @@ class CommitController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات التعليق'], 400);
         }
         if ($user->id == Auth::user()->id) {
-            $like = Like::where('category', 'commit')->where('category_id', $request->commit_id)->where('user_id', Auth::User()->id)->first();
-            if ($like == null) {
+            $like = Like::where('category', 'commit')->where('category_id', $request->commit_id)->where('user_id', $user->id)->count();
+            if ($like == 0) {
                 $like = new Like();
                 $like->category_id = $commit->id;
                 $like->category = 'commit';
@@ -202,7 +202,7 @@ class CommitController extends Controller
                 $data = Like::with('user')->where('category', 'commit')->where('category_id', $commit->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
             } else {
-                $like->delete();
+                Like::where('category', 'commit')->where('category_id', $request->commit_id)->where('user_id', $user->id)->delete();
                 $message = 'تم مسح الاعجاب بنجاح';
                 $data = Like::with('user')->where('category', 'commit')->where('category_id', $commit->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح', 'مسح اعجاب منشور للمستخدم');

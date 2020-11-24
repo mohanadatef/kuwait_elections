@@ -290,18 +290,18 @@ class PostController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
         if ($user->id == Auth::user()->id) {
-            $like = Like::where('category', 'post')->where('category_id', $post->id)->where('user_id', $user->id)->first();
-            if (!$like) {
-                $likes = new Like();
-                $likes->category_id = $post->id;
-                $likes->category = 'post';
-                $likes->user_id = $user->id;
-                $likes->save();
+            $like = Like::where('category', 'post')->where('category_id', $post->id)->where('user_id', $user->id)->count();
+            if ($like ==0) {
+                $like = new Like();
+                $like->category_id = $post->id;
+                $like->category = 'post';
+                $like->user_id = $user->id;
+                $like->save();
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $message = 'تم تسجيل الاعجاب بنجاح';
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
             } else {
-                $like->delete();
+                Like::where('category', 'post')->where('category_id', $post->id)->where('user_id', $user->id)->delete();
                 $message = 'تم مسح الاعجاب بنجاح';
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مسح الاعجاب', 'مسح اعجاب منشور للمستخدم');
