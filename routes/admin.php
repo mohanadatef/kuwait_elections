@@ -151,5 +151,9 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::get('/change_status/{id}', 'VoteController@change_status')->middleware('permission:vote-status');
             Route::get('/change_many_status', 'VoteController@change_many_status')->middleware('permission:vote-many-status');
         });
+        Route::prefix('/vote_nominee')->middleware('permission:vote-list')->group(function () {
+            Route::get('/create/{id}', 'VoteNomineeController@create')->middleware('permission:vote-nominee-create');
+            Route::Post('/store/{id}', 'VoteNomineeController@store')->middleware('permission:vote-nominee-create');
+        });
     });
 });

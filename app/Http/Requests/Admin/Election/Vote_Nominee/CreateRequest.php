@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\Election\Vote;
+namespace App\Http\Requests\Admin\Election\Vote_Nominee;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|unique:votes',
-            'circle_id' => 'required|exists:circles,id',
+            'nominee_id' => 'required|exists:users,id',
         ];
     }
 }
