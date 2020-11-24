@@ -285,18 +285,18 @@ class PostController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
-        $post = Post::with('image', 'like', 'commit_post')->find($request->post_id);
+        $post = Post::find($request->post_id);
         if (!$post) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المنشور'], 400);
         }
         if ($user->id == Auth::user()->id) {
             $like = Like::where('category', 'post')->where('category_id', $post->id)->where('user_id', $user->id)->first();
             if (!$like) {
-                $like = new Like();
-                $like->category_id = $post->id;
-                $like->category = 'post';
-                $like->user_id = $user->id;
-                $like->save();
+                $likes = new Like();
+                $likes->category_id = $post->id;
+                $likes->category = 'post';
+                $likes->user_id = $user->id;
+                $likes->save();
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $message = 'تم تسجيل الاعجاب بنجاح';
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
