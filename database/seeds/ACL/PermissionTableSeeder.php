@@ -504,6 +504,11 @@ class PermissionTableSeeder extends Seeder
                 'display_name'=>'vote many status',
                 'description'=>'vote many status',
             ],
+            [
+            'name'=>'vote-nominee-create',
+            'display_name'=>'vote nominee create',
+            'description'=>'vote nominee create',
+        ],
         ];
         foreach ($permissions as $key=>$value)
         {

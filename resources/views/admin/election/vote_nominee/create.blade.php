@@ -50,11 +50,13 @@
                                 <option > {{$data->circle->title}}</option>
                         </select>
                     </div>
+
                     <div class="form-group{{ $errors->has('role_id') ? ' has-error' : "" }}">
                         اختار نوع المستخدم :
                         <select id="nominee" multiple='multiple' class="form-control"  name="nominee_id[]">
                             @foreach($nominee as  $mynominee)
-                                <option value="{{$mynominee->id}}"> {{$mynominee->name}}</option>
+
+                                <option value="{{$mynominee->id}}" @if(in_array($mynominee->id,$list_nominee->toarray()))selected @endif> {{$mynominee->name}}</option>
                             @endforeach
                         </select>
                     </div>

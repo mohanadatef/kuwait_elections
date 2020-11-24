@@ -132,6 +132,6 @@ class UserRepository implements UserInterface
             ->where('users.circle_id', $id)
             ->where('users.status', 1)
             ->select('users.id','users.name')
-            ->pluck('users.name','users.id');
+            ->get();
     }
 }

@@ -42,7 +42,12 @@
                         @permission('vote-status')
                         <th align="center">الحاله</th>
                         @endpermission
+                        @permission('vote-edit')
                         <th align="center">التحكم</th>
+                        @endpermission
+                        @permission('vote-nominee-create')
+                        <th align="center">اضافه مرشح</th>
+                        @endpermission
                     </tr>
                     </thead>
                     <tbody>
@@ -76,6 +81,14 @@
 
                             </td>
                             @endpermission
+                            @permission('vote-nominee-create')
+                            <td align="center">
+                                <a href="{{ url('/admin/vote_nominee/create/'.$data->id)}}"><i
+                                            class="btn btn-primary ace-icon fa fa-edit bigger-120  edit"
+                                            data-id=""> اضافه مرشح</i></a>
+
+                            </td>
+                            @endpermission
                         </tr>
                     @endforeach
                     </tbody>
@@ -89,7 +102,12 @@
                         @permission('vote-status')
                         <th align="center">الحاله</th>
                         @endpermission
+                        @permission('vote-edit')
                         <th align="center">التحكم</th>
+                        @endpermission
+                        @permission('vote-nominee-create')
+                        <th align="center">اضافه مرشح</th>
+                        @endpermission
                     </tr>
                     </tfoot>
                 </table>
