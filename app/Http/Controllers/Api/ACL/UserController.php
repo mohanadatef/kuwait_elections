@@ -102,6 +102,9 @@ class UserController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
         if($request->status_auth == 1)
         {
         $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الصفحه الشخصيه');
@@ -168,6 +171,11 @@ class UserController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        if($user->id == Auth::user()->id)
+        {
         $validate = \Validator::make($request->all(), [
             'email' => 'required|email|max:255|string|unique:users,email,' . $request->user_id . ',id',
             'civil_reference' => 'required|string|max:255|unique:users,civil_reference'. $request->user_id . ',id',
@@ -191,14 +199,21 @@ class UserController extends Controller
                 'user' => new UserResource($user)],
                 'message'=>'تم تحديت بيانات المستخدم بنجاح'
             ], 201);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
 
     public function change_password(Request $request)
     {
-        $user = User::where('civil_reference', $request->email)->orwhere('email', $request->email)->first();
+        $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        if($user->id == Auth::user()->id)
+        {
         $validate = \Validator::make($request->all(), [
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -211,5 +226,7 @@ class UserController extends Controller
             'data'=>array(),
             'message'=>'تم تحديت كلمه السر المستخدم بنجاح'
         ], 201);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
 }

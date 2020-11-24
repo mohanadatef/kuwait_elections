@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Social_Media\Group;
 use App\Http\Resources\Social_Media\PostResource;
 use App\Models\Image;
 use App\Models\Social_Media\Group;
+use App\Models\Social_Media\Group_User;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\User;
@@ -28,6 +29,11 @@ class GroupPostController extends Controller
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
         }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        if($user->id == Auth::user()->id)
+        {
         if ($request->image_post) {
             $validate = \Validator::make($request->all(), [
                 'details' => 'required|string|max:255',
@@ -69,6 +75,8 @@ class GroupPostController extends Controller
             return response(['status'=>1,'data'=>['post' => new PostResource($post)],'message'=>'تم تسجيل المنشور بنجاح'], 201);
         }
         return response(['status'=>0,'data'=>array(),'message'=>'خطا فى المدخلات'], 400);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
 
     public function show_all_post_group(Request $request)
@@ -77,6 +85,18 @@ class GroupPostController extends Controller
         if (!$group) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات الجروب'], 400);
         }
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
+        }
+        if ($user->status == 0) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
+        }
+        $member=Group_User::where('group_id',$group->id)->where('user_id',$user->زid)->first();
+        if($member)
+        {
+        if($user->id == Auth::user()->id)
+        {
         $post = Post::with(['commit_post' => function ($query) {
             $query->where('status', 1);
         }], ['like' => function ($query) {
@@ -88,5 +108,9 @@ class GroupPostController extends Controller
             return response(['status'=>1,'data'=>['post' => PostResource::collection($post)],'message'=>'قائمه المنشورات'], 200);
         }
         return response(['status'=>0,'data'=>array(),'message'=>'خطا فى تحميل البيانات'], 400);
+        }
+        return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
+        }
+        return response(['status' => 1, 'data' => array(), 'message' => 'غير مشترك فى الجروب'], 400);
     }
 }

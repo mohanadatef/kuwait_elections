@@ -10,8 +10,7 @@ class ContactUsController extends Controller
 {
     public function index()
     {
-        $data = Contact_Us::find(1);
-        return response(['status'=>1,'data'=>['contact_us' => new ContactUsResource($data)],'message'=>'بيانات تواصل مع الشركه'], 200);
+        return response(['status'=>1,'data'=>['contact_us' => new ContactUsResource(Contact_Us::find(1))],'message'=>'بيانات تواصل مع الشركه'], 200);
     }
 }
 ?>

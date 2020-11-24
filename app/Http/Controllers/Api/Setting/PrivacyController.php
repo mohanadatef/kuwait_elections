@@ -10,8 +10,7 @@ class PrivacyController extends Controller
 {
     public function index()
     {
-        $data = Privacy::find(1);
-        return response(['status'=>1,'data'=>['privacy' => new PrivacyResource($data)],'message'=>'سياسه الشركه'], 200);
+        return response(['status'=>1,'data'=>['privacy' => new PrivacyResource(Privacy::find(1))],'message'=>'سياسه الشركه'], 200);
     }
 }
 ?>
