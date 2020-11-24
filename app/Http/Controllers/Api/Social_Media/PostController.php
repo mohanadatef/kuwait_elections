@@ -305,6 +305,29 @@ class PostController extends Controller
                     $notification->status = 1;
                     $notification->details = $user->first_name . " " . $user->second_name . ' قام بعمل اعجاب على المنشور';
                     $notification->save();
+                    $post_user=User::find($post->user_id);
+                    $firebaseToken = $post_user->remember_token;
+                    $SERVER_API_KEY = 'AIzaSyAfsVDrqkA-jPspWmlO2aWxY8B0wG_FXmY';
+                    $data = [
+                        "registration_ids" => $firebaseToken,
+                        "notification" => [
+                            "title" => 'اعجاب على المنشور',
+                            "body" => $notification->details,
+                        ]
+                    ];
+                    $dataString = json_encode($data);
+                    $headers = [
+                        'Authorization: key=' . $SERVER_API_KEY,
+                        'Content-Type: application/json',
+                    ];
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+                    $response = curl_exec($ch);
                 }
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $message = 'تم تسجيل الاعجاب بنجاح';
