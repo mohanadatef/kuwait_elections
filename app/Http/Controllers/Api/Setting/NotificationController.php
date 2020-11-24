@@ -34,7 +34,7 @@ class NotificationController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
         if ($user->id == Auth::user()->id) {
-            $notification = Notification::where('user_receive_id', $user->id)->where('status',1)->orwhere('user_receive_id', '0')->where('status',1)->get();
+            $notification = Notification::where('user_receive_id', $user->id)->where('status',1)->orwhere('user_receive_id', '0')->where('status',1)->orderby('created_at','DESC')->get();
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض قائمه الاشعارات');
             return response(['status' => 1, 'data' => [
                 'count_notification' => count($notification),

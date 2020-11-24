@@ -98,6 +98,9 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::get('contact_us', 'ContactUsController@index');
             Route::get('setting_details', 'SettingController@index');
             Route::post('call_us', 'CallUsController@store');
+            Route::group(['prefix' => 'notification'], function () {
+                Route::get('index', 'NotificationController@index');
+            });
         });
         Route::group(['namespace' => 'Core_Data'], function () {
             Route::get('Circle_List', 'CircleController@index');
