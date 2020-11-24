@@ -14,6 +14,7 @@ class NomineeResource extends JsonResource
      */
     public function toArray($request)
     {
+
         if($this->image->first())
         {
             return [

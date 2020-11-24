@@ -4,9 +4,8 @@ namespace App\Http\Resources\Election;
 
 use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
 
-class VoteResource extends JsonResource
+class VoteNomineeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +15,10 @@ class VoteResource extends JsonResource
      */
     public function toArray($request)
     {
-
+        $vote_nominee = User::find($this->nominee_id);
         return [
-            'vote_id' => $this->id,
-            'title' => $this->title,
-            'count_nominee'=>count($this->vote_nominee),
-            'vote_nominee' => VoteNomineeResource::collection($this->vote_nominee),
+            'count_vote' => $this->nominee_count,
+            'nominee' => new NomineeResource($vote_nominee),
         ];
     }
 }

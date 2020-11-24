@@ -21,7 +21,7 @@ class Vote_User extends Model
     {
         return $this->belongsTo('App\Models\Election\Vote','vote_id');
     }
-    protected $table = 'vote_nominees';
+    protected $table = 'vote_users';
     public $timestamps = true;
 
 }
