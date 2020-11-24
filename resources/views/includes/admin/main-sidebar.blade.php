@@ -69,7 +69,8 @@
                         </a>
                         <ul class="treeview-menu">
                             @permission('contact-us-index')
-                            <li><a href="{{ url('/admin/contact_us/index') }}"><i class="fa fa-group"></i><span>اتصل بنا</span></a>
+                            <li><a href="{{ url('/admin/contact_us/index') }}"><i
+                                            class="fa fa-group"></i><span>اتصل بنا</span></a>
                             </li>
                             @endpermission
                         </ul>
@@ -91,6 +92,27 @@
                             @permission('call-us-unread')
                             <li><a href="{{ url('/admin/call_us/unread') }}"><i class="fa fa-group"></i><span>اتصل بنا غير المقرؤه</span></a>
                             </li>
+                            @endpermission
+                        </ul>
+                    </li>
+                    @endpermission
+                    @permission('notification-list')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>الاشعارات</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @permission('notification-index')
+                            <li><a href="{{ url('/admin/notification/index') }}"><i
+                                            class="fa fa-group"></i><span>قائمة الاشعارات</span></a>
+                            </li>
+                            @endpermission
+                            @permission('notification-create')
+                            <li><a href="{{ url('/admin/notification/create') }}"><i
+                                            class="fa fa-group"></i><span>اضافة الاشعار</span></a></li>
                             @endpermission
                         </ul>
                     </li>
@@ -175,7 +197,8 @@
                             </li>
                             @endpermission
                             @permission('friend-friend')
-                            <li><a href="{{ url('/admin/friend/') }}"><i class="fa fa-group"></i><span>قائمه الاصدقاء</span></a>
+                            <li><a href="{{ url('/admin/friend/') }}"><i
+                                            class="fa fa-group"></i><span>قائمه الاصدقاء</span></a>
                             </li>
                             @endpermission
                         </ul>
@@ -191,7 +214,8 @@
                         </a>
                         <ul class="treeview-menu">
                             @permission('log-index')
-                            <li><a href="{{ url('/admin/log/index') }}"><i class="fa fa-group"></i><span>قائمه السجل</span></a>
+                            <li><a href="{{ url('/admin/log/index') }}"><i
+                                            class="fa fa-group"></i><span>قائمه السجل</span></a>
                             </li>
                             @endpermission
                         </ul>

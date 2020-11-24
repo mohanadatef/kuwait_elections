@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\ACL;
 
 use App\Http\Resources\ACL\FriendResource;
 use App\Models\ACL\Friend;
+use App\Models\Setting\Notification;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class FriendController extends Controller
         if (!$user_receive) {
             return response(['status' => 0, 'data' => array(), 'message' => 'رقم المستخدم المرسل اليه خطاء'], 400);
         }
-        if ($user_send->id == Auth::User()->id) {
+        if ($user_send->id == Auth::User()->id && $user_send->id !=$user_receive->id ) {
             if ($user_send->status == 0) {
                 return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
             }
@@ -45,6 +46,12 @@ class FriendController extends Controller
                 $friend->user_receive_id = $user_receive->id;
                 $friend->status = 0;
                 $friend->save();
+                $notification=new Notification();
+                $notification->user_send_id=$user_send->id;
+                $notification->user_receive_id=$user_receive->id;
+                $notification->status=0;
+                $notification->details=$user_send->first_name ." ".$user_send->second_name . ' ارسل طلب صداقه اليك' ;
+                $notification->save();
                 $this->logRepository->Create_Data('' . $user_send->id . '', 'ارسال', 'ارسال طلب صداقه');
                 return response(['status' => 1, 'data' => ['request_friend_number' => $friend->id], 'message' => 'تم ارسال طلب الصداقه'], 200);
             }
@@ -64,6 +71,12 @@ class FriendController extends Controller
             if ($user->id == Auth::user()->id && $friend->user_receive_id == Auth::user()->id) {
                 $friend->status = 1;
                 $friend->update();
+                $notification=new Notification();
+                $notification->user_send_id=$friend->user_receive_id;
+                $notification->user_receive_id=$friend->user_send_id;
+                $notification->status=1;
+                $notification->details=$user->first_name ." ".$user->second_name . ' قبل طلب صداقه اليك' ;
+                $notification->save();
                 $this->logRepository->Create_Data('' . $user->id . '', 'قبول', 'قبول طلب صداقه');
                 return response(['status' => 1, 'data' => array(), 'message' => 'تم قبول طلب صداقه'], 200);
             }

@@ -97,6 +97,14 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::patch('/update/{id}', 'AboutUsController@update')->middleware('permission:about-us-edit');
         });
 
+        Route::prefix('/notification')->middleware('permission:notification-list')->group(function () {
+            Route::get('/index', 'NotificationController@index')->middleware('permission:notification-index');
+            Route::get('/create', 'NotificationController@create')->middleware('permission:notification-create');
+            Route::Post('/store', 'NotificationController@store')->middleware('permission:notification-create');
+            Route::get('/change_status/{id}', 'NotificationController@change_status')->middleware('permission:notification-status');
+            Route::get('/change_many_status', 'NotificationController@change_many_status')->middleware('permission:notification-many-status');
+        });
+
         Route::prefix('/contact_us')->middleware('permission:contact-us-list')->group(function () {
             Route::get('/index', 'ContactUsController@index')->middleware('permission:contact-us-index');
             Route::get('/create', 'ContactUsController@create')->middleware('permission:contact-us-create');

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Social_Media;
 use App\Http\Resources\Social_Media\LikeResource;
 use App\Http\Resources\Social_Media\PostResource;
 use App\Models\Image;
+use App\Models\Setting\Notification;
 use App\Models\Social_Media\Commit;
 use App\Models\Social_Media\Like;
 use App\Models\Social_Media\Post;
@@ -297,6 +298,14 @@ class PostController extends Controller
                 $like->category = 'post';
                 $like->user_id = $user->id;
                 $like->save();
+                if($post->user_id != $user->id) {
+                    $notification = new Notification();
+                    $notification->user_send_id = $user->id;
+                    $notification->user_receive_id = $post->user_id;
+                    $notification->status = 1;
+                    $notification->details = $user->first_name . " " . $user->second_name . ' قام بعمل اعجاب على المنشور';
+                    $notification->save();
+                }
                 $data = Like::where('category', 'post')->where('category_id', $post->id)->get();
                 $message = 'تم تسجيل الاعجاب بنجاح';
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
@@ -330,6 +339,14 @@ class PostController extends Controller
                 $post->user_id = $user->id;
                 $post->post_id = $posts->id;
                 $post->save();
+                if($post->user_id != $user->id) {
+                    $notification = new Notification();
+                    $notification->user_send_id = $user->id;
+                    $notification->user_receive_id = $post->user_id;
+                    $notification->status = 1;
+                    $notification->details = $user->first_name . " " . $user->second_name . ' قام بعمل مشاركه على المنشور';
+                    $notification->save();
+                }
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مشاركه', 'مشاركه منشور');
                 return response(['status' => 1, 'data' => ['post' => new PostResource($post)], 'message' => 'تم مشاكره المنشور بنجاح'], 201);
             }

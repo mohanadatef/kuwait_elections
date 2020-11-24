@@ -56,11 +56,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Models\Social_Media\Like');
     }
-    public function user_send()
+    public function user_send_friend()
     {
         return $this->hasMany('App\Models\ACL\Friend','user_send_id');
     }
-    public function user_receive()
+    public function user_receive_friend()
     {
         return $this->hasMany('App\Models\ACL\Friend','user_receive_id');
     }
@@ -83,6 +83,14 @@ class User extends Authenticatable implements JWTSubject
     public function nominee()
     {
         return $this->belongsTo('App\Models\Election\Election','nominee_id');
+    }
+    public function user_send_notification()
+    {
+        return $this->hasMany('App\Models\Setting\Notification','user_send_id');
+    }
+    public function user_receive_notification()
+    {
+        return $this->hasMany('App\Models\Setting\Notification','user_receive_id');
     }
     public function getJWTIdentifier()
     {

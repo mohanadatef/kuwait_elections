@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Social_Media;
 use App\Http\Resources\Social_Media\LikeResource;
 use App\Http\Resources\Social_Media\PostResource;
 use App\Models\Image;
+use App\Models\Setting\Notification;
 use App\Models\Social_Media\Commit;
 use App\Models\Social_Media\Like;
 use App\Models\Social_Media\Post;
@@ -76,6 +77,14 @@ class CommitController extends Controller
                 file_put_contents($file, $image_base64);
                 $commit_image_save->image_commit = $imageName;
                 $commit_image_save->save();
+            }
+            if($post->user_id != $commit->user_id) {
+                $notification = new Notification();
+                $notification->user_send_id = $commit->user_id;
+                $notification->user_receive_id = $post->user_id;
+                $notification->status = 1;
+                $notification->details = $user->first_name . " " . $user->second_name . 'قام بعمل تعليق على المنشور';
+                $notification->save();
             }
             $post = Post::with('commit_post', 'like', 'image')->find($request->post_id);
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تسجيل', 'تسجيل تعليق جديد فى منشور');
@@ -198,6 +207,15 @@ class CommitController extends Controller
                 $like->category = 'commit';
                 $like->user_id = $user->id;
                 $like->save();
+                if($user->id != $commit->user_id)
+                {
+                $notification=new Notification();
+                $notification->user_send_id=$user->id;
+                $notification->user_receive_id=$commit->user_id;
+                $notification->status=1;
+                $notification->details=$user->first_name ." ".$user->second_name . ' قام بعمل اعجاب على التعليق' ;
+                $notification->save();
+                }
                 $message = 'تم تسجيل الاعجاب بنجاح';
                 $data = Like::with('user')->where('category', 'commit')->where('category_id', $commit->id)->get();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'اعجاب', 'تسجيل اعجاب منشور للمستخدم');
