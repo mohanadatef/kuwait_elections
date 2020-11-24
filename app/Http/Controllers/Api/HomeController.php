@@ -63,7 +63,7 @@ class HomeController extends Controller
         return response(['status' => 1, 'data' => ['count_post' => count($post),
             'post' => PostResource::collection($post), 'user' => array(),
             'nominee' => $nominee,
-            'setting' => $this->settingRepository->Get_all_In_Response(), 'friend' => array()], 'message' => 'الصفحه الرئيسيه'], 200);
+            'setting' => $this->settingRepository->Get_all_In_Response(), 'count_friend' => 0, 'friend' => array()], 'message' => 'الصفحه الرئيسيه'], 200);
     }
 
     public function index_auth(Request $request)
@@ -109,6 +109,7 @@ class HomeController extends Controller
             return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post),
                 'user' => new UserResource($user), 'nominee' => $nominee,
                 'setting' => $this->settingRepository->Get_all_In_Response(),
+                 'count_friend' => count($friend),
                 'friend' => $friend], 'message' => 'الصفحه الرئيسيه'], 200);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
