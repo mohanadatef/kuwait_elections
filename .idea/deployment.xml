@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="takw">
+  <component name="PublishConfigData" serverName="takw" uploadOnCheckin="f1092942-c9df-49e8-8aac-9194e646e002">
     <serverData>
       <paths name="kuwit">
         <serverdata>
@@ -17,5 +17,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="takw" />
   </component>
 </project>
