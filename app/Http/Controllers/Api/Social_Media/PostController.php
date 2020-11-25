@@ -350,6 +350,12 @@ class PostController extends Controller
                     $newName = time().uniqid().'.'.$fileExtension;
                     $newPathWithName = public_path('images/post/').$newName;
                     \File::copy($oldPath , $newPathWithName);
+                    $post_image = new Image();
+                    $post_image->category = 'post';
+                    $post_image->status = 1;
+                    $post_image->category_id = $post->id;
+                    $post_image->image = $newName;
+                    $post_image->save();
                 }
                 if($post->user_id != $user->id) {
                     $notification = new Notification();
