@@ -64,6 +64,9 @@ class PostController extends Controller
                 $image_base64 = base64_decode($request->image_post);
                 $imageName = time() . uniqid() . '.' . $image_type;
                 $file = $folderPath . $imageName;
+                if(!\File::isDirectory($folderPath)){
+                    \File::makeDirectory($folderPath, 0777, true, true);
+                }
                 file_put_contents($file, $image_base64);
                 $post_image->image = $imageName;
                 $post_image->save();
@@ -158,6 +161,9 @@ class PostController extends Controller
                 $image_base64 = base64_decode($request->image_post);
                 $imageName = time() . uniqid() . '.' . $image_type;
                 $file = $folderPath . $imageName;
+                if(!\File::isDirectory($folderPath)){
+                    \File::makeDirectory($folderPath, 0777, true, true);
+                }
                 file_put_contents($file, $image_base64);
                 $post_image->image = $imageName;
                 $post_image->save();

@@ -92,6 +92,18 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Models\Setting\Notification','user_receive_id');
     }
+    public function user_send_message()
+    {
+        return $this->hasMany('App\Models\Social_Media\Message','user_send_id');
+    }
+    public function user_receive_message()
+    {
+        return $this->hasMany('App\Models\Social_Media\Message','user_receive_id');
+    }
+    public function user_chat()
+    {
+        return $this->hasMany('App\Models\Social_Media\Message_User','user_id');
+    }
     public function getJWTIdentifier()
     {
         return $this->getKey();

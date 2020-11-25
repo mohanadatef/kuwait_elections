@@ -25,6 +25,10 @@ class Image extends Model
     {
         return $this->belongsTo('App\Models\Social_Media\Group','category_id');
     }
+    public function chat()
+    {
+        return $this->belongsTo('App\Models\Social_Media\Message_User','category_id');
+    }
     protected $table = 'images';
     public $timestamps = true;
 

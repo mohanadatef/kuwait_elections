@@ -44,7 +44,7 @@ class CommitController extends Controller
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
                     'post_id' => 'required|exists:posts,id',
-                    'image_commit' => 'image|mimes:jpg,jpeg,png|max:2048',
+                    'image_commit' => 'string',
                 ]);
             } else {
                 $validate = \Validator::make($request->all(), [
@@ -74,6 +74,9 @@ class CommitController extends Controller
                 $image_base64 = base64_decode($request->image_commit);
                 $imageName = time() . uniqid() . '.' . $image_type;
                 $file = $folderPath . $imageName;
+                if(!\File::isDirectory($folderPath)){
+                    \File::makeDirectory($folderPath, 0777, true, true);
+                }
                 file_put_contents($file, $image_base64);
                 $commit_image_save->image_commit = $imageName;
                 $commit_image_save->save();
@@ -133,6 +136,9 @@ class CommitController extends Controller
                 $image_base64 = base64_decode($request->image_commit);
                 $imageName = time() . uniqid() . '.' . $image_type;
                 $file = $folderPath . $imageName;
+                if(!\File::isDirectory($folderPath)){
+                    \File::makeDirectory($folderPath, 0777, true, true);
+                }
                 file_put_contents($file, $image_base64);
                 $commit_image_save->image_commit = $imageName;
                 $commit_image_save->save();

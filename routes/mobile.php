@@ -63,6 +63,10 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::get('delete', 'CommitController@delete');
             Route::get('like', 'CommitController@like');
         });
+        Route::group(['prefix' => 'chat'], function () {
+            Route::get('index', 'MessageController@index');
+            Route::post('store', 'MessageController@store');
+        });
         Route::group(['namespace' => 'Group'], function () {
             Route::group(['prefix' => 'group'], function () {
                 Route::get('show_all_group', 'GroupController@show_all_group');
@@ -99,9 +103,9 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
         Route::get('setting_details', 'SettingController@index');
         Route::post('call_us', 'CallUsController@store');
 
-    Route::group(['prefix' => 'notification'], function () {
-        Route::get('index', 'NotificationController@index');
-    });
+        Route::group(['prefix' => 'notification'], function () {
+            Route::get('index', 'NotificationController@index');
+        });
     });
     Route::group(['namespace' => 'Core_Data'], function () {
         Route::get('Circle_List', 'CircleController@index');

@@ -69,6 +69,9 @@ class ImageUserController extends Controller
                 $image_base64 = base64_decode($request->image_profile);
                 $imageName = time() . uniqid() . '.' . $image_type;
                 $file = $folderPath . $imageName;
+                if(!\File::isDirectory($folderPath)){
+                    \File::makeDirectory($folderPath, 0777, true, true);
+                }
                 file_put_contents($file, $image_base64);
                 $profile_image->image = $imageName;
                 $profile_image->save();
