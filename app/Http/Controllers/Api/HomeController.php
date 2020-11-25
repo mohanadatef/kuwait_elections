@@ -58,11 +58,25 @@ class HomeController extends Controller
         } else {
             $nominee = array();
         }
+        $nominees = DB::table('users')
+            ->join('role_user', 'role_user.user_id', '=', 'users.id')
+            ->where('role_user.role_id', 4)
+            ->where('users.status', 1)
+            ->select('users.id', 'users.name')
+            ->pluck('users.id','users.id');
+        if ($nominees) {
+            $nominees = User::with(['profile_image' => function ($query) {
+                $query->where('category', 'profile')->where('status', 1);
+            }])->wherein('id',$nominees)->where('id','!=',$nominee->id)->paginate(10);
+            $nominees =  NomineeResource::collection($nominees);
+        } else {
+            $nominees = array();
+        }
         $post = Post::with('commit_post', 'like', 'image')->where('status', 1)
             ->where('group_id', 0)->orderby('created_at', 'DESC')->paginate(25);
         return response(['status' => 1, 'data' => ['count_post' => count($post),
             'post' => PostResource::collection($post), 'user' => array(),
-            'nominee' => $nominee,
+            'nominee' => $nominee,'nominee_list'=>$nominees,
             'setting' => $this->settingRepository->Get_all_In_Response(), 'count_friend' => 0, 'friend' => array()], 'message' => 'الصفحه الرئيسيه'], 200);
     }
 
@@ -102,14 +116,29 @@ class HomeController extends Controller
             } else {
                 $nominee = array();
             }
+            $nominees = DB::table('users')
+                ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                ->where('role_user.role_id', 4)
+                ->where('users.circle_id', $user->circle_id)
+                ->where('users.status', 1)
+                ->select('users.id', 'users.name')
+                ->pluck('users.id','users.id');
+            if ($nominees) {
+                $nominees = User::with(['profile_image' => function ($query) {
+                    $query->where('category', 'profile')->where('status', 1);
+                }])->wherein('id',$nominees)->where('id','!=',$nominee->id)->get();
+                $nominees =  NomineeResource::collection($nominees);
+            } else {
+                $nominees = array();
+            }
             $friend = User::wherein('id', $friend)->where('status', 1)->get();
             if ($friend) {
                 $friend = UserResource::collection($friend);
             }
             return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post),
-                'user' => new UserResource($user), 'nominee' => $nominee,
+                'user' => new UserResource($user), 'nominee' => $nominee,'nominee_list'=>$nominees,
                 'setting' => $this->settingRepository->Get_all_In_Response(),
-                 'count_friend' => count($friend),
+                'count_friend' => count($friend),
                 'friend' => $friend], 'message' => 'الصفحه الرئيسيه'], 200);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
