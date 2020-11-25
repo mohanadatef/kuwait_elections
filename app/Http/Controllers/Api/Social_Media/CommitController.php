@@ -78,7 +78,7 @@ class CommitController extends Controller
                     \File::makeDirectory($folderPath, 0777, true, true);
                 }
                 file_put_contents($file, $image_base64);
-                $commit_image_save->image_commit = $imageName;
+                $commit_image_save->image = $imageName;
                 $commit_image_save->save();
             }
             if($post->user_id != $commit->user_id) {
@@ -140,7 +140,7 @@ class CommitController extends Controller
                     \File::makeDirectory($folderPath, 0777, true, true);
                 }
                 file_put_contents($file, $image_base64);
-                $commit_image_save->image_commit = $imageName;
+                $commit_image_save->image = $imageName;
                 $commit_image_save->save();
             }
             $post = Post::with('commit_post', 'like', 'image')->find($commit->post_id);

@@ -23,16 +23,17 @@ class CommitCommitResource extends JsonResource
             'commit_commit_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
+            'commit_image'=> asset('public/images/commit/'.$image->image),
             'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
             'like'=>  LikeResource::collection($this->resource->like),
-            'commit_image'=> asset('public/images/commit/'.$image->image),
         ];
     }
         return [
             'commit_commit_id'=>$this->id,
             'created_at'=>Carbon::parse($this->created_at)->format('d/m/Y h:m'),
             'details'=>$this->details,
+            'commit_image'=>'',
             'user'=> new UserResource($this->resource->user),
             'like_count'=> count($this->like),
             'like'=>  LikeResource::collection($this->resource->like),

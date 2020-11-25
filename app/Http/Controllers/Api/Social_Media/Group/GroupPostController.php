@@ -103,7 +103,7 @@ class GroupPostController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
-        $member = Group_User::where('group_id', $group->id)->where('user_id', $user->زid)->first();
+        $member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
         if ($member) {
             if ($user->id == Auth::user()->id) {
                 $post = Post::with(['commit_post' => function ($query) {
