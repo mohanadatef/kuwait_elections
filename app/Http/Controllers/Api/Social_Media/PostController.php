@@ -131,7 +131,7 @@ class PostController extends Controller
             if ($request->image_post) {
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
-                    'image_post' => 'image|mimes:jpg,jpeg,png,gi|max:2048',
+                    'image_post' => 'string',
                 ]);
             } else {
                 $validate = \Validator::make($request->all(), [
@@ -144,8 +144,11 @@ class PostController extends Controller
             $post->details = $request->details;
             $post->update();
             if ($request->image_post) {
-                $image_check = Image::where('category', 'post')->where('category_id', $post->id)->where('status', 1)->first();
-                $image_check->delete();
+                $image_check = Image::where('category', 'post')->where('category_id', $post->id)->where('status', 1)->count();
+                if($image_check > 0)
+                {
+                    Image::where('category', 'post')->where('category_id', $post->id)->where('status', 1)->delete();
+                }
                 $post_image = new Image();
                 $post_image->category = 'post';
                 $post_image->status = 1;

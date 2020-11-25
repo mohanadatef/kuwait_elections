@@ -119,8 +119,11 @@ class CommitController extends Controller
             $commit->details = $request->details;
             $commit->save();
             if ($request->image_commit) {
-                $image_check = Image::where('category', 'commit')->where('category_id', $commit->id)->where('status', 1)->first();
-                $image_check->delete();
+                $image_check = Image::where('category', 'commit')->where('category_id', $commit->id)->where('status', 1)->count();
+                if($image_check > 0)
+                {
+                    Image::where('category', 'commit')->where('category_id', $commit->id)->where('status', 1)->delete();
+                }
                 $commit_image_save = new Image();
                 $commit_image_save->category_id = $commit->id;
                 $commit_image_save->category = 'commit';
