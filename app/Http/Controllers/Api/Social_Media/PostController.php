@@ -90,7 +90,7 @@ class PostController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
-        $post = Post::with('commit_post', 'like', 'image')->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+        $post = Post::with('commit_post', 'like', 'image')->where('user_id', $request->user_id)->where('status', 1)->orderby('created_at', 'DESC')->paginate(50);
         if ($request->status_auth == 1) {
             $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض كل المنشورات للمستخدم');
         }

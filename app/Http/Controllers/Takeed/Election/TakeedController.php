@@ -39,7 +39,7 @@ class TakeedController extends Controller
                 'total_count' => $takeed->Total(),
                 'total_pages' => ceil($takeed->Total() / $takeed->PerPage()),
                 'current_page' => $takeed->CurrentPage(),
-                'url_page' => url('api/takeed/filter?circle=' . $request->circle . '&filter=' . $request->filter . '&word=' . $request->word . '&page='),
+                'url_page' => url('takeed/filter?circle=' . $request->circle . '&filter=' . $request->filter . '&word=' . $request->word . '&page='),
                 'limit' => $takeed->PerPage()]], 200);
         }
         return response(['status' => 0], 400);

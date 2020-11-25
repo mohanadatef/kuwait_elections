@@ -86,7 +86,7 @@ class HomeController extends Controller
                 ->wherein('user_id', $friend)
                 ->where('status', 1)
                 ->orwhere('user_id', $user->id)
-                ->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+                ->where('status', 1)->orderby('created_at', 'DESC')->paginate(50);
             $nominee = DB::table('users')
                 ->join('role_user', 'role_user.user_id', '=', 'users.id')
                 ->where('role_user.role_id', 4)

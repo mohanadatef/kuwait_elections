@@ -111,7 +111,7 @@ class GroupPostController extends Controller
                 }], ['like' => function ($query) {
                     $query->where('category', 'post');
                 }])->where('group_id', $request->group_id)
-                    ->where('status', 1)->orderby('created_at', 'DESC')->paginate(25);
+                    ->where('status', 1)->orderby('created_at', 'DESC')->paginate(50);
                 if ($post) {
                     $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل المنشورات المجموعه');
                     return response(['status' => 1, 'data' => ['post' => PostResource::collection($post)], 'message' => 'قائمه المنشورات'], 200);

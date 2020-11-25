@@ -51,9 +51,9 @@ class MessageController extends Controller
             $message = Message::where('user_send_id', $user->id)->where('user_receive_id', $user_chat->id)
                 ->orwhere('user_receive_id', $user->id)->where('user_send_id', $user_chat->id)->first();
             if ($message->user_send_id == Auth::user()->id) {
-                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 1)->get();
+                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 1)->paginate(100);
             } elseif ($message->user_receive_id == Auth::user()->id) {
-                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 2)->get();
+                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 2)->paginate(100);
             }
             if ($chat) {
                 return response(['status' => 1, 'data' => ['chat_id' => $message->id, 'chat' => ChatResource::collection($chat)], 'message' => 'لا يوجد رسائل بعد'], 200);
@@ -114,9 +114,9 @@ class MessageController extends Controller
                 $message_image->save();
             }
             if ($message->user_send_id == Auth::user()->id) {
-                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 1)->get();
+                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 1)->paginate(100);
             } elseif ($message->user_receive_id == Auth::user()->id) {
-                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 2)->get();
+                $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 2)->paginate(100);
             }
             if ($chat) {
                 return response(['status' => 1, 'data' => ['chat_id' => $message->id, 'chat' => ChatResource::collection($chat)], 'message' => 'لا يوجد رسائل بعد'], 200);
@@ -128,7 +128,7 @@ class MessageController extends Controller
 
     public function delete(Request $request)
     {
-       
+
         $user = User::find($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات المستخدم'], 400);
@@ -165,9 +165,9 @@ class MessageController extends Controller
                 $message->save();
             }
             if ($chat->user_send_id == Auth::user()->id) {
-                $message = Message_User::where('message_id', $chat->id)->where('status', '!=', 3)->where('status', '!=', 1)->get();
+                $message = Message_User::where('message_id', $chat->id)->where('status', '!=', 3)->where('status', '!=', 1)->paginate(100);
             } elseif ($chat->user_receive_id == Auth::user()->id) {
-                $message = Message_User::where('message_id', $chat->id)->where('status', '!=', 3)->where('status', '!=', 2)->get();
+                $message = Message_User::where('message_id', $chat->id)->where('status', '!=', 3)->where('status', '!=', 2)->paginate(100);
             }
             if ($message) {
                 return response(['status' => 1, 'data' => ['chat_id' => $chat->id, 'chat' => ChatResource::collection($message)], 'message' => 'لا يوجد رسائل بعد'], 200);
