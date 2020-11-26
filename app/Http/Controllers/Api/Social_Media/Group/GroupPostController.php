@@ -34,17 +34,25 @@ class GroupPostController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
+        $group = Group::find($request->group_id);
+        if (!$group) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات الجروب'], 400);
+        }
+        $group_member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
+        if (!$group_member) {
+            return response(['stauts' => 1, 'data' => array(), 'message' => 'غير مشترك فى الجروب'], 400);
+        }
         if ($user->id == Auth::user()->id) {
             if ($request->image_post) {
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
-                    'group_id' => 'required|string|exits:groups',
-                    'image_post' => 'image|mimes:jpg,jpeg,png,gi|max:2048',
+                    'group_id' => 'required',
+                    'image_post' => 'string',
                 ]);
             } else {
                 $validate = \Validator::make($request->all(), [
                     'details' => 'required|string|max:255',
-                    'group_id' => 'required|string|exits:groups',
+                    'group_id' => 'required',
                 ]);
             }
             if ($validate->fails()) {
@@ -71,12 +79,12 @@ class GroupPostController extends Controller
                 $post_image_save->image = time() . uniqid() . '.' . $image_type;
                 $post_image_save->save();
             }
-            $group_member = DB::table('group_users')->where('group_id', $request->group_id)->pluck('user_id', 'user_id');
+            $group_member = DB::table('group_users')->where('group_id', $request->group_id)->where('user_id', '!=',Auth::user()->id)->pluck('user_id', 'user_id');
             $group_member = User::wherein('id', $group_member)->get();
             foreach ($group_member as $groupmember) {
                 $notification = new Notification();
                 $notification->user_send_id = $user->id;
-                $notification->user_receive_id = $groupmember->user_id;
+                $notification->user_receive_id = $groupmember->id;
                 $notification->status = 1;
                 $notification->details = $user->first_name . " " . $user->second_name . ' قام بعمل المنشور';
                 $notification->save();

@@ -29,10 +29,13 @@ class GroupMemberController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
+        $group = Group::find($request->group_id);
+        if (!$group) {
+            return response(['status' => 0, 'data' => array(), 'message' => 'خطا فى تحميل البيانات الجروب'], 400);
+        }
         if ($user->id == Auth::user()->id) {
 
-            $group = Group::find($request->group_id);
-            if (!$group) {
+
                 $group_member = Group_User::where('group_id', $group->id)->where('user_id', $user->id)->first();
                 if (!$group_member) {
                     $group_member = new Group_User();
@@ -43,9 +46,6 @@ class GroupMemberController extends Controller
                     return response(['stauts' => 1, 'data' => array(), 'message' => 'تم الانضمام لجروب بنجاح'], 200);
                 }
                 return response(['stauts' => 0, 'data' => array(), 'message' => 'مشترك مسبقا'], 400);
-            }
-            return response(['stauts' => 0, 'data' => array(), 'message' => 'خطا فى بيانات الجروب'], 400);
-
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
