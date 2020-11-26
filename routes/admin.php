@@ -135,6 +135,13 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::get('/change_status/{id}', 'PostController@change_status')->middleware('permission:post-status');
             Route::get('/change_many_status', 'PostController@change_many_status')->middleware('permission:post-many-status');
         });
+        Route::prefix('/user')->middleware('permission:group-list')->group(function () {
+            Route::get('/index', 'GroupController@index')->middleware('permission:group-index');
+            Route::get('/create', 'GroupController@create')->middleware('permission:group-create');
+            Route::Post('/store', 'GroupController@store')->middleware('permission:group-create');
+            Route::get('/edit/{id}', 'GroupController@edit')->middleware('permission:group-edit');
+            Route::patch('/update/{id}', 'GroupController@update')->middleware('permission:group-edit');
+        });
 
         Route::prefix('/commit')->middleware('permission:commit-list')->group(function () {
             Route::get('/index', 'CommitController@index')->middleware('permission:commit-index');
