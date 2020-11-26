@@ -43,10 +43,10 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
 
         Route::prefix('/permission')->middleware('permission:permission-list')->group(function () {
             Route::get('/index', 'PermissionController@index')->middleware('permission:permission-index');
-            Route::get('/create', 'PermissionController@create')->middleware('permission:permission-create');
-            Route::Post('/store', 'PermissionController@store')->middleware('permission:permission-create');
-            Route::get('/edit/{id}', 'PermissionController@edit')->middleware('permission:permission-edit');
-            Route::patch('/update/{id}', 'PermissionController@update')->middleware('permission:permission-edit');
+            Route::get('/create', 'PermissionController@create');
+            Route::Post('/store', 'PermissionController@store');
+            Route::get('/edit/{id}', 'PermissionController@edit');
+            Route::patch('/update/{id}', 'PermissionController@update');
         });
 
         Route::prefix('/log')->middleware('permission:log-list')->group(function () {
