@@ -55,11 +55,11 @@ class NotificationRepository implements NotificationInterface
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        if ($err) {
+        /*if ($err) {
             dd( "cURL Error #:" . $err);
         } else {
             dd($response);
-        }
+        }*/
     }
     public function Update_Status_One_Data($id)
     {
