@@ -43,10 +43,10 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
 
         Route::prefix('/permission')->middleware('permission:permission-list')->group(function () {
             Route::get('/index', 'PermissionController@index')->middleware('permission:permission-index');
-            Route::get('/create', 'PermissionController@create')->middleware('permission:permission-create');
-            Route::Post('/store', 'PermissionController@store')->middleware('permission:permission-create');
-            Route::get('/edit/{id}', 'PermissionController@edit')->middleware('permission:permission-edit');
-            Route::patch('/update/{id}', 'PermissionController@update')->middleware('permission:permission-edit');
+            Route::get('/create', 'PermissionController@create');
+            Route::Post('/store', 'PermissionController@store');
+            Route::get('/edit/{id}', 'PermissionController@edit');
+            Route::patch('/update/{id}', 'PermissionController@update');
         });
 
         Route::prefix('/log')->middleware('permission:log-list')->group(function () {
@@ -134,6 +134,13 @@ Route::group(["namespace" => "Admin", 'middleware' => 'admin', 'auth'], function
             Route::get('/index', 'PostController@index')->middleware('permission:post-index');
             Route::get('/change_status/{id}', 'PostController@change_status')->middleware('permission:post-status');
             Route::get('/change_many_status', 'PostController@change_many_status')->middleware('permission:post-many-status');
+        });
+        Route::prefix('/group')->middleware('permission:group-list')->group(function () {
+            Route::get('/index', 'GroupController@index')->middleware('permission:group-index');
+            Route::get('/create', 'GroupController@create')->middleware('permission:group-create');
+            Route::Post('/store', 'GroupController@store')->middleware('permission:group-create');
+            Route::get('/edit/{id}', 'GroupController@edit')->middleware('permission:group-edit');
+            Route::patch('/update/{id}', 'GroupController@update')->middleware('permission:group-edit');
         });
 
         Route::prefix('/commit')->middleware('permission:commit-list')->group(function () {

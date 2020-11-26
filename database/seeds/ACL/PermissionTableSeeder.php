@@ -536,6 +536,27 @@ class PermissionTableSeeder extends Seeder
                 'display_name'=>'notification many status',
                 'description'=>'notification many status',
             ],
+            //group
+            [
+                'name' => 'group-list',
+                'display_name' => 'list group',
+                'description' => 'list data in group',
+            ],
+            [
+                'name' => 'group-index',
+                'display_name' => 'index group',
+                'description' => 'index data in group',
+            ],
+            [
+                'name' => 'group-create',
+                'display_name' => 'create group',
+                'description' => 'create data in group',
+            ],
+            [
+                'name' => 'group-edit',
+                'display_name' => 'edit group',
+                'description' => 'edit data in group',
+            ],
         ];
         foreach ($permissions as $key => $value) {
             Permission::create($value);

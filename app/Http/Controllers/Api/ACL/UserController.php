@@ -107,7 +107,7 @@ class UserController extends Controller
         }
         if($request->status_auth == 1)
         {
-        $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الصفحه الشخصيه');
+        $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض الصفحه الشخصيه');
         }
         $post = Post::where('user_id', $user->id)->where('status', 1)->paginate(25);
         if ($post) {
@@ -177,17 +177,16 @@ class UserController extends Controller
         if($user->id == Auth::user()->id)
         {
         $validate = \Validator::make($request->all(), [
-            'email' => 'required|email|max:255|string|unique:users,email,' . $request->user_id . ',id',
-            'civil_reference' => 'required|string|max:255|unique:users,civil_reference'. $request->user_id . ',id',
-            'name' => 'required|string|max:255',
-            'family' => 'required|string|max:255',
+            'mobile' => 'required|string|unique:users,mobile,' . $request->user_id . ',id',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->user_id . ',id',
+            'first_name' => 'required|string|max:255',
+            'second_name' => 'required|string|max:255',
+            'family_name' => 'required|string|max:255',
             'gender' => 'required|string',
             'birth_day' => 'required|string',
-            'address' => 'string',
-            'job' => 'string',
-            'mobile' => 'required|string|unique:users,mobile,' . $request->user_id . ',id',
-            'degree' => 'string|max:255',
-            'about' => 'string|max:255',
+            'address' => 'required|string',
+            'job' => 'required|string',
+
         ]);
         if ($validate->fails()) {
             return response(['status' => 0,'data'=>array() ,'message' =>$validate->errors()], 422);

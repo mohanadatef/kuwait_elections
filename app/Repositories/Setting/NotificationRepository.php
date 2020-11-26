@@ -6,7 +6,6 @@ use App\Http\Requests\Admin\Setting\Notification\CreateRequest;
 use App\Http\Requests\Admin\Setting\Notification\StatusEditRequest;
 use App\Interfaces\Setting\NotificationInterface;
 use App\Models\Setting\Notification;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,11 +55,11 @@ class NotificationRepository implements NotificationInterface
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        if ($err) {
+        /*if ($err) {
             dd( "cURL Error #:" . $err);
         } else {
             dd($response);
-        }
+        }*/
     }
     public function Update_Status_One_Data($id)
     {
