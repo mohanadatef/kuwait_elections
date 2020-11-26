@@ -43,9 +43,9 @@ class GroupMemberController extends Controller
                     $group_member->user_id = $user->id;
                     $group_member->save();
                     $this->logRepository->Create_Data('' . Auth::user()->id . '', 'انضمام', 'ارسال دعوه للدخول المجموعه');
-                    return response(['stauts' => 1, 'data' => array(), 'message' => 'تم الانضمام لجروب بنجاح'], 200);
+                    return response(['status' => 1, 'data' => array(), 'message' => 'تم الانضمام لجروب بنجاح'], 200);
                 }
-                return response(['stauts' => 0, 'data' => array(), 'message' => 'مشترك مسبقا'], 400);
+                return response(['status' => 0, 'data' => array(), 'message' => 'مشترك مسبقا'], 400);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
@@ -68,9 +68,9 @@ class GroupMemberController extends Controller
             if ($group_member) {
                 $group_member->delete();
                 $this->logRepository->Create_Data('' . Auth::user()->id . '', 'مغادره', 'مغادره المجموعه');
-                return response(['stauts' => 1, 'data' => array(), 'message' => 'تم مغاده الجروب'], 200);
+                return response(['status' => 1, 'data' => array(), 'message' => 'تم مغاده الجروب'], 200);
             }
-            return response(['stauts' => 1, 'data' => array(), 'message' => 'غير مشترك فى الجروب'], 400);
+            return response(['status' => 1, 'data' => array(), 'message' => 'غير مشترك فى الجروب'], 400);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
     }
