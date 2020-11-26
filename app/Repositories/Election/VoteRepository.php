@@ -31,7 +31,7 @@ class VoteRepository implements VoteInterface
     public function Create_Data(CreateRequest $request)
     {
         $data['status'] = 1;
-        $this->vote->create(array_merge($data,$request));
+        $this->vote->create(array_merge($data,$request->all()));
     }
 
     public function Get_One_Data($id)
