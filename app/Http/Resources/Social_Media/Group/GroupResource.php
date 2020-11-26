@@ -21,12 +21,14 @@ class GroupResource extends JsonResource
         return [
             'group_id'=>$this->id,
             'title'=>$this->title,
+            'about'=>$this->about,
             'profile_image'=> asset('public/images/group/'.$image->image),
         ];
         }
         return [
             'group_id'=>$this->id,
             'title'=>$this->title,
+            'about'=>$this->about,
             'profile_image'=> asset('public/images/user/profile/profile_user.jpg'),
         ];
     }
