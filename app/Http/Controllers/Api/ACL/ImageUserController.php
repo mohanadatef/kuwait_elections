@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api\ACL;
 
+use App\Http\Resources\Image\PostImageResource;
 use App\Http\Resources\Image\ProfileImageResource;
 use App\Models\Image;
+use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ImageUserController extends Controller
 {
@@ -29,15 +32,27 @@ class ImageUserController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
-        $image = Image::where('category', 'profile')->where('category_id', $user->id)->get();
+        $image_profile = Image::where('category', 'profile')->where('category_id', $user->id)->get();
+        $post=DB::table('posts')->where('user_id',$user->id)->where('status',1)->where('group_id',0)->pluck('id','id');
+        $image_post = Image::where('category', 'post')->wherein('category_id', $post)->get();
         if ($request->status_auth == 1) {
 
             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'عرض', 'عرض كل الصور الشخصيه لمستخدم');
         }
-        if ($image) {
-            return response(['status' => 1, 'data' => ['image' => ProfileImageResource::collection($image)]], 200);
+        if ($image_profile) {
+            $image_profile= ProfileImageResource::collection($image_profile);
         }
-        return response(['status' => 1, 'data' => array()], 200);
+        else{
+            $image_profile=array();
+        }
+        if ($image_post) {
+            $image_post= PostImageResource::collection($image_post);
+        }
+        else{
+            $image_post=array();
+        }
+        return response(['status' => 1, 'data' => ['count_image_profile'=>count($image_profile),'image_profile' =>$image_profile,
+            'count_image_post'=>count($image_post),'image_post' =>$image_post]], 200);
     }
 
     public function update(Request $request)
