@@ -6,7 +6,6 @@ use App\Http\Requests\Admin\Setting\Notification\CreateRequest;
 use App\Http\Requests\Admin\Setting\Notification\StatusEditRequest;
 use App\Interfaces\Setting\NotificationInterface;
 use App\Models\Setting\Notification;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
