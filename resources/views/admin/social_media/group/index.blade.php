@@ -32,7 +32,6 @@
                                 <tr>
                                     <th align="center">العنوان</th>
                                     <th align="center">الوصف</th>
-                                    <th align="center">صوره</th>
                                     <th align="center">تحكم</th>
                                 </tr>
                                 </thead>
@@ -40,11 +39,10 @@
                                 @foreach($datas as $data)
                                     <tr>
                                         <td align="center">{{ $data->title }}</td>
-                                        <td align="center">{!!   $data->adout !!}</td>
-                                        <td align="center"><img src="{{ asset('public/images/group/' . $data->image ) }}" style="width:100px;height: 100px"></td>
+                                        <td align="center">{!!   $data->about !!}</td>
                                         <td align="center">
                                             @permission('group-edit')
-                                            <a href="{{ url('/admin/group/edit/'.$data->id)}}"><i class="btn btn-sm btn-primary ace-icon fa fa-edit bigger-120  edit" data-id=""> Edit</i></a>
+                                            <a href="{{ url('/admin/group/edit/'.$data->id)}}"><i class="btn btn-sm btn-primary ace-icon fa fa-edit bigger-120  edit" data-id=""> تعديل</i></a>
                                             @endpermission
                                         </td>
                                     </tr>
@@ -54,7 +52,6 @@
                                 <tr>
                                     <th align="center">العنوان</th>
                                     <th align="center">الوصف</th>
-                                    <th align="center">صوره</th>
                                     <th align="center">تحكم</th>
                                 </tr>
                                 </tfoot>

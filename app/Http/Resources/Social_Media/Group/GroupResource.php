@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Social_Media\Group;
 
+use App\Models\Image;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class GroupResource extends JsonResource
@@ -14,12 +15,13 @@ class GroupResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->image)
+        $image=Image::where('category','group')->where('category_id',$this->id)->first();
+        if($image)
         {
         return [
             'group_id'=>$this->id,
             'title'=>$this->title,
-            'profile_image'=> asset('public/images/group/'.$this->image->image),
+            'profile_image'=> asset('public/images/group/'.$image->image),
         ];
         }
         return [

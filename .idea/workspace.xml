@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f38daf86-2fe0-4caa-8e7b-d491f102d6e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,36 +35,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Social_Media/GroupController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-              <folding>
-                <element signature="e#59#115#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Interfaces/Social_Media/GroupInterface.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="2" column="37" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="37" />
               <folding>
                 <element signature="e#48#109#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Repositories/Social_Media/GroupRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
-              <folding>
-                <element signature="e#50#111#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="142" column="97" lean-forward="true" selection-start-line="142" selection-start-column="97" selection-end-line="142" selection-end-column="97" />
+            <state relative-caret-position="544">
+              <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -91,16 +68,25 @@
         <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Social_Media/GroupController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+            <state relative-caret-position="374">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -109,16 +95,25 @@
         <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-223">
-              <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+              <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="529" column="46" lean-forward="true" selection-start-line="529" selection-start-column="46" selection-end-line="529" selection-end-column="46" />
+            <state relative-caret-position="352">
+              <caret line="542" column="54" selection-start-line="542" selection-start-column="54" selection-end-line="542" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="573">
+              <caret line="389" column="88" selection-start-line="389" selection-start-column="88" selection-end-line="389" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -160,7 +155,6 @@
         <option value="$PROJECT_DIR$/resources/views/admin/acl/user/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/acl/user/edit.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" />
         <option value="$PROJECT_DIR$/app/Interfaces/Election/VoteInterface.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/election/vote/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/election/vote/edit.blade.php" />
@@ -201,11 +195,12 @@
         <option value="$PROJECT_DIR$/app/Http/Requests/Admin/Social_Media/Group/CreateRequest.php" />
         <option value="$PROJECT_DIR$/app/Interfaces/Social_Media/GroupInterface.php" />
         <option value="$PROJECT_DIR$/app/Repositories/Social_Media/GroupRepository.php" />
-        <option value="$PROJECT_DIR$/routes/admin.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/social_media/group/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/social_media/group/edit.blade.php" />
         <option value="$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php" />
+        <option value="$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/routes/admin.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php" />
       </list>
     </option>
   </component>
@@ -337,7 +332,75 @@
             <path>
               <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
               <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Social_Media" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="includes" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -419,16 +482,17 @@
       <workItem from="1605511512481" duration="16062000" />
       <workItem from="1605541937317" duration="19448000" />
       <workItem from="1605636531261" duration="22384000" />
-      <workItem from="1606375161857" duration="11406000" />
+      <workItem from="1606375161857" duration="12427000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163411000" />
+    <option name="totallyTimeSpent" value="164432000" />
   </component>
   <component name="TodoView" selected-index="3" />
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26894864" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -538,16 +602,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ACL/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="31" />
-          <folding>
-            <element signature="e#48#88#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/ACL/ForgotPasswordController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-522">
@@ -829,16 +883,6 @@
     <entry file="file://$PROJECT_DIR$/app/Interfaces/Social_Media/LikeInterface.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Social_Media/GroupController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="e#59#115#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Repositories/Social_Media/GroupRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -853,13 +897,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="39" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="142" column="97" lean-forward="true" selection-start-line="142" selection-start-column="97" selection-end-line="142" selection-end-column="97" />
         </state>
       </provider>
     </entry>
@@ -878,31 +915,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-223">
-          <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
+          <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/seeds/ACL/PermissionTableSeeder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="529" column="46" lean-forward="true" selection-start-line="529" selection-start-column="46" selection-end-line="529" selection-end-column="46" />
+        <state relative-caret-position="352">
+          <caret line="542" column="54" selection-start-line="542" selection-start-column="54" selection-end-line="542" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/includes/admin/main-sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="389" column="88" selection-start-line="389" selection-start-column="88" selection-end-line="389" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Social_Media/GroupController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/social_media/group/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
         </state>
       </provider>
     </entry>

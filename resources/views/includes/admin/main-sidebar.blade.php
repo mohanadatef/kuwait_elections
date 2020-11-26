@@ -376,6 +376,23 @@
                         </ul>
                     </li>
                     @endpermission
+                    @permission('group-list')
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> <span>الجروبات</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @permission('group-index')
+                            <li><a href="{{ url('/admin/group/index') }}"><i
+                                            class="fa fa-group"></i><span>قائمه الجروبات</span></a>
+                            </li>
+                            @endpermission
+                        </ul>
+                    </li>
+                    @endpermission
                 </ul>
             </li>
             @endpermission
