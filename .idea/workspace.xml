@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f38daf86-2fe0-4caa-8e7b-d491f102d6e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Setting/NotificationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Setting/NotificationRepository.php" afterDir="false" />
-    </list>
+    <list default="true" id="f38daf86-2fe0-4caa-8e7b-d491f102d6e7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,32 +29,7 @@
     <favorites_list name="kuwait_elections" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Repositories/Setting/NotificationRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="43" column="109" selection-start-line="43" selection-start-column="109" selection-end-line="43" selection-end-column="109" />
-              <folding>
-                <element signature="e#44#107#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1579">
-              <caret line="93" column="44" selection-start-line="93" selection-start-column="37" selection-end-line="93" selection-end-column="44" />
-              <folding>
-                <element signature="e#44#92#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -285,7 +257,52 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="ACL" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Core_Data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Election" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Setting" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kuwait_elections" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kuwait_elections" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
+              <item name="Social_Media" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -367,17 +384,16 @@
       <workItem from="1605511512481" duration="16062000" />
       <workItem from="1605541937317" duration="19448000" />
       <workItem from="1605636531261" duration="22384000" />
-      <workItem from="1606375161857" duration="6376000" />
+      <workItem from="1606375161857" duration="7190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158381000" />
+    <option name="totallyTimeSpent" value="159195000" />
   </component>
   <component name="TodoView" selected-index="3" />
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26894864" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -817,22 +833,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/Setting/NotificationRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="41" column="10" lean-forward="true" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
+          <folding>
+            <element signature="e#44#107#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1579">
           <caret line="93" column="44" selection-start-line="93" selection-start-column="37" selection-end-line="93" selection-end-column="44" />
           <folding>
             <element signature="e#44#92#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/Setting/NotificationRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="43" column="109" selection-start-line="43" selection-start-column="109" selection-end-line="43" selection-end-column="109" />
-          <folding>
-            <element signature="e#44#107#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

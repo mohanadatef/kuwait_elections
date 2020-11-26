@@ -18,11 +18,11 @@ class FriendRepository implements FriendInterface
 
     public function Get_All_Request_Data()
     {
-        return $this->friend->where('wait', 0)->get();
+        return $this->friend->where('status', 0)->get();
     }
 
     public function Get_All_Friend_Data()
     {
-        return $this->friend->where('wait', 1)->get();
+        return $this->friend->where('status', 1)->get();
     }
 }
