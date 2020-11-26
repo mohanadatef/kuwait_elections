@@ -107,7 +107,7 @@ class UserController extends Controller
         }
         if($request->status_auth == 1)
         {
-        $this->logRepository->Create_Data('' . Auth::User()->id . '', 'عرض', 'عرض الصفحه الشخصيه');
+        $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض الصفحه الشخصيه');
         }
         $post = Post::where('user_id', $user->id)->where('status', 1)->paginate(25);
         if ($post) {
