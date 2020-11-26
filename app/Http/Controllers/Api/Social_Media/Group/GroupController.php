@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\Social_Media\Group;
 
 use App\Http\Resources\Social_Media\Group\GroupResource;
+use App\Http\Resources\Social_Media\PostResource;
 use App\Models\Social_Media\Group;
+use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -32,7 +35,15 @@ class GroupController extends Controller
                 return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
             }
         $this->logRepository->Create_Data('' . $request->user_id . '', 'عرض', 'عرض كل الجروب');
+            $group_member=DB::table('group_users')->where('user_id',$user->id)->pluck('group_id','group_id');
+            $post = Post::with('commit_post', 'like', 'image')->where('status', 1)
+                ->wherein('group_id', $group_member)->orderby('created_at', 'DESC')->paginate(25);
+            return response(['status'=>1,'data'=>['group' => GroupResource::collection($group),'count_post' => count($post),
+                'post' => PostResource::collection($post)] ,'message'=>'قائمه الجروبات'], 200);
         }
-        return response(['status'=>1,'data'=>['group' => GroupResource::collection($group)] ,'message'=>'قائمه الجروبات'], 200);
+        $post = Post::with('commit_post', 'like', 'image')->where('status', 1)
+            ->where('group_id', '!=',0)->orderby('created_at', 'DESC')->paginate(25);
+        return response(['status'=>1,'data'=>['group' => GroupResource::collection($group),'count_post' => count($post),
+            'post' => PostResource::collection($post)] ,'message'=>'قائمه الجروبات'], 200);
     }
 }
