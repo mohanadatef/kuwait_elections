@@ -3,7 +3,7 @@
 namespace App\Http\Resources\ACL;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
+
 
 class FriendResource extends JsonResource
 {
@@ -15,14 +15,17 @@ class FriendResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (Auth::user()->id == $this->user_send_id) {
+
+        if ($request->user_id == $this->user_send_id) {
+
             return [
-                'request_friend' => $this->id,
+                'request_friend_id' => $this->id,
                 'friend' => new UserResource($this->resource->user_receive),
             ];
-        } elseif (Auth::user()->id == $this->user_send_id) {
+        } elseif ($request->user_id == $this->user_receive_id) {
+
             return [
-                'request_friend' => $this->id,
+                'request_friend_id' => $this->id,
                 'friend' => new UserResource($this->resource->user_send),
             ];
         }

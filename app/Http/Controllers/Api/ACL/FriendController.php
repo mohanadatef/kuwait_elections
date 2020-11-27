@@ -145,9 +145,16 @@ class FriendController extends Controller
         if ($request->status_auth == 1) {
             $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض طلبات صداقه');
         }
+        if($request_friend)
+        {
+            $request_friend=FriendResource::collection($request_friend);
+        }
+        else{
+            $request_friend=array();
+        }
         if ($request_friend) {
             return response(['status' => 1,
-                'data' => ['request_friend' => FriendResource::collection($request_friend)],
+                'data' => ['count_request_friend'=>count($request_friend),'request_friend' =>$request_friend ],
                 'message' => 'كل طلبات الصداقه'], 200);
         }
         return response(['status' => 1,
