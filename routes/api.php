@@ -92,10 +92,6 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::get('show', 'VoteController@show');
             Route::get('vote', 'VoteController@vote');
         });
-        Route::group(['prefix' => 'takeed'], function () {
-            Route::get('filter/index', 'TakeedController@index');
-            Route::get('filter', 'TakeedController@filter');
-        });
     });
     Route::group(['namespace' => 'Setting'], function () {
         Route::get('about_us', 'AboutUsController@index');
