@@ -59,6 +59,6 @@ class TakeedController extends Controller
                     'colum_filter' => $colum_filter], 'message' => 'قائمه البحث'], 200);
             }
         }
-        return response(['status' => 0], 200);
+        return response(['status' => 0,'data'=>array(),'message'=>'لا يمكن الدخول'], 200);
     }
 }
