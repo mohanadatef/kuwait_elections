@@ -71,6 +71,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
         Route::group(['namespace' => 'Group'], function () {
             Route::group(['prefix' => 'group'], function () {
                 Route::get('show_all_group', 'GroupController@show_all_group');
+                Route::get('all_image_group', 'GroupController@all_image_group');
                 Route::group(['prefix' => 'post'], function () {
                     Route::post('store', 'GroupPostController@store');
                     Route::get('all_post_group', 'GroupPostController@show_all_post_group');
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
             Route::group(['prefix' => 'group_member'], function () {
                 Route::post('join', 'GroupMemberController@join');
                 Route::get('leave', 'GroupMemberController@leave');
+                Route::get('all_member', 'GroupMemberController@all_member');
             });
         });
     });
