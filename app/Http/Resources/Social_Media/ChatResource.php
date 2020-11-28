@@ -18,7 +18,7 @@ class ChatResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image=Image::where('category','message')->where('category_id',$this->message_id)->first();
+        $image=Image::where('category','message-'.$this->message_id)->where('category_id',$this->id)->first();
         if($image)
         {
             return [

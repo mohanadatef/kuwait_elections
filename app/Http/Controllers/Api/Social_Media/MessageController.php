@@ -141,9 +141,9 @@ class MessageController extends Controller
             $message_chat->save();
             if ($request->image_message) {
                 $message_image = new Image();
-                $message_image->category = 'message';
+                $message_image->category = 'message-'.$message->id;
                 $message_image->status = 1;
-                $message_image->category_id = $message->id;
+                $message_image->category_id = $message_chat->id;
                 $folderPath = public_path('images/message/' . $message->id . '/');
                 $image_type = 'png';
                 $image_base64 = base64_decode($request->image_message);
