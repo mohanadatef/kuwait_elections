@@ -52,11 +52,8 @@ class AuthController extends Controller
         return response()->json($this->guard()->user());
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $user=User::find($request->user_id);
-        $user->remember_token=null;
-        $user->save();
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الخروج', 'تم تسجيل الخروج');
         $this->guard()->logout();
         return response()->json(['status' => 1, 'data' => array(), 'message' => 'تم تسجيل الخروج بنجاح']);
