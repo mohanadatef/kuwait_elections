@@ -25,7 +25,41 @@ class MessageController extends Controller
         $this->logRepository = $LogRepository;
     }
 
-    public function index(Request $request)
+    public function index()
+    {
+        $friend_s = DB::table('friends')->where('user_send_id', Auth::user()->id)->where('status', 1)->pluck('user_receive_id', 'id');
+        $friend_r = DB::table('friends')->where('user_receive_id', Auth::user()->id)->where('status', 1)->pluck('user_send_id', 'id');
+        $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
+        $last_chat = Message::wherein('user_send_id', $friend)->orwherein('user_receive_id', $friend)->get();
+        $s = array();
+        foreach ($last_chat as $last_chats) {
+            if ($last_chats->user_send_id == Auth::user()->id) {
+                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 1)->first();
+            } elseif ($last_chats->user_receive_id == Auth::user()->id) {
+                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 2)->first();
+            }
+            array_push($s, '' . $last_message->id . '');
+        }
+
+        $last_message = Message_User::wherein('id', $s)->get();
+        if ($last_message) {
+            $last_message = ChatResource::collection($last_message);
+        } else {
+            $last_message = array();
+        }
+        $friend = User::wherein('id', $friend)->get();
+        if ($friend) {
+            $friend = UserResource::collection($friend);
+        } else {
+            $friend = array();
+        }
+        return response(['status' => 1, 'data' => [
+            'count_message' => count($last_message), 'last_message' => $last_message,
+            'count_friend' => count($friend), 'friend' => $friend,
+        ], 'message' => 'قائمه الرسائل'], 200);
+    }
+
+    public function chat_for_user(Request $request)
     {
         $user = User::find($request->user_id);
         if (!$user) {
@@ -58,48 +92,12 @@ class MessageController extends Controller
             } elseif ($message->user_receive_id == Auth::user()->id) {
                 $chat = Message_User::where('message_id', $message->id)->where('status', '!=', 3)->where('status', '!=', 2)->paginate(100);
             }
-            $friend_s = DB::table('friends')->where('user_send_id', $user->id)->where('status', 1)->pluck('user_receive_id', 'id');
-            $friend_r = DB::table('friends')->where('user_receive_id', $user->id)->where('status', 1)->pluck('user_send_id', 'id');
-            $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
-            $last_chat = Message::wherein('user_send_id', $friend)->orwherein('user_receive_id', $friend)->get();
-            $s=array();
-            foreach ($last_chat as $last_chats) {
-                if ($last_chats->user_send_id == $user->id) {
-                    $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 1)->first();
-                } elseif ($last_chats->user_receive_id == $user->id) {
-                    $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 2)->first();
-                }
-                array_push(  $s,''.$last_message->id.'');
-            }
-
-            $last_message = Message_User::wherein('id', $s)->get();
             if ($chat) {
-               $chat= ChatResource::collection($chat);
+                $chat = ChatResource::collection($chat);
+            } else {
+                $chat = array();
             }
-            else
-            {
-                $chat=array();
-            }
-            if($last_message)
-            {
-                $last_message=ChatResource::collection($last_message);
-            }
-            else
-            {
-                $last_message=array();
-            }
-            $friend = User::wherein('id',$friend)->get();
-            if($friend)
-            {
-                $friend=UserResource::collection($friend);
-            }
-            else
-            {
-                $friend=array();
-            }
-            return response(['status' => 1, 'data' => ['count_chat'=>count($chat),'chat'=>$chat,
-                'count_message'=>count($last_message),'last_message'=>$last_message,
-                'count_friend'=>count($friend),'friend'=>$friend,
+            return response(['status' => 1, 'data' => ['count_chat' => count($chat), 'chat' => $chat
             ], 'message' => 'لا يوجد رسائل بعد'], 200);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);

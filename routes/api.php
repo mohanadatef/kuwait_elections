@@ -65,6 +65,7 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
         });
         Route::group(['prefix' => 'chat'], function () {
             Route::get('index', 'MessageController@index');
+            Route::get('chat_for_user', 'MessageController@chat_for_user');
             Route::post('store', 'MessageController@store');
             Route::get('delete', 'MessageController@delete');
         });
