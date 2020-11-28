@@ -100,7 +100,7 @@ class MessageController extends Controller
             } else {
                 $chat = array();
             }
-            return response(['status' => 1, 'data' => ['count_chat' => count($chat), 'chat' => $chat
+            return response(['status' => 1, 'data' => ['count_chat' => count($chat),'chat_id'=>$message->id, 'chat' => $chat
             ], 'message' => 'لا يوجد رسائل بعد'], 200);
         }
         return response(['status' => 0, 'data' => array(), 'message' => 'لا يمكن اتمام الطلب'], 400);
