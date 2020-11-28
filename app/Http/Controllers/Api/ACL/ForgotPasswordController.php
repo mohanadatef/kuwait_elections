@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\ACL;
 
+use App\Mail\SendMailForgotPassword;
 use App\Models\ACL\Forgot_Password;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-require_once(__DIR__ . '/../../../../../vendor/autoload.php');
+use Mail;
 
 class ForgotPasswordController extends Controller
 {
@@ -40,6 +41,11 @@ class ForgotPasswordController extends Controller
             $forgot_password->user_id = $user->id;
             $forgot_password->code = Str::random(5);
             $forgot_password->save();
+            $data = array(
+                'name' => $user->first_name,
+                'email' => 'mohanad@takw.net',
+                'message' => $forgot_password->code,
+            );            Mail::to($user->email)->send(new SendMailForgotPassword($data));
         }
         return response(['status' => 1, 'data' => ['code' => $forgot_password->code], 'message' => 'تم ارسال الكود على الايميل'], 200);
     }
