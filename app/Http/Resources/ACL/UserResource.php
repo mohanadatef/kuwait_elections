@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ACL;
 
+use App\Models\Image;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -14,7 +15,8 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->profile_image)
+        $profile_image = Image::where('category', 'profile')->where('category_id', $this->id)->where('status', 1)->first();
+        if($profile_image)
         {
             return [
                 'user_id'=>$this->id,
@@ -32,7 +34,7 @@ class UserResource extends JsonResource
                 'registration_number'=>$this->registration_number,
                 'registration_data'=>$this->registration_data,
                 'token'=>$this->remember_token,
-                'profile_image'=> asset('public/images/user/profile/'.$this->profile_image->image),
+                'profile_image'=> asset('public/images/user/profile/'.$profile_image->image),
                 'role'=>$this->role[0]->id,
                 'birth_day'=>$this->birth_day,
                 'gender'=>$this->gender,
