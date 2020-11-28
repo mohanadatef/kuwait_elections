@@ -1044,17 +1044,17 @@
     },
     {
         "name": "lcobucci/jwt",
-        "version": "3.4.1",
-        "version_normalized": "3.4.1.0",
+        "version": "3.3.3",
+        "version_normalized": "3.3.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/lcobucci/jwt.git",
-            "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5"
+            "reference": "c1123697f6a2ec29162b82f170dd4a491f524773"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/958a9873a63b0244a72f6e354ccc86019ee674a5",
-            "reference": "958a9873a63b0244a72f6e354ccc86019ee674a5",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/c1123697f6a2ec29162b82f170dd4a491f524773",
+            "reference": "c1123697f6a2ec29162b82f170dd4a491f524773",
             "shasum": ""
         },
         "require": {
@@ -1069,10 +1069,7 @@
             "phpunit/phpunit": "^5.7 || ^7.3",
             "squizlabs/php_codesniffer": "~2.3"
         },
-        "suggest": {
-            "lcobucci/clock": "*"
-        },
-        "time": "2020-11-27T01:17:14+00:00",
+        "time": "2020-08-20T13:22:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1083,12 +1080,7 @@
         "autoload": {
             "psr-4": {
                 "Lcobucci\\JWT\\": "src"
-            },
-            "files": [
-                "compat/class-aliases.php",
-                "compat/json-exception-polyfill.php",
-                "compat/lcobucci-clock-polyfill.php"
-            ]
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -1119,29 +1111,30 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.70",
-        "version_normalized": "1.0.70.0",
+        "version": "1.1.3",
+        "version_normalized": "1.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493"
+            "reference": "9be3b16c877d477357c015cec057548cf9b2a14a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/585824702f534f8d3cf7fab7225e8466cc4b7493",
-            "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/9be3b16c877d477357c015cec057548cf9b2a14a",
+            "reference": "9be3b16c877d477357c015cec057548cf9b2a14a",
             "shasum": ""
         },
         "require": {
             "ext-fileinfo": "*",
-            "php": ">=5.5.9"
+            "league/mime-type-detection": "^1.3",
+            "php": "^7.2.5 || ^8.0"
         },
         "conflict": {
             "league/flysystem-sftp": "<1.0.6"
         },
         "require-dev": {
-            "phpspec/phpspec": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-            "phpunit/phpunit": "^5.7.26"
+            "phpspec/prophecy": "^1.11.1",
+            "phpunit/phpunit": "^8.5.8"
         },
         "suggest": {
             "ext-fileinfo": "Required for MimeType",
@@ -1159,7 +1152,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2020-07-26T07:20:36+00:00",
+        "time": "2020-08-23T07:39:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1210,31 +1203,84 @@
         ]
     },
     {
-        "name": "maatwebsite/excel",
-        "version": "3.1.25",
-        "version_normalized": "3.1.25.0",
+        "name": "league/mime-type-detection",
+        "version": "1.5.1",
+        "version_normalized": "1.5.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-            "reference": "a3e56f1a60e49f21798fd242a3b3d2f4051eeda7"
+            "url": "https://github.com/thephpleague/mime-type-detection.git",
+            "reference": "353f66d7555d8a90781f6f5e7091932f9a4250aa"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/a3e56f1a60e49f21798fd242a3b3d2f4051eeda7",
-            "reference": "a3e56f1a60e49f21798fd242a3b3d2f4051eeda7",
+            "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/353f66d7555d8a90781f6f5e7091932f9a4250aa",
+            "reference": "353f66d7555d8a90781f6f5e7091932f9a4250aa",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "php": "^7.2 || ^8.0"
+        },
+        "require-dev": {
+            "phpstan/phpstan": "^0.12.36",
+            "phpunit/phpunit": "^8.5.8"
+        },
+        "time": "2020-10-18T11:50:25+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\MimeTypeDetection\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frankdejonge.nl"
+            }
+        ],
+        "description": "Mime-type detection for Flysystem",
+        "funding": [
+            {
+                "url": "https://github.com/frankdejonge",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/league/flysystem",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "maatwebsite/excel",
+        "version": "3.1.26",
+        "version_normalized": "3.1.26.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
+            "reference": "66f7c9584304ad0b6a267a5d8ffbfa2ff4272e85"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/66f7c9584304ad0b6a267a5d8ffbfa2ff4272e85",
+            "reference": "66f7c9584304ad0b6a267a5d8ffbfa2ff4272e85",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
-            "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
-            "php": "^7.0",
-            "phpoffice/phpspreadsheet": "^1.14"
+            "illuminate/support": "5.8.*|^6.0|^7.0|^8.0",
+            "php": "^7.0|^8.0",
+            "phpoffice/phpspreadsheet": "^1.15"
         },
         "require-dev": {
             "orchestra/testbench": "^6.0",
             "predis/predis": "^1.1"
         },
-        "time": "2020-11-13T10:37:36+00:00",
+        "time": "2020-11-27T16:17:38+00:00",
         "type": "library",
         "extra": {
             "laravel": {
@@ -4165,172 +4211,6 @@
         "homepage": "https://github.com/sebastianbergmann/version"
     },
     {
-        "name": "sendgrid/php-http-client",
-        "version": "3.13.0",
-        "version_normalized": "3.13.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sendgrid/php-http-client.git",
-            "reference": "35862113b879274c7014e09681ac279a186665f1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/35862113b879274c7014e09681ac279a186665f1",
-            "reference": "35862113b879274c7014e09681ac279a186665f1",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "ext-mbstring": "*",
-            "php": ">=5.6"
-        },
-        "require-dev": {
-            "friendsofphp/php-cs-fixer": "^2.16",
-            "phpunit/phpunit": "^5.7 || ^6.5",
-            "sebastian/version": "^1.0.6",
-            "squizlabs/php_codesniffer": "~2.0"
-        },
-        "suggest": {
-            "composer/ca-bundle": "Including this library will ensure that a valid CA bundle is available for secure connections"
-        },
-        "time": "2020-11-05T21:00:36+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "SendGrid\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Matt Bernier",
-                "email": "mbernier@twilio.com"
-            },
-            {
-                "name": "Elmer Thomas",
-                "email": "ethomas@twilio.com"
-            }
-        ],
-        "description": "HTTP REST client, simplified for PHP",
-        "homepage": "http://github.com/sendgrid/php-http-client",
-        "keywords": [
-            "api",
-            "fluent",
-            "http",
-            "rest",
-            "sendgrid"
-        ]
-    },
-    {
-        "name": "sendgrid/sendgrid",
-        "version": "7.9.1",
-        "version_normalized": "7.9.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/sendgrid/sendgrid-php.git",
-            "reference": "c3b76df9d2374b469474ab209fbd4e4ef1a16986"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/sendgrid/sendgrid-php/zipball/c3b76df9d2374b469474ab209fbd4e4ef1a16986",
-            "reference": "c3b76df9d2374b469474ab209fbd4e4ef1a16986",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-json": "*",
-            "ext-mbstring": "*",
-            "ext-openssl": "*",
-            "php": ">=5.6",
-            "sendgrid/php-http-client": "~3.10",
-            "starkbank/ecdsa": "0.*"
-        },
-        "replace": {
-            "sendgrid/sendgrid-php": "*"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^5.7.9 || ^6.4.3",
-            "squizlabs/php_codesniffer": "3.*",
-            "swaggest/json-diff": "^3.4"
-        },
-        "time": "2020-11-18T22:24:22+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "SendGrid\\Contacts\\": "lib/contacts/",
-                "SendGrid\\EventWebhook\\": "lib/eventwebhook/",
-                "SendGrid\\Helper\\": "lib/helper/",
-                "SendGrid\\Mail\\": "lib/mail/",
-                "SendGrid\\Stats\\": "lib/stats/"
-            },
-            "classmap": [
-                "lib/BaseSendGridClientInterface.php",
-                "lib/SendGrid.php",
-                "lib/TwilioEmail.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "description": "This library allows you to quickly and easily send emails through Twilio SendGrid using PHP.",
-        "homepage": "http://github.com/sendgrid/sendgrid-php",
-        "keywords": [
-            "email",
-            "grid",
-            "send",
-            "sendgrid",
-            "twilio sendgrid"
-        ]
-    },
-    {
-        "name": "starkbank/ecdsa",
-        "version": "0.0.4",
-        "version_normalized": "0.0.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/starkbank/ecdsa-php.git",
-            "reference": "9369d35ed9019321adb4eb9fd3be21357d527c74"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/starkbank/ecdsa-php/zipball/9369d35ed9019321adb4eb9fd3be21357d527c74",
-            "reference": "9369d35ed9019321adb4eb9fd3be21357d527c74",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5"
-        },
-        "time": "2020-05-15T15:46:20+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/ellipticcurve.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "StarkBank",
-                "email": "developers@starkbank.com",
-                "homepage": "https://starkbank.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
-        "homepage": "https://github.com/starkbank/ecdsa-php"
-    },
-    {
         "name": "swiftmailer/swiftmailer",
         "version": "v6.2.3",
         "version_normalized": "6.2.3.0",
@@ -4484,23 +4364,23 @@
     },
     {
         "name": "symfony/css-selector",
-        "version": "v4.4.16",
-        "version_normalized": "4.4.16.0",
+        "version": "v5.1.8",
+        "version_normalized": "5.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/css-selector.git",
-            "reference": "719506cffda9dba80c75d94ac50f1a2561520e4f"
+            "reference": "6cbebda22ffc0d4bb8fea0c1311c2ca54c4c8fa0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/css-selector/zipball/719506cffda9dba80c75d94ac50f1a2561520e4f",
-            "reference": "719506cffda9dba80c75d94ac50f1a2561520e4f",
+            "url": "https://api.github.com/repos/symfony/css-selector/zipball/6cbebda22ffc0d4bb8fea0c1311c2ca54c4c8fa0",
+            "reference": "6cbebda22ffc0d4bb8fea0c1311c2ca54c4c8fa0",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1.3"
+            "php": ">=7.2.5"
         },
-        "time": "2020-10-24T11:50:19+00:00",
+        "time": "2020-10-24T12:01:57+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -4904,30 +4784,31 @@
     },
     {
         "name": "symfony/http-client-contracts",
-        "version": "v1.1.10",
-        "version_normalized": "1.1.10.0",
+        "version": "v2.3.1",
+        "version_normalized": "2.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/http-client-contracts.git",
-            "reference": "7e86f903f9720d0caa7688f5c29a2de2d77cbb89"
+            "reference": "41db680a15018f9c1d4b23516059633ce280ca33"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/7e86f903f9720d0caa7688f5c29a2de2d77cbb89",
-            "reference": "7e86f903f9720d0caa7688f5c29a2de2d77cbb89",
+            "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/41db680a15018f9c1d4b23516059633ce280ca33",
+            "reference": "41db680a15018f9c1d4b23516059633ce280ca33",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1.3"
+            "php": ">=7.2.5"
         },
         "suggest": {
             "symfony/http-client-implementation": ""
         },
-        "time": "2020-08-17T09:35:39+00:00",
+        "time": "2020-10-14T17:08:19+00:00",
         "type": "library",
         "extra": {
+            "branch-version": "2.3",
             "branch-alias": {
-                "dev-master": "1.1-dev"
+                "dev-main": "2.3-dev"
             },
             "thanks": {
                 "name": "symfony/contracts",
@@ -5150,32 +5031,33 @@
     },
     {
         "name": "symfony/mime",
-        "version": "v4.4.16",
-        "version_normalized": "4.4.16.0",
+        "version": "v5.1.8",
+        "version_normalized": "5.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/mime.git",
-            "reference": "360f9963b6d4db6c3454d58548fb2b085f97d3e2"
+            "reference": "f5485a92c24d4bcfc2f3fc648744fb398482ff1b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/mime/zipball/360f9963b6d4db6c3454d58548fb2b085f97d3e2",
-            "reference": "360f9963b6d4db6c3454d58548fb2b085f97d3e2",
+            "url": "https://api.github.com/repos/symfony/mime/zipball/f5485a92c24d4bcfc2f3fc648744fb398482ff1b",
+            "reference": "f5485a92c24d4bcfc2f3fc648744fb398482ff1b",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1.3",
+            "php": ">=7.2.5",
             "symfony/polyfill-intl-idn": "^1.10",
-            "symfony/polyfill-mbstring": "^1.0"
+            "symfony/polyfill-mbstring": "^1.0",
+            "symfony/polyfill-php80": "^1.15"
         },
         "conflict": {
             "symfony/mailer": "<4.4"
         },
         "require-dev": {
             "egulias/email-validator": "^2.1.10",
-            "symfony/dependency-injection": "^3.4|^4.1|^5.0"
+            "symfony/dependency-injection": "^4.4|^5.0"
         },
-        "time": "2020-10-24T11:50:19+00:00",
+        "time": "2020-10-24T12:01:57+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -6076,31 +5958,31 @@
     },
     {
         "name": "symfony/service-contracts",
-        "version": "v1.1.9",
-        "version_normalized": "1.1.9.0",
+        "version": "v2.2.0",
+        "version_normalized": "2.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/service-contracts.git",
-            "reference": "b776d18b303a39f56c63747bcb977ad4b27aca26"
+            "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/service-contracts/zipball/b776d18b303a39f56c63747bcb977ad4b27aca26",
-            "reference": "b776d18b303a39f56c63747bcb977ad4b27aca26",
+            "url": "https://api.github.com/repos/symfony/service-contracts/zipball/d15da7ba4957ffb8f1747218be9e1a121fd298a1",
+            "reference": "d15da7ba4957ffb8f1747218be9e1a121fd298a1",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1.3",
+            "php": ">=7.2.5",
             "psr/container": "^1.0"
         },
         "suggest": {
             "symfony/service-implementation": ""
         },
-        "time": "2020-07-06T13:19:58+00:00",
+        "time": "2020-09-07T11:33:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1-dev"
+                "dev-master": "2.2-dev"
             },
             "thanks": {
                 "name": "symfony/contracts",
@@ -6241,30 +6123,30 @@
     },
     {
         "name": "symfony/translation-contracts",
-        "version": "v1.1.10",
-        "version_normalized": "1.1.10.0",
+        "version": "v2.3.0",
+        "version_normalized": "2.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation-contracts.git",
-            "reference": "84180a25fad31e23bebd26ca09d89464f082cacc"
+            "reference": "e2eaa60b558f26a4b0354e1bbb25636efaaad105"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/84180a25fad31e23bebd26ca09d89464f082cacc",
-            "reference": "84180a25fad31e23bebd26ca09d89464f082cacc",
+            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/e2eaa60b558f26a4b0354e1bbb25636efaaad105",
+            "reference": "e2eaa60b558f26a4b0354e1bbb25636efaaad105",
             "shasum": ""
         },
         "require": {
-            "php": ">=7.1.3"
+            "php": ">=7.2.5"
         },
         "suggest": {
             "symfony/translation-implementation": ""
         },
-        "time": "2020-09-02T16:08:58+00:00",
+        "time": "2020-09-28T13:05:58+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1-dev"
+                "dev-master": "2.3-dev"
             },
             "thanks": {
                 "name": "symfony/contracts",
@@ -6505,17 +6387,17 @@
     },
     {
         "name": "tymon/jwt-auth",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/tymondesigns/jwt-auth.git",
-            "reference": "b927137cd5bd4d2f5d48a1ca71bc85006b99dbae"
+            "reference": "e588cb719539366c0e2f6017f975379cb73e9680"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/b927137cd5bd4d2f5d48a1ca71bc85006b99dbae",
-            "reference": "b927137cd5bd4d2f5d48a1ca71bc85006b99dbae",
+            "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/e588cb719539366c0e2f6017f975379cb73e9680",
+            "reference": "e588cb719539366c0e2f6017f975379cb73e9680",
             "shasum": ""
         },
         "require": {
@@ -6523,7 +6405,7 @@
             "illuminate/contracts": "^5.2|^6|^7|^8",
             "illuminate/http": "^5.2|^6|^7|^8",
             "illuminate/support": "^5.2|^6|^7|^8",
-            "lcobucci/jwt": "^3.2",
+            "lcobucci/jwt": "<3.4",
             "namshi/jose": "^7.0",
             "nesbot/carbon": "^1.0|^2.0",
             "php": "^5.5.9|^7.0"
@@ -6535,7 +6417,7 @@
             "mockery/mockery": ">=0.9.9",
             "phpunit/phpunit": "~4.8|~6.0"
         },
-        "time": "2020-09-08T12:29:20+00:00",
+        "time": "2020-11-27T12:32:42+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

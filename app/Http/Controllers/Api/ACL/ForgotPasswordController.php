@@ -40,63 +40,6 @@ class ForgotPasswordController extends Controller
             $forgot_password->user_id = $user->id;
             $forgot_password->code = Str::random(5);
             $forgot_password->save();
-            $data = array(
-                'email' => 'mohanad.atef.cm@gmail.com',
-                'bodyMessage' =>
-                    '' . $forgot_password->code . '',
-                'to_emil' => 'mohanad.atef.cm@gmail.com',
-            );
-            $email = new \SendGrid\Mail\Mail();
-            $email->setFrom($data['email']);
-            $email->setSubject('forgot password');
-            $email->addTo($data['to_emil']);
-            $email->addContent(
-                "text/html", $data['bodyMessage']
-            );
-            $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-            try {
-                $response = $sendgrid->send($email);
-                print $response->statusCode() . "\n";
-                print_r($response->headers());
-                print $response->body() . "\n";
-            } catch (Exception $e) {
-                echo 'Caught exception: ' . $e->getMessage() . "\n";
-            }
-            $arr = array(
-                'properties' => array(
-                    array(
-                        'property' => 'email',
-                        'value' => $request->email
-                    ),
-                    array(
-                        'property' => 'firstname',
-                        'value' => $request->username
-                    ),
-                    array(
-                        'property' => 'lastname',
-                        'value' => ''
-                    ),
-                    array(
-                        'property' => 'Mobile_number',
-                        'value' => $request->mobile
-                    )
-                )
-            );
-            $post_json = json_encode($arr);
-            $endpoint = 'https://api.hubapi.com/contacts/v1/contact?hapikey=0d846207-3e4c-4d2f-a7b1-fc98fead319e';
-            $ch = @curl_init();
-            @curl_setopt($ch, CURLOPT_POST, true);
-            @curl_setopt($ch, CURLOPT_POSTFIELDS, $post_json);
-            @curl_setopt($ch, CURLOPT_URL, $endpoint);
-            @curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            @curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response = @curl_exec($ch);
-            $status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            $curl_errors = curl_error($ch);
-            @curl_close($ch);
-            echo "curl Errors: " . $curl_errors;
-            echo "\nStatus code: " . $status_code;
-            echo "\nResponse: " . $response;
         }
         return response(['status' => 1, 'data' => ['code' => $forgot_password->code], 'message' => 'تم ارسال الكود على الايميل'], 200);
     }
