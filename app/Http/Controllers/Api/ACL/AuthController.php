@@ -36,10 +36,13 @@ class AuthController extends Controller
         if (!$user->status == 1) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 401);
         }
+        if(!$user->remember_token)
+        {
         $credentials = ['civil_reference' => $user->civil_reference, 'password' => $request->password];
         $token = JWTAuth::attempt($credentials);
         $user->remember_token = $token;
         $user->update();
+        }
         $this->logRepository->Create_Data('' . $user->id . '', 'الدخول', 'تم تسجبل الدخول');
         return response(['status' => 1, 'data' => ['user' => new UserResource($user),'setting' => $this->settingRepository->Get_all_In_Response()], 'message' => 'تم التسجيل بنجاح'], 200);
     }
@@ -49,8 +52,11 @@ class AuthController extends Controller
         return response()->json($this->guard()->user());
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        $user=User::find($request->user_id);
+        $user->remember_token=null;
+        $user->save();
         $this->logRepository->Create_Data('' . Auth::user()->id . '', 'الخروج', 'تم تسجيل الخروج');
         $this->guard()->logout();
         return response()->json(['status' => 1, 'data' => array(), 'message' => 'تم تسجيل الخروج بنجاح']);

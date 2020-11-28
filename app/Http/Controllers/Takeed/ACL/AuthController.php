@@ -28,10 +28,11 @@ class AuthController extends Controller
             if ($token = JWTAuth::attempt($credentials)) {
                 if ($user->status == 1) {
                     foreach ($user->role as $role) {
-
                         if ($role->id == 1 ||$role->id == 2||$role->id == 5) {
-                            $user->remember_token = $token;
-                            $user->update();
+                            if(!$user->remember_token) {
+                                $user->remember_token = $token;
+                                $user->update();
+                            }
                             $this->logRepository->Create_Data('' . Auth::user()->id . '', 'تجسل الدخول', 'تسجيل الدخول');
                             return response(['status' => 1, 'token' => $token, 'user' => new UserResource($user)], 200);
                         }
