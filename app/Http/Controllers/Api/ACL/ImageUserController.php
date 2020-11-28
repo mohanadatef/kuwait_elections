@@ -65,7 +65,7 @@ class ImageUserController extends Controller
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
         $validate = \Validator::make($request->all(), [
-            'image_profile' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'image_profile' => 'string',
         ]);
         if ($validate->fails()) {
             return response(['status' => 0, 'data' => array(), 'message' => $validate->errors()], 422);
