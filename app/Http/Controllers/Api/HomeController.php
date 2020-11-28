@@ -83,7 +83,6 @@ class HomeController extends Controller
     public function index_auth(Request $request)
     {
         $nominee = array();
-        $friend = array();
         $user = $this->userRepository->Get_One_Data($request->user_id);
         if (!$user) {
             return response(['status' => 0, 'data' => array(), 'message' => 'لا يوجد بيانات بهذا الاسم'], 400);
@@ -134,6 +133,10 @@ class HomeController extends Controller
             $friend = User::wherein('id', $friend)->where('status', 1)->get();
             if ($friend) {
                 $friend = UserResource::collection($friend);
+            }
+            else
+            {
+                $friend=array();
             }
             return response(['status' => 1, 'data' => ['count_post' => count($post), 'post' => PostResource::collection($post),
                 'user' => new UserResource($user), 'nominee' => $nominee,'nominee_list'=>$nominees,
