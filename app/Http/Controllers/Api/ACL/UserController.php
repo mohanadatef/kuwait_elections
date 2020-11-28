@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\ACL;
 
 use App\Http\Resources\ACL\UserResource;
 use App\Http\Resources\Social_Media\PostResource;
+use App\Models\ACL\Friend;
 use App\Models\Image;
 use App\Models\Social_Media\Post;
 use App\Repositories\ACL\LogRepository;
@@ -13,6 +14,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
 
@@ -105,9 +107,55 @@ class UserController extends Controller
         if ($user->status == 0) {
             return response(['status' => 0, 'data' => array(), 'message' => 'برجاء الاتصال بخدمه العملاء'], 400);
         }
+        $status_friend=0;
         if($request->status_auth == 1)
         {
         $this->logRepository->Create_Data('' . $user->id . '', 'عرض', 'عرض الصفحه الشخصيه');
+
+            $user_me=User::where('remember_token', JWTAuth::getToken())->first();
+if($user_me)
+{
+            $friend_s = Friend::where('user_send_id', $user->id)->where('user_receive_id', $user_me->id)->count();
+            $friend_r = Friend::where('user_receive_id', $user_me->id)->where('user_send_id', $user->id)->count();
+            if($friend_s != 0)
+            {
+                $friend_s = Friend::where('user_send_id', $user->id)->where('user_receive_id', $user_me->id)->first();
+                if($friend_s->status == 1)
+                {
+                    $status_friend=1;
+                }
+                elseif($friend_s->status == 0)
+                {
+                   if($friend_s->user_send_id == $user_me)
+                   {
+                       $status_friend=2;
+                   }
+                   elseif($friend_s->user_receive_id == $user_me)
+                   {
+                       $status_friend=3;
+                   }
+                }
+            }
+            if($friend_r != 0)
+            {
+                $friend_r = Friend::where('user_receive_id', $user_me->id)->where('user_send_id', $user->id)->first();
+                if($friend_r->status == 1)
+                {
+                    $status_friend=1;
+                }
+                elseif($friend_r->status == 0)
+                {
+                    if($friend_r->user_send_id == $user_me)
+                    {
+                        $status_friend=2;
+                    }
+                    elseif($friend_r->user_receive_id == $user_me)
+                    {
+                        $status_friend=3;
+                    }
+                }
+            }
+}
         }
         $post = Post::where('user_id', $user->id)->where('status', 1)->paginate(25);
         if ($post) {
@@ -117,9 +165,11 @@ class UserController extends Controller
         {
             $post=array();
         }
+
         return response([
             'status' => 1,
             'data'=>[
+            'status_friend' => $status_friend,
             'user' => new UserResource($user),
             'post' => $post],
             'message'=>'عرض بيانات المستخدم'
