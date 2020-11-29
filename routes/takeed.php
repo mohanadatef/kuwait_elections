@@ -10,8 +10,7 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 
 
 
-Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
-    Route::group(['namespace' => 'Takeed'], function () {
+Route::group(['middleware' => 'api', 'namespace' => 'Takeed'], function () {
         Route::group(['namespace' => 'ACL'], function () {
             Route::group(['prefix' => 'auth'], function () {
                 Route::post('login', 'AuthController@login');
@@ -27,5 +26,4 @@ Route::group(['middleware' => 'api', 'namespace' => 'Api'], function () {
 
             });
         });
-    });
 });
