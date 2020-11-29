@@ -124,7 +124,7 @@ if($user_me)
                 {
                     $status_friend=1;
                 }
-                elseif($friend_s->status == 0)
+                elseif($friend_s->status == 2)
                 {
                    if($friend_s->user_send_id == $user_me)
                    {
@@ -135,6 +135,10 @@ if($user_me)
                        $status_friend=3;
                    }
                 }
+                elseif($friend_s->status == 0)
+                {
+                        $status_friend=0;
+                }
             }
             if($friend_r != 0)
             {
@@ -143,7 +147,7 @@ if($user_me)
                 {
                     $status_friend=1;
                 }
-                elseif($friend_r->status == 0)
+                elseif($friend_r->status == 2)
                 {
                     if($friend_r->user_send_id == $user_me)
                     {
@@ -153,6 +157,10 @@ if($user_me)
                     {
                         $status_friend=3;
                     }
+                }
+                elseif($friend_r->status == 0)
+                {
+                        $status_friend=0;
                 }
             }
 }

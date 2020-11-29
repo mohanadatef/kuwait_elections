@@ -44,7 +44,7 @@ class FriendController extends Controller
                 $friend = new Friend();
                 $friend->user_send_id = $user_send->id;
                 $friend->user_receive_id = $user_receive->id;
-                $friend->status = 0;
+                $friend->status =2;
                 $friend->save();
                 $notification=new Notification();
                 $notification->user_send_id=$user_send->id;

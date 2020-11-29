@@ -30,14 +30,15 @@ class MessageController extends Controller
         $friend_s = DB::table('friends')->where('user_send_id', Auth::user()->id)->where('status', 1)->pluck('user_receive_id', 'id');
         $friend_r = DB::table('friends')->where('user_receive_id', Auth::user()->id)->where('status', 1)->pluck('user_send_id', 'id');
         $friend = array_merge($friend_s->toArray(), $friend_r->toArray());
-        $last_chat = Message::wherein('user_send_id', $friend)->orwherein('user_receive_id', $friend)->get();
+        $last_chat = Message::wherein('user_send_id', $friend)->where('user_receive_id', Auth::user()->id)
+            ->orwherein('user_receive_id', $friend)->where('user_send_id', Auth::user()->id)->get();
         $last_message = array();
         $s = array();
         foreach ($last_chat as $last_chats) {
             if ($last_chats->user_send_id == Auth::user()->id) {
-                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 1)->first();
+                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 1)->orderby('created_at','desc')->first();
             } elseif ($last_chats->user_receive_id == Auth::user()->id) {
-                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 2)->first();
+                $last_message = Message_User::where('message_id', $last_chats->id)->where('status', '!=', 3)->where('status', '!=', 2)->orderby('created_at','desc')->first();
             }
             if ($last_message) {
                 array_push($s, '' . $last_message->id . '');
