@@ -8,9 +8,8 @@ use App\Http\Requests\Admin\ACl\User\CreateRequest;
 use App\Http\Requests\Admin\ACl\User\EditRequest;
 use App\Http\Requests\Admin\ACl\User\StatusEditRequest;
 use App\Interfaces\ACL\UserInterface;
-use App\Models\ACL\Role_user;
 use App\Models\Image;
-use App\User;
+use App\Traits\CoreData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,15 +17,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserInterface
 {
-
-    protected $user;
-    protected $role_user;
-
-    public function __construct(User $user, Role_user $role_user)
-    {
-        $this->user = $user;
-        $this->role_user = $role_user;
-    }
+    use CoreData;
 
     public function Get_All_Datas()
     {
@@ -82,12 +73,7 @@ class UserRepository implements UserInterface
     public function Update_Status_One_Data($id)
     {
         $user = $this->Get_One_Data($id);
-        if ($user->status == 1) {
-            $user->status = '0';
-        } elseif ($user->status == 0) {
-            $user->status = '1';
-        }
-        $user->update();
+        $this->change_status($user);
     }
 
     public function Get_Many_Data(Request $request)
@@ -98,14 +84,7 @@ class UserRepository implements UserInterface
     public function Update_Status_Datas(StatusEditRequest $request)
     {
         $users = $this->Get_Many_Data($request);
-        foreach ($users as $user) {
-            if ($user->status == 1) {
-                $user->status = '0';
-            } elseif ($user->status == 0) {
-                $user->status = '1';
-            }
-            $user->update();
-        }
+     $this->change_status($users);
     }
 
     public function Get_Role_For_Data($id)
@@ -115,7 +94,7 @@ class UserRepository implements UserInterface
 
     public function Upgrad($id)
     {
-        $user = Role_user::where('user_id', $id)->first();
+        $user = $this->role_user->where('user_id', $id)->first();
         if ($user->role_id == 3) {
             $user->role_id = 4;
         } elseif ($user->role_id == 4) {

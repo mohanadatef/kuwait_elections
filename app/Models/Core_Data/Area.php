@@ -13,6 +13,12 @@ class Area extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    public function scopeStatus($query)
+    {
+        return $query->where('status',1);
+    }
+
     protected $table = 'areas';
     public $timestamps = true;
 
