@@ -6,14 +6,34 @@ use App\Http\Requests\Admin\ACl\User\PasswordRequest;
 use App\Http\Requests\Admin\ACl\User\CreateRequest;
 use App\Http\Requests\Admin\ACl\User\EditRequest;
 use App\Http\Requests\Admin\ACl\User\StatusEditRequest;
-use App\Traits\CoreData;
+use App\Repositories\ACL\LogRepository;
+use App\Repositories\ACL\RoleRepository;
+use App\Repositories\ACL\UserRepository;
+use App\Repositories\Core_Data\AreaRepository;
+use App\Repositories\Core_Data\CircleRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    use CoreData;
+    private $userRepository;
+    private $circleRepository;
+    private $roleRepository;
+    private $logRepository;
+    private $areaRepository;
+
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository,LogRepository $LogRepository,
+                                CircleRepository $circleRepository,AreaRepository $areaRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
+        $this->circleRepository = $circleRepository;
+        $this->logRepository = $LogRepository;
+        $this->areaRepository = $areaRepository;
+    }
+
     public function index()
     {
         $datas = $this->userRepository->Get_All_Datas();

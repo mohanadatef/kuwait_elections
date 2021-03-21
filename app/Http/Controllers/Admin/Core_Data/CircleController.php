@@ -7,19 +7,14 @@ use App\Http\Requests\Admin\Core_Data\Circle\EditRequest;
 use App\Http\Requests\Admin\Core_Data\Circle\StatusEditRequest;
 use App\Repositories\ACL\LogRepository;
 use App\Repositories\Core_Data\CircleRepository;
+use App\Traits\CoreData;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CircleController extends Controller
 {
-    private $circleRepository;
-    private $logRepository;
-    public function __construct(CircleRepository $circleRepository,LogRepository $LogRepository)
-    {
-        $this->circleRepository = $circleRepository;
-        $this->logRepository = $LogRepository;
-    }
-
+    use CoreDataa;
     public function index()
     {
         $datas = $this->circleRepository->Get_All_Datas();

@@ -8,22 +8,17 @@ use App\Http\Requests\Admin\Core_Data\Circle\StatusEditRequest;
 use App\Interfaces\Core_Data\CircleInterface;
 use App\Models\Core_Data\Circle;
 use App\Traits\CoreData;
+use App\Traits\CoreDataa;
 use Illuminate\Http\Request;
 
 
 class CircleRepository implements CircleInterface
 {
-
-    protected $circle;
     use CoreData;
-
-    public function __construct(Circle $circle)
-    {
-        $this->circle = $circle;
-    }
 
     public function Get_All_Datas()
     {
+
         return $this->circle->orderby('order', 'asc')->get();
     }
 

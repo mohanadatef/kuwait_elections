@@ -76,7 +76,7 @@
                                 @endforeach
                             </td>
                             <td align="center">{{ $data->civil_reference }}</td>
-                            <td align="center">{{ $data->circle->title }}</td>
+                            <td align="center">{{ isset($data->circle->title) ? $data->circle->title : "" }}</td>
                             @permission('user-status')
                             <td align="center">
                                     @if($data->status ==1)
