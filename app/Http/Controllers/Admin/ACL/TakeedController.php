@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\ACL;
 
 use App\Imports\TakeedImport;
-use App\Repositories\ACL\LogRepository;
+use App\Traits\CoreDataa;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,10 +12,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TakeedController extends Controller
 {
-    private $logRepository;
-    public function __construct(LogRepository $LogRepository)
+    use CoreDataa;
+    public function __construct()
     {
-        $this->logRepository = $LogRepository;
         $this->middleware('auth');
         $this->middleware('admin');
     }

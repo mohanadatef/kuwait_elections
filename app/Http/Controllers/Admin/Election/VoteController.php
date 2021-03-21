@@ -9,22 +9,13 @@ use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
 use App\Repositories\Election\VoteRepository;
 use App\Repositories\Core_Data\CircleRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
-    private $userRepository;
-    private $voteRepository;
-    private $circleRepository;
-    private $logRepository;
-    public function __construct(VoteRepository $voteRepository,UserRepository $userRepository,LogRepository $LogRepository,CircleRepository $circleRepository)
-    {
-        $this->userRepository = $userRepository;
-        $this->voteRepository = $voteRepository;
-        $this->circleRepository = $circleRepository;
-        $this->logRepository = $LogRepository;
-    }
+    use CoreDataa;
 
     public function index()
     {

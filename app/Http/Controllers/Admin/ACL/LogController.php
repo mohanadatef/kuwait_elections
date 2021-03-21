@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers\Admin\ACL;
 
-
-use App\Repositories\ACL\LogRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 
 class LogController extends Controller
 {
-    private $logRepository;
-
-    public function __construct(LogRepository $LogRepository)
-    {
-        $this->logRepository = $LogRepository;
-    }
+    use CoreDataa;
 
     public function index()
     {

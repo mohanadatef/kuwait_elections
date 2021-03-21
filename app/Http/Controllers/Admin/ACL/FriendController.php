@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers\Admin\ACL;
 
-use App\Repositories\ACL\FriendRepository;
-use App\Repositories\ACL\LogRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
 {
-    private $logRepository;
-    private $friendRepository;
-    public function __construct(LogRepository $LogRepository,FriendRepository $friendRepository)
-    {
-        $this->logRepository = $LogRepository;
-        $this->friendRepository = $friendRepository;
-    }
+    use CoreDataa;
 
     public function request_index()
     {

@@ -3,18 +3,11 @@
 namespace App\Repositories\ACL;
 
 use App\Interfaces\ACL\LogInterface;
-use App\Models\ACL\Log;
+use App\Traits\CoreData;
 
 class LogRepository implements LogInterface
 {
-
-    protected $log;
-
-
-    public function __construct(Log $log)
-    {
-        $this->log = $log;
-    }
+    use CoreData;
 
     public function Get_All_Datas()
     {

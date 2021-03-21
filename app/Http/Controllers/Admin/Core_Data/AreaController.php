@@ -5,23 +5,14 @@ namespace App\Http\Controllers\Admin\Core_Data;
 use App\Http\Requests\Admin\Core_Data\Area\CreateRequest;
 use App\Http\Requests\Admin\Core_Data\Area\EditRequest;
 use App\Http\Requests\Admin\Core_Data\Area\StatusEditRequest;
-use App\Models\Core_Data\Area;
-use App\Repositories\ACL\LogRepository;
-use App\Repositories\Core_Data\AreaRepository;
-use App\User;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
-    private $areaRepository;
-    private $logRepository;
-    public function __construct(AreaRepository $areaRepository,LogRepository $LogRepository)
-    {
-        $this->areaRepository = $areaRepository;
-        $this->logRepository = $LogRepository;
-    }
+    use CoreDataa;
 
     public function index()
     {

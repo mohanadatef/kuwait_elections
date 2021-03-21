@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\ACL\Log;
 use App\Models\ACL\Role_user;
 use App\Models\Core_Data\Area;
 use App\Models\Core_Data\Circle;
@@ -15,14 +16,15 @@ trait CoreData
     private $user;
     private $role_user;
     private $area;
+    private $log;
 
-    public function __construct(User $user, Role_user $role_user, Area $area
-                                ,Circle $circle)
+    public function __construct(User $user, Role_user $role_user, Area $area, Circle $circle,Log $log)
     {
         $this->user = $user;
         $this->role_user = $role_user;
         $this->area = $area;
         $this->circle = $circle;
+        $this->log = $log;
     }
 
     public function change_status($datas)

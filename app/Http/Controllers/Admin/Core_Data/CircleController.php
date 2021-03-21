@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Admin\Core_Data;
 use App\Http\Requests\Admin\Core_Data\Circle\CreateRequest;
 use App\Http\Requests\Admin\Core_Data\Circle\EditRequest;
 use App\Http\Requests\Admin\Core_Data\Circle\StatusEditRequest;
-use App\Repositories\ACL\LogRepository;
-use App\Repositories\Core_Data\CircleRepository;
-use App\Traits\CoreData;
 use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class CircleController extends Controller
 {
     use CoreDataa;
+
     public function index()
     {
         $datas = $this->circleRepository->Get_All_Datas();

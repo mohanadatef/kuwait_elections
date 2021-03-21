@@ -4,24 +4,13 @@ namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Requests\Admin\ACl\Role\CreateRequest;
 use App\Http\Requests\Admin\ACl\Role\EditRequest;
-use App\Repositories\ACL\LogRepository;
-use App\Repositories\ACL\PermissionRepository;
-use App\Repositories\ACL\RoleRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
-
-    private $permissionRepository;
-    private $roleRepository;
-    private $logRepository;
-    public function __construct(PermissionRepository $permissionRepository,RoleRepository $roleRepository,LogRepository $LogRepository)
-    {
-        $this->permissionRepository = $permissionRepository;
-        $this->roleRepository = $roleRepository;
-        $this->logRepository = $LogRepository;
-    }
+    use CoreDataa;
 
     public function index()
     {

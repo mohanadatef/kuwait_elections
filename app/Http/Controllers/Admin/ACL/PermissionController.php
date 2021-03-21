@@ -3,21 +3,14 @@
 namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Requests\Admin\ACl\Permission\CreateRequest;
-use App\Http\Requests\Admin\ACl\Permission\EditRequest;
-use App\Repositories\ACL\LogRepository;
-use App\Repositories\ACL\PermissionRepository;
+use App\Http\Requests\Admin\ACl\Permission\EditRequest;y;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionController extends Controller
 {
-    private $logRepository;
-    private $permissionRepository;
-    public function __construct(PermissionRepository $permissionRepository,LogRepository $LogRepository)
-    {
-        $this->permissionRepository = $permissionRepository;
-        $this->logRepository = $LogRepository;
-    }
+   use CoreDataa;
 
     public function index()
     {

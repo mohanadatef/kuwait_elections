@@ -7,22 +7,13 @@ use App\Repositories\ACL\LogRepository;
 use App\Repositories\ACL\UserRepository;
 use App\Repositories\Election\VoteNomineeRepository;
 use App\Repositories\Election\VoteRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class VoteNomineeController extends Controller
 {
-    private $userRepository;
-    private $voteRepository;
-    private $votenomineeRepository;
-    private $logRepository;
-    public function __construct(VoteRepository $voteRepository,VoteNomineeRepository $votenomineeRepository,UserRepository $userRepository,LogRepository $LogRepository)
-    {
-        $this->userRepository = $userRepository;
-        $this->voteRepository = $voteRepository;
-        $this->votenomineeRepository = $votenomineeRepository;
-        $this->logRepository = $LogRepository;
-    }
+    use CoreDataa;
 
     public function create($id)
     {

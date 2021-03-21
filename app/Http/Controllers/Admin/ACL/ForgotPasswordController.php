@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers\Admin\ACL;
 
-use App\Repositories\ACL\ForgotPasswordRepository;
-use App\Repositories\ACL\LogRepository;
+use App\Traits\CoreDataa;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ForgotPasswordController extends Controller
 {
-    private $logRepository;
-    private $forgotpasswordRepository;
-    public function __construct(LogRepository $LogRepository,ForgotPasswordRepository $forgotpasswordRepository)
-    {
-        $this->logRepository = $LogRepository;
-        $this->forgotpasswordRepository = $forgotpasswordRepository;
-    }
+   use CoreDataa;
 
     public function index($id)
     {
